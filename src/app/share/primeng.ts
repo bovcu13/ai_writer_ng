@@ -15,7 +15,8 @@ import { SliderModule } from 'primeng/slider';
 import { RippleModule } from 'primeng/ripple';
 import { TabViewModule } from 'primeng/tabview';
 import { DropdownModule } from 'primeng/dropdown';
-
+import {InputNumberModule} from "primeng/inputnumber";
+import {DividerModule} from "primeng/divider";
 
 export const PRIMENG_MODULES = [
   CardModule,
@@ -34,5 +35,7 @@ export const PRIMENG_MODULES = [
   SliderModule,
   RippleModule,
   TabViewModule,
-  DropdownModule
+  DropdownModule,
+  InputNumberModule,
+  DividerModule
 ];
