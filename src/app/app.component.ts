@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { PRIMENG_MODULES } from "./share/primeng";
+import { provideAnimations, provideNoopAnimations } from '@angular/platform-browser/animations';
 
 import { ContainerComponent } from "./view/container/container.component";
 
@@ -11,8 +11,11 @@ import { ContainerComponent } from "./view/container/container.component";
   imports: [
     CommonModule,
     RouterOutlet,
-    PRIMENG_MODULES,
     ContainerComponent
+  ],
+  providers:[
+    provideNoopAnimations(),
+    provideAnimations()
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
