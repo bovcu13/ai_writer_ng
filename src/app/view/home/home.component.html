@@ -1,0 +1,41 @@
+<div class="flex justify-content-center h-screen p-5">
+  <div class="col-3">
+    <p-card>
+      <div class="grid">
+        <div class="col-12">
+          <div class="field">
+            <label>論壇選擇</label>
+            <br>
+            <p-dropdown [options]="forum"
+                        [(ngModel)]="selected_forum"
+                        [showClear]="true"
+                        placeholder="平台選擇"
+                        styleClass="w-full border-round-3xl"></p-dropdown>
+          </div>
+          <div class="field">
+            <label>字數限制</label>
+            <br>
+            <p-dropdown styleClass="w-full border-round-3xl"></p-dropdown>
+          </div>
+          <div class="field">
+            <label>文章版位/類型</label>
+            <br>
+            <p-dropdown [options]="getTypes()"
+                        [(ngModel)]="selected_type"
+                        [showClear]="true"
+                        placeholder="平台選擇"
+                        styleClass="w-full border-round-3xl"></p-dropdown>
+          </div>
+          <div class="field">
+            <label>文章風格</label>
+            <br>
+            <p-dropdown styleClass="w-full border-round-3xl"></p-dropdown>
+          </div>
+        </div>
+      </div>
+    </p-card>
+  </div>
+  <div class="col-5">
+    <p-card></p-card>
+  </div>
+</div>
