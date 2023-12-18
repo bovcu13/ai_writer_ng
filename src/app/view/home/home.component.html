@@ -1,6 +1,6 @@
 <div class="flex justify-content-center h-screen p-5">
   <div class="col-3">
-    <p-card>
+    <p-card styleClass="overflow-y-scroll" [style]="{height: '85vh'}">
       <div class="grid">
         <div class="col-12">
           <div class="field">
@@ -8,28 +8,99 @@
             <br>
             <p-dropdown [options]="forum"
                         [(ngModel)]="selected_forum"
-                        [showClear]="true"
+                        (onChange)="getTypes()"
                         placeholder="平台選擇"
-                        styleClass="w-full border-round-3xl"></p-dropdown>
+                        styleClass="w-full border-round-3xl"
+                        appendTo="body"></p-dropdown>
           </div>
           <div class="field">
             <label>字數限制</label>
             <br>
-            <p-dropdown styleClass="w-full border-round-3xl"></p-dropdown>
+            <p-dropdown [options]="word_limit"
+                        [(ngModel)]="selected_word_limit"
+                        placeholder="字數限制"
+                        styleClass="w-full border-round-3xl"
+                        appendTo="body"></p-dropdown>
           </div>
           <div class="field">
-            <label>文章版位/類型</label>
+            <label>文章版位</label>
             <br>
-            <p-dropdown [options]="getTypes()"
+            <p-dropdown [options]="board"
+                        [(ngModel)]="selected_board"
+                        placeholder="文章版位"
+                        styleClass="w-full border-round-3xl"
+                        [disabled]="!selected_forum"
+                        appendTo="body"></p-dropdown>
+          </div>
+          <div class="field">
+            <label>文章類型</label>
+            <br>
+            <p-dropdown [options]="type"
                         [(ngModel)]="selected_type"
-                        [showClear]="true"
-                        placeholder="平台選擇"
-                        styleClass="w-full border-round-3xl"></p-dropdown>
+                        placeholder="文章類型"
+                        styleClass="w-full border-round-3xl"
+                        appendTo="body"></p-dropdown>
           </div>
           <div class="field">
             <label>文章風格</label>
             <br>
-            <p-dropdown styleClass="w-full border-round-3xl"></p-dropdown>
+            <p-dropdown [options]="style"
+                        [(ngModel)]="selected_style"
+                        placeholder="文章類型"
+                        styleClass="w-full border-round-3xl"
+                        appendTo="body"></p-dropdown>
+          </div>
+          <div class="field">
+            <label>業配程度</label>
+            <br>
+            <p-dropdown [options]="sponsorship"
+                        [(ngModel)]="selected_sponsorship"
+                        placeholder="業配程度"
+                        styleClass="w-full border-round-3xl"
+                        appendTo="body"></p-dropdown>
+          </div>
+          <div class="field">
+            <p-divider></p-divider>
+            <label class="font-medium">人物設定 *</label>
+          </div>
+          <div class="field">
+            <label>性別</label>
+            <br>
+            <p-dropdown [options]="['男','女','無性別']"
+                        [(ngModel)]="selected_sponsorship"
+                        placeholder="業配程度"
+                        styleClass="w-full border-round-3xl"
+                        appendTo="body"></p-dropdown>
+          </div>
+          <div class="field">
+            <label>年齡</label>
+            <br>
+            <div class="flex align-items-center gap-3">
+              <p-inputNumber [size]="5" suffix=" 歲" inputId="integeronly"></p-inputNumber>
+              <span>到</span>
+              <p-inputNumber [size]="5" suffix=" 歲" inputId="integeronly"></p-inputNumber>
+            </div>
+          </div>
+          <div class="field">
+            <label>特性</label>
+            <input class="w-full" type="text" pInputText/>
+          </div>
+          <div class="field">
+            <label>其他細部描述</label>
+            <textarea rows="5" cols="26" pInputTextarea></textarea>
+          </div>
+          <div class="field">
+            <p-divider></p-divider>
+            <label class="font-medium">產品資訊 *</label>
+            <label class="text-sm">(必填，請盡可能把提及產品名稱、功能、特點描述寫清楚)</label>
+          </div>
+          <div class="field">
+            <label>產品名稱</label>
+            <input class="w-full" type="text" pInputText/>
+          </div>
+          <div class="field">
+            <label>產品功能</label>
+            <input class="w-full" type="text" pInputText/>
           </div>
         </div>
       </div>
