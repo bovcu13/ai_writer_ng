@@ -127,15 +127,15 @@
               <div class="flex gap-3">
                 <div class="flex align-items-center">
                   <p-radioButton name="PK" [value]="true" [(ngModel)]="comparative"
-                                 (onClick)="clickRadio()"></p-radioButton>
+                                 (onClick)="comparative_dialog = true"></p-radioButton>
                   <label class="ml-2">是</label>
                   <p-button *ngIf="comparative" icon="text-xs pi pi-external-link"
-                            [text]="true" size="small" severity="help "></p-button>
+                            (click)="openComparativeDialog()" [text]="true"
+                            size="small" severity="help "
+                            styleClass="ml-3"></p-button>
                 </div>
                 <div class="flex align-items-center">
-                  <p-radioButton name="PK" [value]="false" [(ngModel)]="comparative"
-                                 (onClick)="clickRadio()">>
-                  </p-radioButton>
+                  <p-radioButton name="PK" [value]="false" [(ngModel)]="comparative"></p-radioButton>
                   <label class="ml-2">否</label>
                 </div>
               </div>
@@ -149,7 +149,12 @@
               <label class="text-sm font-medium">帶給閱聽眾關鍵訊息</label>
               <input class="w-full bg-blue-50" type="text" pInputText/>
             </div>
-            <div class="flex justify-content-center">
+            <div class="flex justify-content-center gap-4">
+              <p-button label="口碑/故事切角"
+                        (click)="openDemoDialog()"
+                        [rounded]="true" [raised]="true"
+                        size="small" styleClass="text-sm"
+                        severity="help"></p-button>
               <p-button label="文章生成"
                         [rounded]="true" [raised]="true"
                         size="small" styleClass="text-sm"
@@ -288,11 +293,16 @@
               <label class="text-sm font-medium">是否出現與競品比較內容</label>
               <div class="flex gap-3">
                 <div class="flex align-items-center">
-                  <p-radioButton value="true" [(ngModel)]="comparative"></p-radioButton>
+                  <p-radioButton name="PK" [value]="true" [(ngModel)]="comparative"
+                                 (onClick)="comparative_dialog = true"></p-radioButton>
                   <label class="ml-2">是</label>
+                  <p-button *ngIf="comparative" icon="text-xs pi pi-external-link"
+                            (click)="openComparativeDialog()" [text]="true"
+                            size="small" severity="help "
+                            styleClass="ml-3"></p-button>
                 </div>
                 <div class="flex align-items-center">
-                  <p-radioButton value="false" [(ngModel)]="comparative"></p-radioButton>
+                  <p-radioButton name="PK" [value]="false" [(ngModel)]="comparative"></p-radioButton>
                   <label class="ml-2">否</label>
                 </div>
               </div>
@@ -312,7 +322,12 @@
             </div>
           </div>
           <div class="col-12">
-            <div class="flex justify-content-center">
+            <div class="flex justify-content-center gap-4">
+              <p-button label="口碑/故事切角"
+                        (click)="openDemoDialog()"
+                        [rounded]="true" [raised]="true"
+                        size="small" styleClass="text-sm"
+                        severity="help"></p-button>
               <p-button label="文章生成"
                         [rounded]="true" [raised]="true"
                         size="small" styleClass="text-sm"
@@ -350,59 +365,129 @@
   </div>
 </div>
 
-<p-dialog header="競品比較內容" [(visible)]="comparative_dialog" [style]="{width: '50vw'}">
-  <p-table dataKey="id" [tableStyle]="{ 'min-width': '50rem' }">
+<p-dialog header="競品比較內容" [modal]="true" [(visible)]="comparative_dialog">
+  <p-table [value]="pk" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="header">
       <tr>
-        <th style="width:25%">Code</th>
-        <th style="width:25%">Name</th>
-        <th style="width:25%">Inventory Status</th>
-        <th style="width:25%">Price</th>
+        <th style="width:20%"></th>
+        <th style="width:20%">我方商品</th>
+        <th style="width:20%">競品1</th>
+        <th style="width:20%">競品2</th>
+        <th style="width:20%">競品3</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-product let-editing="editing">
       <tr>
-        <td [pEditableColumn]="product.code" pEditableColumnField="code">
+        <td class="text-center font-semibold">{{ product.sw }}</td>
+        <td [pEditableColumn]="product.me" pEditableColumnField="code">
           <p-cellEditor>
             <ng-template pTemplate="input">
-              <input pInputText type="text" [(ngModel)]="product.code"/>
+              <input pInputText type="text" [(ngModel)]="product.me"/>
             </ng-template>
             <ng-template pTemplate="output">
-              {{ product.code }}
+              {{ product.me }}
             </ng-template>
           </p-cellEditor>
         </td>
-        <td [pEditableColumn]="product.name" pEditableColumnField="name">
+        <td [pEditableColumn]="product.other1" pEditableColumnField="name">
           <p-cellEditor>
             <ng-template pTemplate="input">
-              <input pInputText type="text" [(ngModel)]="product.name" required/>
+              <input pInputText type="text" [(ngModel)]="product.other1" required/>
             </ng-template>
             <ng-template pTemplate="output">
-              {{ product.name }}
+              {{ product.other1 }}
             </ng-template>
           </p-cellEditor>
         </td>
-        <td [pEditableColumn]="product.inventoryStatus" pEditableColumnField="inventoryStatus">
+        <td [pEditableColumn]="product.other2" pEditableColumnField="inventoryStatus">
           <p-cellEditor>
             <ng-template pTemplate="input">
-              <input pInputText [(ngModel)]="product.inventoryStatus"/>
+              <input pInputText [(ngModel)]="product.other2"/>
             </ng-template>
             <ng-template pTemplate="output">
-              {{ product.inventoryStatus }}
+              {{ product.other2 }}
             </ng-template>
           </p-cellEditor>
         </td>
-        <td [pEditableColumn]="product.price" pEditableColumnField="price">
+        <td [pEditableColumn]="product.other3" pEditableColumnField="price">
           <p-cellEditor>
             <ng-template pTemplate="input">
-              <input pInputText type="text" [(ngModel)]="product.price"/>
+              <input pInputText type="text" [(ngModel)]="product.other3"/>
             </ng-template>
             <ng-template pTemplate="output">
-              {{ product.price | currency: 'USD' }}
+              {{ product.other3 }}
             </ng-template>
           </p-cellEditor>
         </td>
       </tr>
     </ng-template>
   </p-table>
+  <div class="flex justify-content-end mt-5 gap-3">
+    <p-button label="取消"
+              (click)="comparative_dialog = false" [outlined]="true"
+              size="small" styleClass="text-sm"
+              severity="help"></p-button>
+    <p-button label="確認"
+              (click)="comparative_dialog = false" [raised]="true"
+              size="small" styleClass="text-sm"
+              severity="help"></p-button>
+  </div>
+</p-dialog>
+
+<!--切角-->
+<p-dialog header="切角示範文章" [(visible)]="demo_dialog" [modal]="true" [style]="{width: '70vw'}">
+  <div class="flex justify-content-center">
+    <div class="col-4">
+      <textarea class="w-full text-sm border-none bg-blue-50" rows="15"
+                style="resize: none; overflow: auto;"
+                pInputTextarea>
+我由Dcard上熱門文章構成，專精於製作真實且客製化的口碑文。
+無論任何話題，只需提供方向，我便能為您編寫出充滿鄉民感的內容。
+讓我簡要為您說明操作步驟：
+  1️⃣️ 在「文章版位」，決定您希望撰寫的版位、字數，以及創意值（範圍從保守到幻想）。
+  2️⃣ 在「產品資訊」，描述您希望推薦的商品或服務。
+  3️⃣ 在「人物設定」，告訴我您心中的理想作者或特定人物特質，我將根據描述進行變身。
+     💡小提示，詳細的描述能讓我提供更符合您期待的文章。
+  4️⃣ 若有特定故事走向或情境，請於「口碑切角」填寫，或是選擇留空，讓我發揮最大的創意，為您構思一段獨特的故事。
+  現在，開啟您的創作之旅吧！🌟</textarea>
+    </div>
+    <div class="col-4">
+      <textarea class="w-full text-sm border-none bg-blue-50" rows="15"
+                style="resize: none; overflow: auto;"
+                pInputTextarea>
+我由Dcard上熱門文章構成，專精於製作真實且客製化的口碑文。
+無論任何話題，只需提供方向，我便能為您編寫出充滿鄉民感的內容。
+讓我簡要為您說明操作步驟：
+  1️⃣️ 在「文章版位」，決定您希望撰寫的版位、字數，以及創意值（範圍從保守到幻想）。
+  2️⃣ 在「產品資訊」，描述您希望推薦的商品或服務。
+  3️⃣ 在「人物設定」，告訴我您心中的理想作者或特定人物特質，我將根據描述進行變身。
+     💡小提示，詳細的描述能讓我提供更符合您期待的文章。
+  4️⃣ 若有特定故事走向或情境，請於「口碑切角」填寫，或是選擇留空，讓我發揮最大的創意，為您構思一段獨特的故事。
+  現在，開啟您的創作之旅吧！🌟</textarea>
+    </div>
+    <div class="col-4">
+      <textarea class="w-full text-sm border-none bg-blue-50" rows="15"
+                style="resize: none; overflow: auto;"
+                pInputTextarea>
+我由Dcard上熱門文章構成，專精於製作真實且客製化的口碑文。
+無論任何話題，只需提供方向，我便能為您編寫出充滿鄉民感的內容。
+讓我簡要為您說明操作步驟：
+  1️⃣️ 在「文章版位」，決定您希望撰寫的版位、字數，以及創意值（範圍從保守到幻想）。
+  2️⃣ 在「產品資訊」，描述您希望推薦的商品或服務。
+  3️⃣ 在「人物設定」，告訴我您心中的理想作者或特定人物特質，我將根據描述進行變身。
+     💡小提示，詳細的描述能讓我提供更符合您期待的文章。
+  4️⃣ 若有特定故事走向或情境，請於「口碑切角」填寫，或是選擇留空，讓我發揮最大的創意，為您構思一段獨特的故事。
+  現在，開啟您的創作之旅吧！🌟</textarea>
+    </div>
+  </div>
+  <div class="flex justify-content-end mt-5 gap-3">
+    <p-button label="取消"
+              (click)="demo_dialog = false" [outlined]="true"
+              size="small" styleClass="text-sm"
+              severity="help"></p-button>
+    <p-button label="確認"
+              (click)="demo_dialog = false" [raised]="true"
+              size="small" styleClass="text-sm"
+              severity="help"></p-button>
+  </div>
 </p-dialog>
