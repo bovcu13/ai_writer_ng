@@ -1,13 +1,16 @@
 import { PRIMENG_MODULES } from "../../share/primeng";
 import { Component } from '@angular/core';
 import { FormsModule } from "@angular/forms";
+import { CurrencyPipe, NgIf } from "@angular/common";
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
     PRIMENG_MODULES,
-    FormsModule
+    FormsModule,
+    NgIf,
+    CurrencyPipe
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -28,6 +31,19 @@ export class HomeComponent {
   selected_style: any;
   sponsorship = ['輕', '中', '高']
   selected_sponsorship: any;
+  comparative: any;
+  comparative_dialog: boolean = false;
+
+
+  clickRadio() {
+    console.log(this.comparative)
+  }
+
+  colSize: string = 'col-3';
+
+  changeColSize() {
+    this.colSize = this.colSize === 'col-3' ? 'col-5' : 'col-3';
+  }
 
   getTypes() {
     switch (this.selected_forum) {
