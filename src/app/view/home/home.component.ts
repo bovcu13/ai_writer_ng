@@ -1,7 +1,8 @@
 import { PRIMENG_MODULES } from "../../share/primeng";
 import { Component } from '@angular/core';
 import { FormsModule } from "@angular/forms";
-import { CurrencyPipe, NgIf } from "@angular/common";
+import { NgIf } from "@angular/common";
+import { pk } from "../../share/data/pk";
 
 @Component({
   selector: 'app-home',
@@ -9,13 +10,13 @@ import { CurrencyPipe, NgIf } from "@angular/common";
   imports: [
     PRIMENG_MODULES,
     FormsModule,
-    NgIf,
-    CurrencyPipe
+    NgIf
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
+  pk = pk;
   forum = ['Dcard', 'Mobile01', 'PTT',];
   selected_forum: any;
   word_limit = ['100', '300', '600', '1000']
@@ -33,13 +34,16 @@ export class HomeComponent {
   selected_sponsorship: any;
   comparative: any;
   comparative_dialog: boolean = false;
+  demo_dialog: boolean = false;
+  colSize: string = 'col-3';
 
-
-  clickRadio() {
-    console.log(this.comparative)
+  openComparativeDialog() {
+    this.comparative_dialog = true;
   }
 
-  colSize: string = 'col-3';
+  openDemoDialog() {
+    this.demo_dialog = true;
+  }
 
   changeColSize() {
     this.colSize = this.colSize === 'col-3' ? 'col-5' : 'col-3';
