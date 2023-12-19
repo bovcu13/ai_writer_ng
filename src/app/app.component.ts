@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { provideAnimations, provideNoopAnimations } from '@angular/platform-browser/animations';
 
 import { ContainerComponent } from "./view/container/container.component";
 
@@ -11,11 +10,7 @@ import { ContainerComponent } from "./view/container/container.component";
   imports: [
     CommonModule,
     RouterOutlet,
-    ContainerComponent
-  ],
-  providers:[
-    provideNoopAnimations(),
-    provideAnimations()
+    ContainerComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
