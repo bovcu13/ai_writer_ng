@@ -15,8 +15,13 @@ import { SliderModule } from 'primeng/slider';
 import { RippleModule } from 'primeng/ripple';
 import { TabViewModule } from 'primeng/tabview';
 import { DropdownModule } from 'primeng/dropdown';
-import {InputNumberModule} from "primeng/inputnumber";
-import {DividerModule} from "primeng/divider";
+import { InputNumberModule } from "primeng/inputnumber";
+import { DividerModule } from "primeng/divider";
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { ChipsModule } from 'primeng/chips';
+import { TableModule } from 'primeng/table';
+import { DialogModule } from "primeng/dialog";
+
 
 export const PRIMENG_MODULES = [
   CardModule,
@@ -37,5 +42,9 @@ export const PRIMENG_MODULES = [
   TabViewModule,
   DropdownModule,
   InputNumberModule,
-  DividerModule
+  DividerModule,
+  RadioButtonModule,
+  ChipsModule,
+  TableModule,
+  DialogModule
 ];
