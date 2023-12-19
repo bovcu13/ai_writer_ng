@@ -21,6 +21,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { ChipsModule } from 'primeng/chips';
 import { TableModule } from 'primeng/table';
 import { DialogModule } from "primeng/dialog";
+import { RatingModule } from 'primeng/rating';
 
 
 export const PRIMENG_MODULES = [
@@ -46,5 +47,6 @@ export const PRIMENG_MODULES = [
   RadioButtonModule,
   ChipsModule,
   TableModule,
-  DialogModule
+  DialogModule,
+  RatingModule
 ];
