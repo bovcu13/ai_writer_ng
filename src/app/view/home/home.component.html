@@ -1,112 +1,408 @@
 <div class="flex justify-content-center h-screen p-5">
-  <div class="col-3">
-    <p-card styleClass="overflow-y-scroll" [style]="{height: '85vh'}">
-      <div class="grid">
-        <div class="col-12">
-          <div class="field">
-            <label>論壇選擇</label>
-            <br>
-            <p-dropdown [options]="forum"
-                        [(ngModel)]="selected_forum"
-                        (onChange)="getTypes()"
-                        placeholder="平台選擇"
-                        styleClass="w-full border-round-3xl"
-                        appendTo="body"></p-dropdown>
+  <div [class]="colSize">
+    <p-card styleClass="bg-white-alpha-80 overflow-y-scroll" [style]="{height: '88vh'}">
+      <ng-template pTemplate="header">
+        <div class="flex align-items-center p-3">
+          <div class="mr-auto">
+            <span class="text-xl font-bold">怪客口碑</span>
           </div>
-          <div class="field">
-            <label>字數限制</label>
-            <br>
-            <p-dropdown [options]="word_limit"
-                        [(ngModel)]="selected_word_limit"
-                        placeholder="字數限制"
-                        styleClass="w-full border-round-3xl"
-                        appendTo="body"></p-dropdown>
-          </div>
-          <div class="field">
-            <label>文章版位</label>
-            <br>
-            <p-dropdown [options]="board"
-                        [(ngModel)]="selected_board"
-                        placeholder="文章版位"
-                        styleClass="w-full border-round-3xl"
-                        [disabled]="!selected_forum"
-                        appendTo="body"></p-dropdown>
-          </div>
-          <div class="field">
-            <label>文章類型</label>
-            <br>
-            <p-dropdown [options]="type"
-                        [(ngModel)]="selected_type"
-                        placeholder="文章類型"
-                        styleClass="w-full border-round-3xl"
-                        appendTo="body"></p-dropdown>
-          </div>
-          <div class="field">
-            <label>文章風格</label>
-            <br>
-            <p-dropdown [options]="style"
-                        [(ngModel)]="selected_style"
-                        placeholder="文章類型"
-                        styleClass="w-full border-round-3xl"
-                        appendTo="body"></p-dropdown>
-          </div>
-          <div class="field">
-            <label>業配程度</label>
-            <br>
-            <p-dropdown [options]="sponsorship"
-                        [(ngModel)]="selected_sponsorship"
-                        placeholder="業配程度"
-                        styleClass="w-full border-round-3xl"
-                        appendTo="body"></p-dropdown>
-          </div>
-          <div class="field">
-            <p-divider></p-divider>
-            <label class="font-medium">人物設定 *</label>
-          </div>
-          <div class="field">
-            <label>性別</label>
-            <br>
-            <p-dropdown [options]="['男','女','無性別']"
-                        [(ngModel)]="selected_sponsorship"
-                        placeholder="業配程度"
-                        styleClass="w-full border-round-3xl"
-                        appendTo="body"></p-dropdown>
-          </div>
-          <div class="field">
-            <label>年齡</label>
-            <br>
-            <div class="flex align-items-center gap-3">
-              <p-inputNumber [size]="5" suffix=" 歲" inputId="integeronly"></p-inputNumber>
-              <span>到</span>
-              <p-inputNumber [size]="5" suffix=" 歲" inputId="integeronly"></p-inputNumber>
-            </div>
-          </div>
-          <div class="field">
-            <label>特性</label>
-            <input class="w-full" type="text" pInputText/>
-          </div>
-          <div class="field">
-            <label>其他細部描述</label>
-            <textarea rows="5" cols="26" pInputTextarea></textarea>
-          </div>
-          <div class="field">
-            <p-divider></p-divider>
-            <label class="font-medium">產品資訊 *</label>
-            <label class="text-sm">(必填，請盡可能把提及產品名稱、功能、特點描述寫清楚)</label>
-          </div>
-          <div class="field">
-            <label>產品名稱</label>
-            <input class="w-full" type="text" pInputText/>
-          </div>
-          <div class="field">
-            <label>產品功能</label>
-            <input class="w-full" type="text" pInputText/>
+          <div class="flex justify-content-end">
+            <p-button icon="text-xs pi pi-chevron-right" [text]="true" severity="help"
+                      (click)="changeColSize()" *ngIf="colSize === 'col-3'"
+                      size="small"></p-button>
+            <p-button icon="text-xs pi pi-chevron-left" [text]="true" severity="help"
+                      (click)="changeColSize()" *ngIf="colSize === 'col-5'"
+                      size="small"></p-button>
           </div>
         </div>
+      </ng-template>
+      <div class="grid">
+        <ng-container *ngIf="colSize === 'col-3'">
+          <div class="col-12">
+            <div class="field">
+              <label class="text-sm font-medium">論壇選擇</label>
+              <br>
+              <p-dropdown [options]="forum"
+                          [(ngModel)]="selected_forum"
+                          (onChange)="getTypes()"
+                          placeholder="平台選擇"
+                          styleClass="w-full border-round-3xl bg-blue-50"
+                          appendTo="body"></p-dropdown>
+            </div>
+            <div class="field">
+              <label class="text-sm font-medium">字數限制</label>
+              <br>
+              <p-dropdown [options]="word_limit"
+                          [(ngModel)]="selected_word_limit"
+                          placeholder="字數限制"
+                          styleClass="w-full border-round-3xl bg-blue-50"
+                          appendTo="body"></p-dropdown>
+            </div>
+            <div class="field">
+              <label class="text-sm font-medium">文章版位</label>
+              <br>
+              <p-dropdown [options]="board"
+                          [(ngModel)]="selected_board"
+                          placeholder="文章版位"
+                          styleClass="w-full border-round-3xl bg-blue-50"
+                          [disabled]="!selected_forum"
+                          appendTo="body"></p-dropdown>
+            </div>
+            <div class="field">
+              <label class="text-sm font-medium">文章類型</label>
+              <br>
+              <p-dropdown [options]="type"
+                          [(ngModel)]="selected_type"
+                          placeholder="文章類型"
+                          styleClass="w-full border-round-3xl bg-blue-50"
+                          appendTo="body"></p-dropdown>
+            </div>
+            <div class="field">
+              <label class="text-sm font-medium">文章風格</label>
+              <br>
+              <p-dropdown [options]="style"
+                          [(ngModel)]="selected_style"
+                          placeholder="文章風格"
+                          styleClass="w-full border-round-3xl bg-blue-50"
+                          appendTo="body"></p-dropdown>
+            </div>
+            <div class="field">
+              <label class="text-sm font-medium">業配程度</label>
+              <br>
+              <p-dropdown [options]="sponsorship"
+                          [(ngModel)]="selected_sponsorship"
+                          placeholder="業配程度"
+                          styleClass="w-full border-round-3xl bg-blue-50"
+                          appendTo="body"></p-dropdown>
+            </div>
+            <div class="field">
+              <p-divider></p-divider>
+              <label class="font-medium">人物設定</label>
+            </div>
+            <div class="field">
+              <label class="text-sm font-medium">性別</label>
+              <br>
+              <p-dropdown [options]="['男','女','無性別']"
+                          [(ngModel)]="selected_sponsorship"
+                          placeholder="業配程度"
+                          styleClass="w-full border-round-3xl bg-blue-50"
+                          appendTo="body"></p-dropdown>
+            </div>
+            <div class="field">
+              <label class="text-sm font-medium">年齡</label>
+              <br>
+              <div class="flex align-items-center gap-3">
+                <p-inputNumber [size]="5" suffix=" 歲" inputId="integeronly"></p-inputNumber>
+                <span>到</span>
+                <p-inputNumber [size]="5" suffix=" 歲" inputId="integeronly"></p-inputNumber>
+              </div>
+            </div>
+            <div class="field">
+              <label class="text-sm font-medium">特性</label>
+              <input class="w-full bg-blue-50" type="text" pInputText/>
+            </div>
+            <div class="field">
+              <label class="text-sm font-medium">其他細部描述</label>
+              <textarea rows="5" cols="26" class="bg-blue-50" pInputTextarea></textarea>
+            </div>
+            <div class="field">
+              <p-divider></p-divider>
+              <label class="font-medium">產品資訊 *</label>
+              <label class="text-sm">(必填，請盡可能把提及產品名稱、功能、特點描述寫清楚)</label>
+            </div>
+            <div class="field">
+              <label class="text-sm font-medium">產品名稱</label>
+              <input class="w-full bg-blue-50" type="text" pInputText/>
+            </div>
+            <div class="field">
+              <label class="text-sm font-medium">產品功能</label>
+              <textarea rows="5" cols="26" class="bg-blue-50" pInputTextarea></textarea>
+            </div>
+            <div class="field">
+              <label class="text-sm font-medium">產品特點及市場差異性</label>
+              <textarea rows="5" cols="26" class="bg-blue-50" pInputTextarea></textarea>
+            </div>
+            <div class="field">
+              <label class="text-sm font-medium">是否出現與競品比較內容</label>
+              <div class="flex gap-3">
+                <div class="flex align-items-center">
+                  <p-radioButton name="PK" [value]="true" [(ngModel)]="comparative"
+                                 (onClick)="clickRadio()"></p-radioButton>
+                  <label class="ml-2">是</label>
+                  <p-button *ngIf="comparative" icon="text-xs pi pi-external-link"
+                            [text]="true" size="small" severity="help "></p-button>
+                </div>
+                <div class="flex align-items-center">
+                  <p-radioButton name="PK" [value]="false" [(ngModel)]="comparative"
+                                 (onClick)="clickRadio()">>
+                  </p-radioButton>
+                  <label class="ml-2">否</label>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <p-divider></p-divider>
+              <label class="text-sm font-medium">文章標題關鍵字</label>
+              <p-chips placeholder="輸入完成請按 Enter"></p-chips>
+            </div>
+            <div class="field">
+              <label class="text-sm font-medium">帶給閱聽眾關鍵訊息</label>
+              <input class="w-full bg-blue-50" type="text" pInputText/>
+            </div>
+            <div class="flex justify-content-center">
+              <p-button label="文章生成"
+                        [rounded]="true" [raised]="true"
+                        size="small" styleClass="text-sm"
+                        severity="help"></p-button>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="colSize === 'col-5'">
+          <div class="col-6">
+            <div class="field">
+              <label class="text-sm font-medium">論壇選擇</label>
+              <br>
+              <p-dropdown [options]="forum"
+                          [(ngModel)]="selected_forum"
+                          (onChange)="getTypes()"
+                          placeholder="平台選擇"
+                          styleClass="w-full border-round-3xl bg-blue-50"
+                          appendTo="body"></p-dropdown>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="field">
+              <label class="text-sm font-medium">字數限制</label>
+              <br>
+              <p-dropdown [options]="word_limit"
+                          [(ngModel)]="selected_word_limit"
+                          placeholder="字數限制"
+                          styleClass="w-full border-round-3xl bg-blue-50"
+                          appendTo="body"></p-dropdown>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="field">
+              <label class="text-sm font-medium">文章版位</label>
+              <br>
+              <p-dropdown [options]="board"
+                          [(ngModel)]="selected_board"
+                          placeholder="文章版位"
+                          styleClass="w-full border-round-3xl bg-blue-50"
+                          [disabled]="!selected_forum"
+                          appendTo="body"></p-dropdown>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="field">
+              <label class="text-sm font-medium">文章類型</label>
+              <br>
+              <p-dropdown [options]="type"
+                          [(ngModel)]="selected_type"
+                          placeholder="文章類型"
+                          styleClass="w-full border-round-3xl bg-blue-50"
+                          appendTo="body"></p-dropdown>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="field">
+              <label class="text-sm font-medium">文章風格</label>
+              <br>
+              <p-dropdown [options]="style"
+                          [(ngModel)]="selected_style"
+                          placeholder="文章風格"
+                          styleClass="w-full border-round-3xl bg-blue-50"
+                          appendTo="body"></p-dropdown>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="field">
+              <label class="text-sm font-medium">業配程度</label>
+              <br>
+              <p-dropdown [options]="sponsorship"
+                          [(ngModel)]="selected_sponsorship"
+                          placeholder="業配程度"
+                          styleClass="w-full border-round-3xl bg-blue-50"
+                          appendTo="body"></p-dropdown>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="field">
+              <p-divider></p-divider>
+              <label class="font-medium">人物設定</label>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="field">
+              <label class="text-sm font-medium">性別</label>
+              <br>
+              <p-dropdown [options]="['男','女','無性別']"
+                          [(ngModel)]="selected_sponsorship"
+                          placeholder="性別"
+                          styleClass="w-full border-round-3xl bg-blue-50"
+                          appendTo="body"></p-dropdown>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="field">
+              <label class="text-sm font-medium">年齡</label>
+              <br>
+              <div class="flex align-items-center gap-3">
+                <p-inputNumber [size]="5" suffix=" 歲" inputId="integeronly"></p-inputNumber>
+                <span>到</span>
+                <p-inputNumber [size]="5" suffix=" 歲" inputId="integeronly"></p-inputNumber>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="field">
+              <label class="text-sm font-medium">特性</label>
+              <input class="w-full bg-blue-50" type="text" pInputText/>
+            </div>
+            <div class="field">
+              <label class="text-sm font-medium">其他細部描述</label>
+              <br>
+              <textarea rows="3" cols="51" class="bg-blue-50" pInputTextarea></textarea>
+            </div>
+            <div class="field">
+              <p-divider></p-divider>
+              <label class="font-medium">產品資訊 *</label>
+              <br>
+              <label class="text-sm">(必填，請盡可能把提及產品名稱、功能、特點描述寫清楚)</label>
+            </div>
+            <div class="field">
+              <label class="text-sm font-medium">產品名稱</label>
+              <input class="w-full bg-blue-50" type="text" pInputText/>
+            </div>
+            <div class="field">
+              <label class="text-sm font-medium">產品功能</label>
+              <br>
+              <textarea rows="3" cols="51" class="bg-blue-50" pInputTextarea></textarea>
+            </div>
+            <div class="field">
+              <label class="text-sm font-medium">產品特點及市場差異性</label>
+              <br>
+              <textarea rows="3" cols="51" class="bg-blue-50" pInputTextarea></textarea>
+            </div>
+            <div class="field">
+              <label class="text-sm font-medium">是否出現與競品比較內容</label>
+              <div class="flex gap-3">
+                <div class="flex align-items-center">
+                  <p-radioButton value="true" [(ngModel)]="comparative"></p-radioButton>
+                  <label class="ml-2">是</label>
+                </div>
+                <div class="flex align-items-center">
+                  <p-radioButton value="false" [(ngModel)]="comparative"></p-radioButton>
+                  <label class="ml-2">否</label>
+                </div>
+              </div>
+            </div>
+            <p-divider></p-divider>
+          </div>
+          <div class="col-6">
+            <div class="field">
+              <label class="text-sm font-medium">文章標題關鍵字</label>
+              <p-chips placeholder="輸入完成請按 Enter"></p-chips>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="field">
+              <label class="text-sm font-medium">帶給閱聽眾關鍵訊息</label>
+              <input class="w-full bg-blue-50" type="text" pInputText/>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="flex justify-content-center">
+              <p-button label="文章生成"
+                        [rounded]="true" [raised]="true"
+                        size="small" styleClass="text-sm"
+                        severity="help"></p-button>
+            </div>
+          </div>
+        </ng-container>
       </div>
     </p-card>
   </div>
   <div class="col-5">
-    <p-card></p-card>
+    <p-card styleClass="bg-white-alpha-80" [style]="{height: '88vh'}">
+      <div class="flex flex-column gap-3">
+        <div class="flex flex-column gap-2 p-4 border-round bg-blue-50">
+          <span class="text-2xl font-bold">怪客口碑</span>
+          <textarea class="w-full text-sm border-none bg-blue-50" rows="15"
+                    style="resize: none; overflow: auto;"
+                    pInputTextarea>
+我由Dcard上熱門文章構成，專精於製作真實且客製化的口碑文。
+無論任何話題，只需提供方向，我便能為您編寫出充滿鄉民感的內容。
+讓我簡要為您說明操作步驟：
+  1️⃣️ 在「文章版位」，決定您希望撰寫的版位、字數，以及創意值（範圍從保守到幻想）。
+  2️⃣ 在「產品資訊」，描述您希望推薦的商品或服務。
+  3️⃣ 在「人物設定」，告訴我您心中的理想作者或特定人物特質，我將根據描述進行變身。
+     💡小提示，詳細的描述能讓我提供更符合您期待的文章。
+  4️⃣ 若有特定故事走向或情境，請於「口碑切角」填寫，或是選擇留空，讓我發揮最大的創意，為您構思一段獨特的故事。
+  現在，開啟您的創作之旅吧！🌟</textarea>
+        </div>
+        <p-button label="文章複製"
+                  [rounded]="true" [raised]="true"
+                  size="small" styleClass="text-sm w-3"
+                  severity="help"></p-button>
+      </div>
+    </p-card>
   </div>
 </div>
+
+<p-dialog header="競品比較內容" [(visible)]="comparative_dialog" [style]="{width: '50vw'}">
+  <p-table dataKey="id" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width:25%">Code</th>
+        <th style="width:25%">Name</th>
+        <th style="width:25%">Inventory Status</th>
+        <th style="width:25%">Price</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product let-editing="editing">
+      <tr>
+        <td [pEditableColumn]="product.code" pEditableColumnField="code">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="product.code"/>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ product.code }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td [pEditableColumn]="product.name" pEditableColumnField="name">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="product.name" required/>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ product.name }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td [pEditableColumn]="product.inventoryStatus" pEditableColumnField="inventoryStatus">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText [(ngModel)]="product.inventoryStatus"/>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ product.inventoryStatus }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td [pEditableColumn]="product.price" pEditableColumnField="price">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="product.price"/>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ product.price | currency: 'USD' }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-dialog>
