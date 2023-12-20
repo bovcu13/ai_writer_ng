@@ -1,7 +1,7 @@
 import { PRIMENG_MODULES } from "../../share/primeng";
-import { Component } from '@angular/core';
-import { FormsModule } from "@angular/forms";
-import { NgIf } from "@angular/common";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { NgForOf, NgIf } from "@angular/common";
 import { pk } from "../../share/data/pk";
 
 @Component({
@@ -10,13 +10,17 @@ import { pk } from "../../share/data/pk";
   imports: [
     PRIMENG_MODULES,
     FormsModule,
-    NgIf
+    NgIf,
+    ReactiveFormsModule,
+    NgForOf
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   pk = pk;
+  content = ['論壇', '新聞稿', '部落格', '社群貼文', '廣告文案']
+  selected_content = '論壇';
   forum = ['Dcard', 'Mobile01', 'PTT',];
   selected_forum: any;
   word_limit = ['100', '300', '600', '1000']
@@ -32,6 +36,8 @@ export class HomeComponent {
   selected_style: any;
   sponsorship = ['輕', '中', '高']
   selected_sponsorship: any;
+  gender = ['男', '女', '無性別']
+  selected_gender: any;
   comparative: any;
   comparative_dialog: boolean = false;
   demo_dialog: boolean = false;
@@ -46,8 +52,55 @@ export class HomeComponent {
     '  4️⃣ 若有特定故事走向或情境，請於「口碑切角」填寫，或是選擇留空，讓我發揮最大的創意，為您構思一段獨特的故事。\n' +
     '  現在，開啟您的創作之旅吧！🌟'
   rating!: number;
+  story_output = [
+    {
+      id: 1,
+      content: '口碑故事1'
+    },
+    {
+      id: 2,
+      content: '口碑故事2'
+    },
+    {
+      id: 3,
+      content: '口碑故事3'
+    }
+  ]
+  selected_story: any;
+  activeOverlay: any;
 
-  countText(text:any): number {
+
+  description_form: FormGroup;
+
+  constructor(
+    private fb: FormBuilder,
+  ) {
+    this.description_form = this.fb.group({
+      // 第一層描述
+      forum: [''],
+      word_limit: [''],
+      board: [''],
+      type: [''],
+      style: [''],
+      sponsorship: [''],
+      // 人物設定
+      gender: [''],
+      age: [''],
+      created_at: [''],
+      update_at: [''],
+    });
+  }
+
+  ngOnInit(): void {
+
+  }
+
+  addOverlay(story: any) {
+    this.activeOverlay = story.id;
+    this.selected_story = story.content;
+  }
+
+  countText(text: any): number {
     return text.length;
   }
 
