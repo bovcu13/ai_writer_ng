@@ -393,6 +393,12 @@
           </textarea>
           <span class="text-xs text-400 text-right">字數：{{ countText(article_output) }}</span>
         </div>
+        <div class="card flex justify-content-start">
+          <p-fileUpload mode="basic" chooseLabel="相關圖上傳"
+                        styleClass="border-round-3xl"
+                        name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php"
+                        accept="image/*" [maxFileSize]="1000000"></p-fileUpload>
+        </div>
         <div class="flex align-items-start">
           <p-button label="文章複製"
                     [rounded]="true" [raised]="true"
@@ -407,7 +413,6 @@
             </div>
           </div>
         </div>
-
       </div>
     </p-card>
   </div>

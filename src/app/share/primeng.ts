@@ -22,6 +22,7 @@ import { ChipsModule } from 'primeng/chips';
 import { TableModule } from 'primeng/table';
 import { DialogModule } from "primeng/dialog";
 import { RatingModule } from 'primeng/rating';
+import { FileUploadModule } from 'primeng/fileupload';
 
 
 export const PRIMENG_MODULES = [
@@ -48,5 +49,6 @@ export const PRIMENG_MODULES = [
   ChipsModule,
   TableModule,
   DialogModule,
-  RatingModule
+  RatingModule,
+  FileUploadModule,
 ];

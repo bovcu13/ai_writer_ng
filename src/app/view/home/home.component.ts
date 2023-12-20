@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NgForOf, NgIf } from "@angular/common";
 import { pk } from "../../share/data/pk";
+import { MessageService } from "primeng/api";
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,8 @@ import { pk } from "../../share/data/pk";
     NgForOf
   ],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrl: './home.component.scss',
+  providers: [MessageService]
 })
 export class HomeComponent implements OnInit {
   pk = pk;
@@ -74,6 +76,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private messageService: MessageService
   ) {
     this.description_form = this.fb.group({
       // 第一層描述
