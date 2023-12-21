@@ -1,1 +1,340 @@
-<p>reply works!</p>
+<p-toast></p-toast>
+<div class="flex justify-content-center align-items-center h-full">
+  <div [class]="colSize">
+    <p-card styleClass="bg-white-alpha-80 overflow-y-scroll" [style]="{height: '82vh'}">
+      <ng-template pTemplate="header">
+        <div class="flex align-items-center p-3">
+          <div class="mr-auto">
+            <span class="text-xl font-bold">怪客口碑</span>
+          </div>
+          <div class="flex justify-content-end">
+            <p-button icon="text-xs pi pi-chevron-right" [text]="true" severity="help"
+                      (click)="changeColSize()" *ngIf="colSize === 'col-3'"
+                      size="small"></p-button>
+            <p-button icon="text-xs pi pi-chevron-left" [text]="true" severity="help"
+                      (click)="changeColSize()" *ngIf="colSize === 'col-5'"
+                      size="small"></p-button>
+          </div>
+        </div>
+      </ng-template>
+      <div class="grid">
+        <!--          無展開col-3-->
+        <ng-container *ngIf="colSize === 'col-3'">
+          <div class="col-12">
+            <div class="field">
+              <label class="text-sm font-medium">選擇回文文章</label>
+              <div class="flex gap-2">
+                <div class="flex align-items-center">
+                  <p-radioButton name="method" [value]="'由生成文章'" [(ngModel)]="method"
+                                 (onClick)="selectArticleDialog = true"></p-radioButton>
+                  <label class="ml-2 text-sm">由生成文章</label>
+                  <p-button *ngIf="method === '由生成文章'"
+                            icon="text-xs pi pi-external-link"
+                            (click)="openSelectArticleDialog()" [text]="true"
+                            size="small" severity="help "
+                            styleClass="ml-3"></p-button>
+                </div>
+                <div class="flex align-items-center">
+                  <p-radioButton name="method" [value]="'其他文章'" [(ngModel)]="method"
+                                 (onClick)="selectArticleDialog = true"></p-radioButton>
+                  <label class="ml-2 text-sm">其他文章</label>
+                  <p-button *ngIf="method === '其他文章'"
+                            icon="text-xs pi pi-external-link"
+                            (click)="openSelectArticleDialog()" [text]="true"
+                            size="small" severity="help "
+                            styleClass="ml-3"></p-button>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label class="text-sm font-medium">回文數量</label>
+              <br>
+              <p-dropdown [options]="reply_count"
+                          [(ngModel)]="selected_reply_count"
+                          optionLabel="label"
+                          placeholder="回文數量"
+                          styleClass="w-full border-round-3xl bg-blue-50"
+                          appendTo="body"></p-dropdown>
+            </div>
+            <div class="field">
+              <label class="text-sm font-medium">字數限制</label>
+              <br>
+              <p-dropdown [options]="word_limit"
+                          [(ngModel)]="selected_word_limit"
+                          placeholder="字數限制"
+                          styleClass="w-full border-round-3xl bg-blue-50"
+                          appendTo="body"></p-dropdown>
+            </div>
+            <div class="field">
+              <p-divider></p-divider>
+              <label class="font-medium">回文風格</label>
+              <br>
+              <label class="text-sm">(填入回文風格數量)</label>
+            </div>
+            <div class="field">
+              <label class="text-sm font-medium">隨機</label>
+              <br>
+              <p-inputNumber styleClass="w-full" suffix=" 則" inputId="integeronly"></p-inputNumber>
+            </div>
+            <div class="field">
+              <label class="text-sm font-medium">專業評論</label>
+              <br>
+              <p-inputNumber styleClass="w-full" suffix=" 則" inputId="integeronly"></p-inputNumber>
+            </div>
+            <div class="field">
+              <label class="text-sm font-medium">幽默有趣</label>
+              <br>
+              <p-inputNumber styleClass="w-full" suffix=" 則" inputId="integeronly"></p-inputNumber>
+            </div>
+            <div class="field">
+              <label class="text-sm font-medium">嘲諷酸</label>
+              <br>
+              <p-inputNumber styleClass="w-full" suffix=" 則" inputId="integeronly"></p-inputNumber>
+            </div>
+            <div class="field">
+              <label class="text-sm font-medium">跟風支持</label>
+              <br>
+              <p-inputNumber styleClass="w-full" suffix=" 則" inputId="integeronly"></p-inputNumber>
+            </div>
+            <div class="field">
+              <p-divider></p-divider>
+              <label class="font-medium">回文內容切角</label>
+              <label class="text-sm">(填入關鍵字，輸入完成按下Enter)</label>
+            </div>
+            <div class="field">
+              <label class="text-sm font-medium">專業評論</label>
+              <br>
+              <p-chips styleClass="w-full"></p-chips>
+            </div>
+            <div class="field">
+              <label class="text-sm font-medium">幽默有趣</label>
+              <br>
+              <p-chips styleClass="w-full"></p-chips>
+            </div>
+            <div class="field">
+              <label class="text-sm font-medium">嘲諷酸</label>
+              <br>
+              <p-chips styleClass="w-full"></p-chips>
+            </div>
+            <div class="field">
+              <label class="text-sm font-medium">跟風支持</label>
+              <br>
+              <p-chips styleClass="w-full"></p-chips>
+            </div>
+            <div class="flex justify-content-center gap-4">
+              <p-button label="回文生成"
+                        [rounded]="true" [raised]="true"
+                        size="small" styleClass="text-xs"
+                        severity="help"></p-button>
+            </div>
+          </div>
+        </ng-container>
+        <!--          展開col-5-->
+        <ng-container *ngIf="colSize === 'col-5'">
+          <div class="col-12">
+            <div class="field">
+              <label class="text-sm font-medium">選擇回文文章</label>
+              <div class="flex gap-2">
+                <div class="flex align-items-center">
+                  <p-radioButton name="method" [value]="'由生成文章'" [(ngModel)]="method"
+                                 (onClick)="selectArticleDialog = true"></p-radioButton>
+                  <label class="ml-2 text-sm">由生成文章</label>
+                  <p-button *ngIf="method === '由生成文章'"
+                            icon="text-xs pi pi-external-link"
+                            (click)="openSelectArticleDialog()" [text]="true"
+                            size="small" severity="help "
+                            styleClass="ml-3"></p-button>
+                </div>
+                <div class="flex align-items-center">
+                  <p-radioButton name="method" [value]="'其他文章'" [(ngModel)]="method"
+                                 (onClick)="selectArticleDialog = true"></p-radioButton>
+                  <label class="ml-2 text-sm">其他文章</label>
+                  <p-button *ngIf="method === '其他文章'"
+                            icon="text-xs pi pi-external-link"
+                            (click)="openSelectArticleDialog()" [text]="true"
+                            size="small" severity="help "
+                            styleClass="ml-3"></p-button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="field">
+              <label class="text-sm font-medium">回文數量</label>
+              <br>
+              <p-dropdown [options]="reply_count"
+                          [(ngModel)]="selected_reply_count"
+                          optionLabel="label"
+                          placeholder="回文數量"
+                          styleClass="w-full border-round-3xl bg-blue-50"
+                          appendTo="body"></p-dropdown>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="field">
+              <label class="text-sm font-medium">字數限制</label>
+              <br>
+              <p-dropdown [options]="word_limit"
+                          [(ngModel)]="selected_word_limit"
+                          placeholder="字數限制"
+                          styleClass="w-full border-round-3xl bg-blue-50"
+                          appendTo="body"></p-dropdown>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="field">
+              <p-divider></p-divider>
+              <label class="font-medium">回文風格</label>
+              <br>
+              <label class="text-sm">(填入回文風格數量)</label>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="field">
+              <label class="text-sm font-medium">隨機</label>
+              <br>
+              <p-inputNumber styleClass="w-full" suffix=" 則" inputId="integeronly"></p-inputNumber>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="field">
+              <label class="text-sm font-medium">專業評論</label>
+              <br>
+              <p-inputNumber styleClass="w-full" suffix=" 則" inputId="integeronly"></p-inputNumber>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="field">
+              <label class="text-sm font-medium">幽默有趣</label>
+              <br>
+              <p-inputNumber styleClass="w-full" suffix=" 則" inputId="integeronly"></p-inputNumber>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="field">
+              <label class="text-sm font-medium">嘲諷酸</label>
+              <br>
+              <p-inputNumber styleClass="w-full" suffix=" 則" inputId="integeronly"></p-inputNumber>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="field">
+              <label class="text-sm font-medium">跟風支持</label>
+              <br>
+              <p-inputNumber styleClass="w-full" suffix=" 則" inputId="integeronly"></p-inputNumber>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="field">
+              <p-divider></p-divider>
+              <label class="font-medium">回文內容切角</label>
+              <label class="text-sm">(填入關鍵字，輸入完成按下Enter)</label>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="field">
+              <label class="text-sm font-medium">專業評論</label>
+              <br>
+              <p-chips styleClass="w-full"></p-chips>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="field">
+              <label class="text-sm font-medium">幽默有趣</label>
+              <br>
+              <p-chips styleClass="w-full"></p-chips>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="field">
+              <label class="text-sm font-medium">嘲諷酸</label>
+              <br>
+              <p-chips styleClass="w-full"></p-chips>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="field">
+              <label class="text-sm font-medium">跟風支持</label>
+              <br>
+              <p-chips styleClass="w-full"></p-chips>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="flex justify-content-center gap-4">
+              <p-button label="回文生成"
+                        [rounded]="true" [raised]="true"
+                        size="small" styleClass="text-xs"
+                        severity="help"></p-button>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </p-card>
+  </div>
+  <div class="col-5">
+    <p-card styleClass="bg-white-alpha-80" [style]="{height: '82vh'}">
+      <div class="flex flex-column gap-3">
+        <div class="flex flex-column gap-2 p-4 border-round bg-blue-50">
+          <span class="text-2xl font-bold">怪客口碑</span>
+          <p-table [value]="comment_output"
+                   [scrollable]="true"
+                   scrollHeight="63vh">
+            <ng-template pTemplate="body" let-comment>
+              <tr style="background: transparent">
+                <td style="background: transparent">
+                  <div class="flex align-items-start gap-3">
+                    <p-avatar label="{{comment.id}}" styleClass="text-xs" shape="circle"></p-avatar>
+                    <div class="flex flex-column gap-2  w-full">
+                      <div class="flex align-items-start">
+                        <div class="justify-content-start">
+                          <p-chip label="{{comment.style}}" [styleClass]="getChipColor(comment.style)"></p-chip>
+                        </div>
+                        <div class="flex gap-2 ml-auto">
+                          <p-button icon="pi pi-copy text-xs" [rounded]="true" [text]="true"
+                                    (click)="copy(comment.comment)"
+                                    styleClass="w-1rem h-1rem" severity="secondary "></p-button>
+                          <p-button icon="pi pi-thumbs-up text-xs" [rounded]="true" [text]="true"
+                                    styleClass="w-1rem h-1rem" severity="secondary "></p-button>
+                          <p-button icon="pi pi-thumbs-down text-xs" [rounded]="true" [text]="true"
+                                    styleClass="w-1rem h-1rem" severity="secondary "></p-button>
+                          <p-button icon="pi pi-undo text-xs" [rounded]="true" [text]="true"
+                                    styleClass="w-1rem h-1rem" severity="secondary "></p-button>
+                        </div>
+                      </div>
+                      <span class="text-sm">{{ comment.comment }}</span>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </p-card>
+  </div>
+</div>
+
+<p-dialog header="{{method}}" [modal]="true" [(visible)]="selectArticleDialog" [style]="{width: '50vw'}">
+  @if (method === '由生成文章') {
+
+  } @else {
+    <div class="field">
+      <label class="text-sm font-medium">請提供文章內容</label>
+      <br>
+      <textarea rows="15"
+                class="w-full text-sm border-none bg-blue-50"
+                style="resize: none; overflow: auto;"
+                pInputTextarea></textarea>
+    </div>
+  }
+  <div class="flex justify-content-end mt-5 gap-3">
+    <p-button label="取消"
+              (click)="selectArticleDialog = false" [outlined]="true"
+              size="small" styleClass="text-sm"
+              severity="help"></p-button>
+    <p-button label="確認"
+              (click)="selectArticleDialog = false" [raised]="true"
+              size="small" styleClass="text-sm"
+              severity="help"></p-button>
+  </div>
+</p-dialog>

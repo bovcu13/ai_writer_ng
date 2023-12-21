@@ -27,6 +27,7 @@ import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
+import { ChipModule } from 'primeng/chip';
 
 
 export const PRIMENG_MODULES = [
@@ -59,4 +60,5 @@ export const PRIMENG_MODULES = [
   ToolbarModule,
   AvatarModule,
   AvatarGroupModule,
+  ChipModule,
 ];
