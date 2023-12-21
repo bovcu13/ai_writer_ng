@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <div class="flex justify-content-center h-screen p-5">
   <div [class]="colSize">
     <p-card styleClass="bg-white-alpha-80 overflow-y-scroll" [style]="{height: '88vh'}">
@@ -391,19 +392,24 @@
                     style="resize: none; overflow: auto;"
                     pInputTextarea>
           </textarea>
-          <span class="text-xs text-400 text-right">字數：{{ countText(article_output) }}</span>
-        </div>
-        <div class="card flex justify-content-start">
-          <p-fileUpload mode="basic" chooseLabel="相關圖上傳"
-                        styleClass="border-round-3xl"
-                        name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php"
-                        accept="image/*" [maxFileSize]="1000000"></p-fileUpload>
+          <div class="flex justify-content-between">
+            <p-button (click)="copy()" icon="text-xs pi pi-copy" [rounded]="true" [text]="true" severity="help "
+                      styleClass="w-1rem h-1rem"></p-button>
+            <span class="text-xs text-400 text-right">字數：{{ countText(article_output) }}</span>
+          </div>
         </div>
         <div class="flex align-items-start">
-          <p-button label="文章複製"
-                    [rounded]="true" [raised]="true"
-                    size="small" styleClass="text-xs"
-                    severity="help"></p-button>
+          <div class="flex flex-column gap-2">
+            <p-fileUpload mode="basic" chooseLabel="相關圖上傳"
+                          styleClass="text-sm bg-indigo-500 border-round-3xl"
+                          name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php"
+                          accept="image/*"
+                          chooseIcon="text-sm pi pi-plus"
+                          [maxFileSize]="1000000"
+                          [multiple]="true"
+                          [showCancelButton]="true"
+                          [showUploadButton]="true"></p-fileUpload>
+          </div>
           <div class="ml-auto p-3 border-round bg-white-alpha-50">
             <span class="text-xs">為此回應評分</span>
             <div class="flex align-items-center gap-3 mt-2">

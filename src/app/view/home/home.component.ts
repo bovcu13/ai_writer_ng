@@ -132,4 +132,12 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  copy() {
+    navigator.clipboard.writeText(this.article_output).then(() => {
+      this.messageService.add({ severity: 'success', summary: '複製成功', detail: '已複製文章內容' });
+    }).catch(err => {
+      console.error('Could not copy text: ', err);
+    });
+  }
+
 }
