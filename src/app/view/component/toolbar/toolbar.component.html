@@ -1,0 +1,20 @@
+<!--<p-toolbar styleClass="p-2 bg-indigo-900 shadow-2"-->
+<!--           [style]="{ 'background-image': 'linear-gradient(to right, #D27685, #9E4784, #66347F, #37306B)' }">-->
+<p-toolbar styleClass="p-2 shadow-2 border-none">
+<ng-template pTemplate="start">
+    <div class="flex align-items-center gap-2">
+      <p-button label="文章生成" icon="text-500 text-sm pi pi-th-large" [text]="true"
+                styleClass="text-700 text-xs"></p-button>
+      <p-button label="回文生成" icon="text-500 text-sm pi pi-th-large" [text]="true"
+                styleClass="text-700 text-xs"></p-button>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="center">
+  </ng-template>
+  <ng-template pTemplate="end">
+    <div class="flex align-items-center gap-2">
+      <span class="text-xs font-bold text-700">Amy Elsner</span>
+      <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle"/>
+    </div>
+  </ng-template>
+</p-toolbar>
