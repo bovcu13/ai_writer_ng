@@ -24,6 +24,9 @@ import { DialogModule } from "primeng/dialog";
 import { RatingModule } from 'primeng/rating';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ToastModule } from 'primeng/toast';
+import { ToolbarModule } from 'primeng/toolbar';
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
 
 
 export const PRIMENG_MODULES = [
@@ -53,4 +56,7 @@ export const PRIMENG_MODULES = [
   RatingModule,
   FileUploadModule,
   ToastModule,
+  ToolbarModule,
+  AvatarModule,
+  AvatarGroupModule,
 ];
