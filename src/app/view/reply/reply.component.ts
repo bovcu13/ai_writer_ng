@@ -73,7 +73,9 @@ export class ReplyComponent implements OnInit {
   adjustRandomField(values: any) {
     const total = values.random + values.professional + values.humorous + values.sarcastic + values.support;
     const replyCount = this.description_form.controls['reply_count'].value;
-    if (total === 0) {
+    if (total > replyCount) {
+      this.messageService.add({severity:'error', summary:'錯誤訊息', detail:'超過設定的回文數量'});
+    } else if (total === 0) {
       this.description_form.controls['random'].setValue(replyCount);
     } else if (total < replyCount) {
       this.description_form.controls['random'].setValue(replyCount - total);
