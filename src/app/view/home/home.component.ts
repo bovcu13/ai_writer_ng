@@ -1,7 +1,7 @@
 import { PRIMENG_MODULES } from "../../share/primeng";
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { NgForOf, NgIf } from "@angular/common";
+import { NgClass, NgForOf, NgIf } from "@angular/common";
 import { pk } from "../../share/data/pk";
 import { MessageService } from "primeng/api";
 
@@ -13,7 +13,8 @@ import { MessageService } from "primeng/api";
     FormsModule,
     NgIf,
     ReactiveFormsModule,
-    NgForOf
+    NgForOf,
+    NgClass
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
