@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 
-import { ContainerComponent } from "./view/container/container.component";
+import { LoginComponent } from "./view/component/login/login.component";
 
 @Component({
   selector: 'app-root',
@@ -10,7 +10,7 @@ import { ContainerComponent } from "./view/container/container.component";
   imports: [
     CommonModule,
     RouterOutlet,
-    ContainerComponent,
+    LoginComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

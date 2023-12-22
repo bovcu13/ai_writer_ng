@@ -77,9 +77,10 @@ export class ReplyComponent implements OnInit {
       this.messageService.add({severity:'error', summary:'錯誤訊息', detail:'超過設定的回文數量'});
     } else if (total === 0) {
       this.description_form.controls['random'].setValue(replyCount);
-    } else if (total < replyCount) {
-      this.description_form.controls['random'].setValue(replyCount - total);
     }
+    // else if (total < replyCount) {
+    //   this.description_form.controls['random'].setValue(replyCount - total);
+    // }
   }
 
   changeColSize() {
