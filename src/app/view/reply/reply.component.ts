@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { PRIMENG_MODULES } from "../../share/primeng";
 import { comment } from "../../share/data/comment";
-import { NgForOf, NgIf } from "@angular/common";
+import { NgClass, NgForOf, NgIf } from "@angular/common";
 import { FormBuilder, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MessageService } from "primeng/api";
 
@@ -14,6 +14,7 @@ import { MessageService } from "primeng/api";
     NgIf,
     ReactiveFormsModule,
     FormsModule,
+    NgClass,
   ],
   templateUrl: './reply.component.html',
   styleUrl: './reply.component.scss',
@@ -53,7 +54,6 @@ export class ReplyComponent {
   }
 
   getChipColor(style: any) {
-    console.log(style);
     switch (style) {
       case "專業評論":
         return 'text-xs bg-blue-100';
