@@ -6,4 +6,5 @@ export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: '', loadChildren: () => import('./view/container/container.routes').then(m => m.routes) },
+  { path: 'settings', loadChildren: () => import('./view/settings/settings.routes').then(m => m.routes) },
 ];
