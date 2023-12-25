@@ -212,7 +212,6 @@
                   字</label>
                 <p-slider formControlName="word_limit"
                           [step]="wordSliderStep(description_form.controls['word_limit'].value)"
-                          (onChange)="wordSliderChange($event)"
                           [min]="100"
                           [max]="1000"></p-slider>
               </div>

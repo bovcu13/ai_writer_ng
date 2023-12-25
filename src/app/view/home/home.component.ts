@@ -122,10 +122,6 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  wordSliderChange(event: any) {
-    console.log(event);
-  }
-
   ageSliderChange(event: any) {
     this.minAge = event.values[0];
     this.maxAge = event.values[1];

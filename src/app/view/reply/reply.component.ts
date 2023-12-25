@@ -70,17 +70,44 @@ export class ReplyComponent implements OnInit {
     });
   }
 
+  replySliderStep(reply_count: any) {
+    switch (reply_count) {
+      case 10:
+        return 20;
+      case 30:
+        return 20;
+      case 50:
+        return 50;
+      case 100:
+        return 50;
+      default:
+        return 10;
+    }
+  }
+
+  wordSliderStep(word_limit: any) {
+    switch (word_limit) {
+      case 30:
+        return 20;
+      case 50:
+        return 50;
+      case 100:
+        return 50;
+      case 150:
+        return 50;
+      default:
+        return 100;
+    }
+  }
+
   adjustRandomField(values: any) {
     const total = values.random + values.professional + values.humorous + values.sarcastic + values.support;
     const replyCount = this.description_form.controls['reply_count'].value;
     if (total > replyCount) {
       this.messageService.add({severity:'error', summary:'錯誤訊息', detail:'超過設定的回文數量'});
-    } else if (total === 0) {
-      this.description_form.controls['random'].setValue(replyCount);
+    } else if (total < replyCount) {
+      this.description_form.controls['random'].setValue(replyCount - total);
     }
-    // else if (total < replyCount) {
-    //   this.description_form.controls['random'].setValue(replyCount - total);
-    // }
   }
 
   changeColSize() {

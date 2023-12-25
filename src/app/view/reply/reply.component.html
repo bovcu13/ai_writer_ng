@@ -52,26 +52,44 @@
             <div class="field">
               <label class="text-sm font-medium">回文數量</label>
               <br>
-              <p-dropdown [options]="reply_count"
-                          formControlName="reply_count"
-                          optionLabel="label"
-                          optionValue="value"
-                          placeholder="回文數量"
-                          styleClass="w-full border-round-3xl bg-blue-50"
-                          appendTo="body"></p-dropdown>
+              <div class="slider-container">
+                <label class="slider-label text-xs"
+                       [style.left.%]="(description_form.controls['reply_count'].value - 10) / (100 - 10) * 87">{{ description_form.controls['reply_count'].value }}
+                  則</label>
+                <p-slider formControlName="reply_count"
+                          [step]="replySliderStep(description_form.controls['reply_count'].value)"
+                          [min]="10"
+                          [max]="100"></p-slider>
+              </div>
+<!--              <p-dropdown [options]="reply_count"-->
+<!--                          formControlName="reply_count"-->
+<!--                          optionLabel="label"-->
+<!--                          optionValue="value"-->
+<!--                          placeholder="回文數量"-->
+<!--                          styleClass="w-full border-round-3xl bg-blue-50"-->
+<!--                          appendTo="body"></p-dropdown>-->
             </div>
           </div>
           <div [ngClass]="{'col-6': colSize === 'col-5', 'col-12': colSize === 'col-3'}">
             <div class="field">
               <label class="text-sm font-medium">字數限制</label>
               <br>
-              <p-dropdown [options]="word_limit"
-                          formControlName="word_limit"
-                          optionLabel="label"
-                          optionValue="value"
-                          placeholder="字數限制"
-                          styleClass="w-full border-round-3xl bg-blue-50"
-                          appendTo="body"></p-dropdown>
+              <div class="slider-container">
+                <label class="slider-label text-xs"
+                       [style.left.%]="(description_form.controls['word_limit'].value - 30) / (150 - 30) * 87">{{ description_form.controls['word_limit'].value }}
+                  字</label>
+                <p-slider formControlName="word_limit"
+                          [step]="wordSliderStep(description_form.controls['word_limit'].value)"
+                          [min]="30"
+                          [max]="150"></p-slider>
+              </div>
+<!--              <p-dropdown [options]="word_limit"-->
+<!--                          formControlName="word_limit"-->
+<!--                          optionLabel="label"-->
+<!--                          optionValue="value"-->
+<!--                          placeholder="字數限制"-->
+<!--                          styleClass="w-full border-round-3xl bg-blue-50"-->
+<!--                          appendTo="body"></p-dropdown>-->
             </div>
           </div>
           <div class="col-12">
