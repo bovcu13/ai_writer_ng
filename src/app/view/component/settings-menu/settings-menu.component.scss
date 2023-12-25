@@ -1,0 +1,27 @@
+.username {
+  font-weight: bold;
+}
+
+.username:hover {
+  text-decoration: underline;
+  text-decoration-color: white;
+  cursor: pointer;
+}
+
+.menu-item {
+  font-weight: 400;
+  padding: 6px;
+  border-radius: 6px;
+  color: white;
+  font-size: 14px;
+
+  &:hover {
+    background: rgba(#EDE6ED, 0.2);
+    cursor: pointer;
+  }
+
+  &.active {
+    background: rgba(#EDE6ED, 0.2);
+    font-weight: 700;
+  }
+}

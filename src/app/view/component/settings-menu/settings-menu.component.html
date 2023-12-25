@@ -1,0 +1,25 @@
+<div class="flex justify-content-center align-items-center h-full">
+  <div class="overflow-y-scroll" [style]="{height: '84vh', width:'100%'}">
+    <div class="flex flex-column justify-content-center align-items-center gap-4">
+      <div class="flex gap-2 w-full">
+        <p-avatar size="large"
+                  image="https://scontent.xx.fbcdn.net/v/t1.15752-9/403632736_209874148745940_1652731190527561711_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=510075&_nc_ohc=aXMO3Dpxx_cAX80v9jj&_nc_oc=AQlrmG712RQgkk4QvUL9RxSg8TgLnfSJ3eA-wkZNs8jwqbfhWdBjL0nh0jGP7WjI9TskZc1NOrDIkBZnTr_yLQ7G&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdQx1oCSvxNB5D25p2pO5Z5WuW73z3-XYTneCw4DA8AWOQ&oe=65B0B8AA"
+                  shape="circle"/>
+        <div class="flex flex-column gap-2">
+          <div class="username">
+            <span class="text-white">Anya Forger</span>
+            <span class="text-400"> (anya_forger)</span>
+          </div>
+          <span class="text-sm text-400">Your personal account</span>
+        </div>
+      </div>
+      <div class="flex flex-column gap-2 w-full">
+        <div *ngFor="let item of settingsMenu; let i = index" class="flex align-items-center gap-2 menu-item w-full" (click)="toggleActive(i)"
+             [ngClass]="{'active': isActive === i}">
+          <i [class]="item.icon"></i>
+          <span>{{ item.name }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
