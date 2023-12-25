@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
   pk = pk;
   content = ['論壇', '新聞稿', '部落格', '社群貼文', '廣告文案'];
   forum = ['Dcard', 'Mobile01', 'PTT',];
-  word_limit = ['100', '300', '600', '1000'];
+  word_limit = [100, 300, 600, 1000];
   board: any[] = [];
   dcard_board = ['美妝', '感情', '閒聊', '健康', '美食', '旅遊'];
   mobile01_board = ['閒聊與趣味', '兩性與感情', '女人心事', '投資理財綜合', '機車消費經驗分享'];
@@ -33,7 +33,6 @@ export class HomeComponent implements OnInit {
   style = ['溫馨感人', 'KUSO感人', '理性嚴肅', '誇張幻想'];
   sponsorship = ['輕', '中', '高'];
   gender = ['男', '女', '無性別'];
-  comparative: any;
   comparative_dialog: boolean = false;
   demo_dialog: boolean = false;
   colSize: string = 'col-3';
@@ -53,7 +52,8 @@ export class HomeComponent implements OnInit {
   ]
   selected_story: any;
   activeOverlay: any;
-
+  minAge: number = 20;
+  maxAge: number = 45;
 
   description_form: FormGroup;
 
@@ -62,16 +62,17 @@ export class HomeComponent implements OnInit {
     private messageService: MessageService
   ) {
     this.description_form = this.fb.group({
-      content: [''],
+      content: ['論壇'],
       // 選擇論壇 - 第一層描述
       forum: [''],
-      word_limit: [''],
+      word_limit: [100],
       board: [''],
       type: [''],
       style: [''],
       sponsorship: [''],
       // 人物設定
       gender: [''],
+      age: [0],
       from_age: [''],
       to_age: [''],
       character_trait: [''],
@@ -103,7 +104,31 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.description_form.controls['age'].setValue([20, 45]);
+  }
 
+  wordSliderStep(word_limit: any) {
+    switch (word_limit) {
+      case 100:
+        return 200;
+      case 300:
+        return 300;
+      case 600:
+        return 400;
+      case 1000:
+        return 400;
+      default:
+        return 100;
+    }
+  }
+
+  wordSliderChange(event: any) {
+    console.log(event);
+  }
+
+  ageSliderChange(event: any) {
+    this.minAge = event.values[0];
+    this.maxAge = event.values[1];
   }
 
   addOverlay(story: any) {

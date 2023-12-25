@@ -47,17 +47,6 @@
             </div>
             <div [ngClass]="{'col-6': colSize === 'col-5', 'col-12': colSize === 'col-3'}">
               <div class="field">
-                <label class="text-sm font-medium">字數限制</label>
-                <br>
-                <p-dropdown [options]="word_limit"
-                            formControlName="word_limit"
-                            placeholder="字數限制"
-                            styleClass="w-full border-round-3xl bg-blue-50"
-                            appendTo="body"></p-dropdown>
-              </div>
-            </div>
-            <div [ngClass]="{'col-6': colSize === 'col-5', 'col-12': colSize === 'col-3'}">
-              <div class="field">
                 <label class="text-sm font-medium">文章版位</label>
                 <br>
                 <p-dropdown [options]="board"
@@ -125,12 +114,17 @@
             <div class="field">
               <label class="text-sm font-medium">年齡</label>
               <br>
-              <div class="flex align-items-center gap-3">
-                <p-inputNumber formControlName="from_age"
-                               [size]="5" suffix=" 歲" inputId="integeronly"></p-inputNumber>
-                <span>到</span>
-                <p-inputNumber formControlName="to_age"
-                               [size]="5" suffix=" 歲" inputId="integeronly"></p-inputNumber>
+              <div class="slider-container">
+                <label class="slider-label text-xs"
+                       [style.left.%]="(minAge - 0) / (100 - 0) * 87">{{ minAge }}歲</label>
+                <p-slider formControlName="age"
+                          (onChange)="ageSliderChange($event)"
+                          [min]="0"
+                          [max]="100"
+                          [animate]="true"
+                          [range]="true"></p-slider>
+                <label class="slider-label text-xs"
+                       [style.left.%]="(maxAge - 0) / (100 - 0) * 87">{{ maxAge }}歲</label>
               </div>
             </div>
           </div>
@@ -201,11 +195,32 @@
           <div class="col-12">
             <p-divider></p-divider>
           </div>
-          <div [ngClass]="{'col-6': colSize === 'col-5', 'col-12': colSize === 'col-3'}">
+          <div class="col-12">
             <div class="field">
               <label class="text-sm font-medium">文章標題 *</label>
               <input formControlName="title"
                      class="w-full bg-blue-50" type="text" pInputText/>
+            </div>
+          </div>
+          <div [ngClass]="{'col-6': colSize === 'col-5', 'col-12': colSize === 'col-3'}">
+            <div class="field">
+              <label class="text-sm font-medium">字數限制</label>
+              <br>
+              <div class="slider-container">
+                <label class="slider-label text-xs"
+                       [style.left.%]="(description_form.controls['word_limit'].value - 100) / (1000 - 100) * 87">{{ description_form.controls['word_limit'].value }}
+                  字</label>
+                <p-slider formControlName="word_limit"
+                          [step]="wordSliderStep(description_form.controls['word_limit'].value)"
+                          (onChange)="wordSliderChange($event)"
+                          [min]="100"
+                          [max]="1000"></p-slider>
+              </div>
+              <!--              <p-dropdown [options]="word_limit"-->
+              <!--                          formControlName="word_limit"-->
+              <!--                          placeholder="字數限制"-->
+              <!--                          styleClass="w-full border-round-3xl bg-blue-50"-->
+              <!--                          appendTo="body"></p-dropdown>-->
             </div>
           </div>
           <div [ngClass]="{'col-6': colSize === 'col-5', 'col-12': colSize === 'col-3'}">
