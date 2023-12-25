@@ -1,4 +1,23 @@
 ::ng-deep {
+  .p-slider .p-slider-range {
+    background: #33186B;
+  }
+
+  .p-slider .p-slider-handle {
+    height: 1.143rem;
+    width: 1.143rem;
+    background: #ffffff;
+    border: 2px solid #33186B;
+    border-radius: 50%;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .p-slider .p-slider-handle:focus {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: 0 0 0 0.2rem #EDE6ED;
+  }
+
   .p-card .p-card-content {
     padding: 0;
   }
@@ -24,4 +43,21 @@
   background-color: rgba(24, 18, 43, 0.3);
   z-index: 1; /* 確保覆蓋在其他元素之上 */
 }
+
+.slider-container {
+  position: relative;
+  margin-top: 2.5rem;
+}
+
+.slider-label {
+  position: absolute;
+  top: -2.5rem; /* 調整label的垂直位置 */
+  text-align: center;
+  width: 3rem; /* 調整label的寬度 */
+  background-color: #E0AED0;
+  color: #495057;
+  border-radius: 5px;
+  padding: 5px;
+}
+
 
