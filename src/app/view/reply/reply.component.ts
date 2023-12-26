@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { PRIMENG_MODULES } from "../../share/primeng";
 import { comment } from "../../share/data/comment";
 import { NgClass, NgForOf, NgIf } from "@angular/common";
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { MessageService } from "primeng/api";
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
+import { ConfirmationService, MessageService } from "primeng/api";
 
 @Component({
   selector: 'app-reply',
@@ -18,40 +18,29 @@ import { MessageService } from "primeng/api";
   ],
   templateUrl: './reply.component.html',
   styleUrl: './reply.component.scss',
-  providers: [MessageService]
+  providers: [ConfirmationService, MessageService]
 })
 export class ReplyComponent implements OnInit {
   comment_output = comment;
-  word_limit = [
-    { label: '30字', value: 30 },
-    { label: '50字', value: 50 },
-    { label: '100字', value: 100 },
-    { label: '150字', value: 150 },
-  ];
-  reply_count = [
-    { label: '10則', value: 10 },
-    { label: '30則', value: 30 },
-    { label: '50則', value: 50 },
-    { label: '100則', value: 100 },
-  ];
-  method: any;
   selectArticleDialog: boolean = false;
   colSize: string = 'col-3';
-
+  errorShown: boolean = false;
+  requiredError: boolean = false;
 
   description_form: FormGroup;
 
   constructor(
     private fb: FormBuilder,
+    private confirmationService: ConfirmationService,
     private messageService: MessageService
   ) {
     this.description_form = this.fb.group({
-      source: [''],
-      article: [''],
-      reply_count: [10],
-      word_limit: [30],
+      source: ['', Validators.required],
+      article: ['', Validators.required],
+      reply_count: [10, Validators.required],
+      word_limit: [30, Validators.required],
       //回文風格
-      random: [0],
+      random: [0, Validators.required],
       professional: [0],
       humorous: [0],
       sarcastic: [0],
@@ -70,33 +59,33 @@ export class ReplyComponent implements OnInit {
     });
   }
 
-  replySliderStep(reply_count: any) {
-    switch (reply_count) {
-      case 10:
-        return 20;
-      case 30:
-        return 20;
-      case 50:
-        return 50;
-      case 100:
-        return 50;
-      default:
-        return 10;
-    }
+  confirm() {
+    this.confirmationService.confirm({
+      header: '確定內容了嗎?',
+      message: '確認您的內容描述無誤，再繼續，或返回檢查。',
+      accept: () => {
+        this.replyOutput();
+      },
+      reject: () => {
+
+      }
+    });
   }
 
-  wordSliderStep(word_limit: any) {
-    switch (word_limit) {
-      case 30:
-        return 20;
-      case 50:
-        return 50;
-      case 100:
-        return 50;
-      case 150:
-        return 50;
-      default:
-        return 100;
+  replyOutput() {
+    if (this.description_form.valid) {
+      const formValue = this.description_form.value;
+      const total = formValue.random + formValue.professional + formValue.humorous + formValue.sarcastic + formValue.support;
+      const replyCount = formValue.reply_count;
+      if (total < replyCount) {
+        formValue.random = replyCount - total;
+      }
+      const jsonValue = JSON.stringify(formValue);
+      console.log(jsonValue);
+      this.messageService.add({ severity: 'info', summary: '確認', detail: '回文產生中，請稍候', life: 3000 });
+    } else {
+      this.requiredError = true;
+      this.messageService.add({ severity: 'error', summary: '錯誤訊息', detail: '表單未填寫完畢', life: 3000 });
     }
   }
 
@@ -104,9 +93,13 @@ export class ReplyComponent implements OnInit {
     const total = values.random + values.professional + values.humorous + values.sarcastic + values.support;
     const replyCount = this.description_form.controls['reply_count'].value;
     if (total > replyCount) {
-      this.messageService.add({severity:'error', summary:'錯誤訊息', detail:'超過設定的回文數量'});
+      if (!this.errorShown) {
+        this.messageService.add({ severity: 'error', summary: '錯誤訊息', detail: '超過設定的回文數量', sticky: true });
+        this.errorShown = true;
+      }
     } else if (total < replyCount) {
-      this.description_form.controls['random'].setValue(replyCount - total);
+      this.errorShown = false;
+      this.messageService.clear();
     }
   }
 

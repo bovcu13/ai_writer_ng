@@ -21,7 +21,11 @@
         <div class="grid">
           <div class="col-12">
             <div class="field">
-              <label class="text-sm font-medium">選擇回文文章</label>
+              <label class="text-sm font-medium">
+                選擇回文文章
+                <span *ngIf="!description_form.controls['article'].value && requiredError"
+                      class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
+              </label>
               <div class="flex gap-2">
                 <div class="flex align-items-center">
                   <p-radioButton name="source" formControlName="source"
@@ -57,17 +61,10 @@
                        [style.left.%]="(description_form.controls['reply_count'].value - 10) / (100 - 10) * 87">{{ description_form.controls['reply_count'].value }}
                   則</label>
                 <p-slider formControlName="reply_count"
-                          [step]="replySliderStep(description_form.controls['reply_count'].value)"
+                          [step]="30"
                           [min]="10"
                           [max]="100"></p-slider>
               </div>
-<!--              <p-dropdown [options]="reply_count"-->
-<!--                          formControlName="reply_count"-->
-<!--                          optionLabel="label"-->
-<!--                          optionValue="value"-->
-<!--                          placeholder="回文數量"-->
-<!--                          styleClass="w-full border-round-3xl bg-blue-50"-->
-<!--                          appendTo="body"></p-dropdown>-->
             </div>
           </div>
           <div [ngClass]="{'col-6': colSize === 'col-5', 'col-12': colSize === 'col-3'}">
@@ -79,17 +76,10 @@
                        [style.left.%]="(description_form.controls['word_limit'].value - 30) / (150 - 30) * 87">{{ description_form.controls['word_limit'].value }}
                   字</label>
                 <p-slider formControlName="word_limit"
-                          [step]="wordSliderStep(description_form.controls['word_limit'].value)"
+                          [step]="30"
                           [min]="30"
                           [max]="150"></p-slider>
               </div>
-<!--              <p-dropdown [options]="word_limit"-->
-<!--                          formControlName="word_limit"-->
-<!--                          optionLabel="label"-->
-<!--                          optionValue="value"-->
-<!--                          placeholder="字數限制"-->
-<!--                          styleClass="w-full border-round-3xl bg-blue-50"-->
-<!--                          appendTo="body"></p-dropdown>-->
             </div>
           </div>
           <div class="col-12">
@@ -179,7 +169,9 @@
           <div class="col-12">
             <div class="flex justify-content-center gap-4">
               <p-button label="回文生成"
-                        [rounded]="true" [raised]="true"
+                        (click)="confirm()"
+                        [rounded]="true"
+                        [raised]="true"
                         size="small" styleClass="text-xs"
                         severity="help"></p-button>
             </div>
@@ -231,19 +223,44 @@
   </div>
 </div>
 
-<p-dialog header="{{description_form.controls['source'].value}}" [modal]="true" [(visible)]="selectArticleDialog" [style]="{width: '50vw'}">
-  @if (description_form.controls['source'].value === '由生成文章') {
-
-  } @else {
-    <div class="field">
-      <label class="text-sm font-medium">請提供文章內容</label>
-      <br>
-      <textarea rows="15"
-                class="w-full text-sm border-none bg-blue-50"
-                style="resize: none; overflow: auto;"
-                pInputTextarea></textarea>
+<p-confirmDialog #cd>
+  <ng-template pTemplate="headless" let-message>
+    <div class="flex flex-column align-items-center p-5 surface-overlay border-round">
+      <div class="bg-purple-600 border-circle inline-flex justify-content-center align-items-center h-6rem w-6rem -mt-8"
+      >
+        <i class="pi pi-question text-5xl text-white"></i>
+      </div>
+      <span class="font-bold text-2xl block mb-2 mt-4">{{ message.header }}</span>
+      <p class="mb-0">{{ message.message }}</p>
+      <div class="flex align-items-center gap-2 mt-4">
+        <p-button label="取消" (click)="cd.reject()"
+                  [outlined]="true" styleClass="w-8rem" severity="danger"></p-button>
+        <p-button label="確定" (click)="cd.accept()"
+                  styleClass="w-8rem" severity="help"></p-button>
+      </div>
     </div>
-  }
+  </ng-template>
+</p-confirmDialog>
+
+<p-dialog header="{{description_form.controls['source'].value}}" [modal]="true" [(visible)]="selectArticleDialog"
+          [style]="{width: '50vw'}">
+  <form [formGroup]="description_form">
+    @if (description_form.controls['source'].value === '由生成文章') {
+
+    } @else {
+
+      <div class="field">
+        <label class="text-sm font-medium">請提供文章內容</label>
+        <br>
+        <textarea formControlName="article"
+                  rows="15"
+                  class="w-full text-sm border-none bg-blue-50"
+                  style="resize: none; overflow: auto;"
+                  pInputTextarea></textarea>
+      </div>
+
+    }
+  </form>
   <div class="flex justify-content-end mt-5 gap-3">
     <p-button label="取消"
               (click)="selectArticleDialog = false" [outlined]="true"

@@ -29,6 +29,7 @@ import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { ChipModule } from 'primeng/chip';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 
 export const PRIMENG_MODULES = [
@@ -62,5 +63,6 @@ export const PRIMENG_MODULES = [
   AvatarModule,
   AvatarGroupModule,
   ChipModule,
-  OverlayPanelModule
+  OverlayPanelModule,
+  ConfirmDialogModule
 ];

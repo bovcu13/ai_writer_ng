@@ -116,7 +116,7 @@
               <br>
               <div class="slider-container">
                 <label class="slider-label text-xs"
-                       [style.left.%]="(minAge - 0) / (100 - 0) * 87">{{ minAge }}歲</label>
+                       [style.left.%]="(minAge - 0) / (100 - 0) * 82">{{ minAge }}歲</label>
                 <p-slider formControlName="age"
                           (onChange)="ageSliderChange($event)"
                           [min]="0"
@@ -124,7 +124,7 @@
                           [animate]="true"
                           [range]="true"></p-slider>
                 <label class="slider-label text-xs"
-                       [style.left.%]="(maxAge - 0) / (100 - 0) * 87">{{ maxAge }}歲</label>
+                       [style.left.%]="(maxAge - 0) / (100 - 0) * 82">{{ maxAge }}歲</label>
               </div>
             </div>
           </div>
@@ -208,7 +208,7 @@
               <br>
               <div class="slider-container">
                 <label class="slider-label text-xs"
-                       [style.left.%]="(description_form.controls['word_limit'].value - 100) / (1000 - 100) * 87">{{ description_form.controls['word_limit'].value }}
+                       [style.left.%]="(description_form.controls['word_limit'].value - 100) / (1000 - 100) * 82">{{ description_form.controls['word_limit'].value }}
                   字</label>
                 <p-slider formControlName="word_limit"
                           [step]="wordSliderStep(description_form.controls['word_limit'].value)"
