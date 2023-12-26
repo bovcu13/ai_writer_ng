@@ -21,7 +21,11 @@
         <div class="grid">
           <div class="col-12">
             <div class="field">
-              <label class="text-sm font-medium">內容形式選擇</label>
+              <label class="text-sm font-medium">
+                內容形式選擇
+                <span *ngIf="!description_form.controls['content'].value && requiredError"
+                      class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
+              </label>
               <br>
               <p-dropdown [options]="content"
                           formControlName="content"
@@ -35,23 +39,32 @@
           <div class="grid">
             <div [ngClass]="{'col-6': colSize === 'col-5', 'col-12': colSize === 'col-3'}">
               <div class="field">
-                <label class="text-sm font-medium">論壇選擇</label>
+                <label class="text-sm font-medium">
+                  論壇選擇
+                  <span *ngIf="!description_form.controls['forum'].value && requiredError"
+                        class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
+                </label>
                 <br>
                 <p-dropdown [options]="forum"
                             formControlName="forum"
                             (onChange)="getTypes()"
-                            placeholder="平台選擇"
+                            placeholder="論壇選擇"
                             styleClass="w-full border-round-3xl bg-blue-50"
                             appendTo="body"></p-dropdown>
               </div>
             </div>
             <div [ngClass]="{'col-6': colSize === 'col-5', 'col-12': colSize === 'col-3'}">
               <div class="field">
-                <label class="text-sm font-medium">文章版位</label>
+                <label class="text-sm font-medium">
+                  文章版位
+                  <span *ngIf="!description_form.controls['board'].value && requiredError"
+                        class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
+                </label>
                 <br>
                 <p-dropdown [options]="board"
                             formControlName="board"
                             placeholder="文章版位"
+                            emptyMessage="請先選擇論壇"
                             styleClass="w-full border-round-3xl bg-blue-50"
                             appendTo="body"></p-dropdown>
               </div>
@@ -101,7 +114,11 @@
           </div>
           <div [ngClass]="{'col-6': colSize === 'col-5', 'col-12': colSize === 'col-3'}">
             <div class="field">
-              <label class="text-sm font-medium">性別</label>
+              <label class="text-sm font-medium">
+                性別
+                <span *ngIf="!description_form.controls['gender'].value && requiredError"
+                      class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
+              </label>
               <br>
               <p-dropdown [options]="gender"
                           formControlName="gender"
@@ -116,7 +133,7 @@
               <br>
               <div class="slider-container">
                 <label class="slider-label text-xs"
-                       [style.left.%]="(minAge - 0) / (100 - 0) * 87">{{ minAge }}歲</label>
+                       [style.left.%]="(minAge - 0) / (100 - 0) * 82">{{ minAge }}歲</label>
                 <p-slider formControlName="age"
                           (onChange)="ageSliderChange($event)"
                           [min]="0"
@@ -124,7 +141,7 @@
                           [animate]="true"
                           [range]="true"></p-slider>
                 <label class="slider-label text-xs"
-                       [style.left.%]="(maxAge - 0) / (100 - 0) * 87">{{ maxAge }}歲</label>
+                       [style.left.%]="(maxAge - 0) / (100 - 0) * 82">{{ maxAge }}歲</label>
               </div>
             </div>
           </div>
@@ -152,21 +169,33 @@
           </div>
           <div class="col-12">
             <div class="field">
-              <label class="text-sm font-medium">產品名稱</label>
+              <label class="text-sm font-medium">
+                產品名稱
+                <span *ngIf="!description_form.controls['product_name'].value && requiredError"
+                      class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
+              </label>
               <input formControlName="product_name"
                      class="w-full bg-blue-50" type="text" pInputText/>
             </div>
           </div>
           <div class="col-12">
             <div class="field">
-              <label class="text-sm font-medium">產品功能</label>
+              <label class="text-sm font-medium">
+                產品功能
+                <span *ngIf="!description_form.controls['product_feature'].value && requiredError"
+                      class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
+              </label>
               <textarea formControlName="product_feature"
                         rows="5" class="w-full bg-blue-50" pInputTextarea></textarea>
             </div>
           </div>
           <div class="col-12">
             <div class="field">
-              <label class="text-sm font-medium">產品特點及市場差異性</label>
+              <label class="text-sm font-medium">
+                產品特點及市場差異性
+                <span *ngIf="!description_form.controls['product_highlights'].value && requiredError"
+                      class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
+              </label>
               <textarea formControlName="product_highlights"
                         rows="5" class="w-full bg-blue-50" pInputTextarea></textarea>
             </div>
@@ -197,7 +226,11 @@
           </div>
           <div class="col-12">
             <div class="field">
-              <label class="text-sm font-medium">文章標題 *</label>
+              <label class="text-sm font-medium">
+                文章標題
+                <span *ngIf="!description_form.controls['title'].value && requiredError"
+                      class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
+              </label>
               <input formControlName="title"
                      class="w-full bg-blue-50" type="text" pInputText/>
             </div>
@@ -208,18 +241,13 @@
               <br>
               <div class="slider-container">
                 <label class="slider-label text-xs"
-                       [style.left.%]="(description_form.controls['word_limit'].value - 100) / (1000 - 100) * 87">{{ description_form.controls['word_limit'].value }}
+                       [style.left.%]="(description_form.controls['word_limit'].value - 100) / (1000 - 100) * 82">{{ description_form.controls['word_limit'].value }}
                   字</label>
                 <p-slider formControlName="word_limit"
-                          [step]="wordSliderStep(description_form.controls['word_limit'].value)"
+                          [step]="300"
                           [min]="100"
                           [max]="1000"></p-slider>
               </div>
-              <!--              <p-dropdown [options]="word_limit"-->
-              <!--                          formControlName="word_limit"-->
-              <!--                          placeholder="字數限制"-->
-              <!--                          styleClass="w-full border-round-3xl bg-blue-50"-->
-              <!--                          appendTo="body"></p-dropdown>-->
             </div>
           </div>
           <div [ngClass]="{'col-6': colSize === 'col-5', 'col-12': colSize === 'col-3'}">
@@ -234,17 +262,18 @@
               <label class="text-sm font-medium">口碑/故事切角</label>
               <textarea formControlName="story"
                         rows="5"
-                        class="w-full bg-blue-50" placeholder="提示內容" pInputTextarea></textarea>
+                        class="w-full bg-blue-50" placeholder="輸入內容或點擊按鈕由AI生成" pInputTextarea></textarea>
             </div>
           </div>
           <div class="col-12">
             <div class="flex justify-content-center gap-4">
               <p-button label="口碑/故事切角生成"
-                        (click)="openDemoDialog()"
+                        (click)="confirm()"
                         [rounded]="true" [raised]="true"
                         size="small" styleClass="text-xs"
                         severity="help"></p-button>
               <p-button label="文章生成"
+                        (click)="confirm2()"
                         [rounded]="true" [raised]="true"
                         size="small" styleClass="text-xs"
                         severity="help"></p-button>
@@ -399,3 +428,23 @@
               severity="help"></p-button>
   </div>
 </p-dialog>
+
+<p-confirmDialog #cd>
+  <ng-template pTemplate="headless" let-message>
+    <div class="flex flex-column align-items-center p-5 surface-overlay border-round">
+      <div class="bg-purple-600 border-circle inline-flex justify-content-center align-items-center h-6rem w-6rem -mt-8"
+      >
+        <i class="pi pi-question text-5xl text-white"></i>
+      </div>
+      <span class="font-bold text-2xl block mb-2 mt-4">{{ message.header }}</span>
+      <p class="mb-0">{{ message.message }}</p>
+      <div class="flex align-items-center gap-2 mt-4">
+        <p-button label="取消" (click)="cd.reject()"
+                  [outlined]="true" styleClass="w-8rem" severity="danger"></p-button>
+        <p-button label="確定" (click)="cd.accept()"
+                  styleClass="w-8rem" severity="help"></p-button>
+      </div>
+    </div>
+  </ng-template>
+</p-confirmDialog>
+

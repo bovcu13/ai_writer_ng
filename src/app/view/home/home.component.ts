@@ -1,9 +1,9 @@
 import { PRIMENG_MODULES } from "../../share/primeng";
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { NgClass, NgForOf, NgIf } from "@angular/common";
 import { pk } from "../../share/data/pk";
-import { MessageService } from "primeng/api";
+import { ConfirmationService, MessageService } from "primeng/api";
 
 @Component({
   selector: 'app-home',
@@ -18,13 +18,12 @@ import { MessageService } from "primeng/api";
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
-  providers: [MessageService]
+  providers: [ConfirmationService, MessageService]
 })
 export class HomeComponent implements OnInit {
   pk = pk;
   content = ['論壇', '新聞稿', '部落格', '社群貼文', '廣告文案'];
   forum = ['Dcard', 'Mobile01', 'PTT',];
-  word_limit = [100, 300, 600, 1000];
   board: any[] = [];
   dcard_board = ['美妝', '感情', '閒聊', '健康', '美食', '旅遊'];
   mobile01_board = ['閒聊與趣味', '兩性與感情', '女人心事', '投資理財綜合', '機車消費經驗分享'];
@@ -36,6 +35,10 @@ export class HomeComponent implements OnInit {
   comparative_dialog: boolean = false;
   demo_dialog: boolean = false;
   colSize: string = 'col-3';
+  activeOverlay: any;
+  minAge: number = 20;
+  maxAge: number = 45;
+  requiredError: boolean = false;
   story_output = [
     {
       id: 1,
@@ -50,40 +53,37 @@ export class HomeComponent implements OnInit {
       content: '口碑故事3'
     }
   ]
-  selected_story: any;
-  activeOverlay: any;
-  minAge: number = 20;
-  maxAge: number = 45;
 
   description_form: FormGroup;
 
   constructor(
     private fb: FormBuilder,
+    private confirmationService: ConfirmationService,
     private messageService: MessageService
   ) {
     this.description_form = this.fb.group({
-      content: ['論壇'],
+      content: ['論壇', Validators.required],
       // 選擇論壇 - 第一層描述
-      forum: [''],
-      word_limit: [100],
-      board: [''],
+      forum: ['', Validators.required],
+      board: ['', Validators.required],
       type: [''],
       style: [''],
       sponsorship: [''],
       // 人物設定
-      gender: [''],
+      gender: ['', Validators.required],
       age: [0],
       from_age: [''],
       to_age: [''],
       character_trait: [''],
       character_remarks: [''],
       //產品資訊
-      product_name: [''],
-      product_feature: [''],
-      product_highlights: [''],
-      comparative: [''],
+      product_name: ['', Validators.required],
+      product_feature: ['', Validators.required],
+      product_highlights: ['', Validators.required],
+      comparative: [false],
       //文章資訊
-      title: [''],
+      title: ['', Validators.required],
+      word_limit: [100],
       key_message: [''],
       story: [''],
       //文章生成
@@ -107,18 +107,58 @@ export class HomeComponent implements OnInit {
     this.description_form.controls['age'].setValue([20, 45]);
   }
 
-  wordSliderStep(word_limit: any) {
-    switch (word_limit) {
-      case 100:
-        return 200;
-      case 300:
-        return 300;
-      case 600:
-        return 400;
-      case 1000:
-        return 400;
-      default:
-        return 100;
+  confirm() {
+    if (this.description_form.controls['story'].value == '') {
+      this.confirmationService.confirm({
+        header: '確定內容了嗎?',
+        message: '確認後將產生三篇切角示範文章，請確認您的內容描述無誤。',
+        accept: () => {
+          if (this.isFormCompleted()) {
+            this.messageService.add({ severity: 'info', summary: '確認', detail: '回文產生中，請稍候', life: 3000 });
+            setTimeout(() => {
+              this.openDemoDialog();
+            }, 3000); // 3秒後打開
+          }
+        },
+        reject: () => {
+
+        }
+      });
+    } else {
+      this.openDemoDialog();
+    }
+  }
+
+  confirm2() {
+    this.confirmationService.confirm({
+      header: '確定內容了嗎?',
+      message: '確認您的內容描述無誤，再繼續，或返回檢查。',
+      accept: () => {
+        if (this.isFormCompleted()) {
+          this.messageService.add({ severity: 'info', summary: '確認', detail: '回文產生中，請稍候', life: 3000 });
+        }
+      },
+      reject: () => {
+
+      }
+    });
+  }
+
+  isFormCompleted(): boolean {
+    if (this.description_form.valid) {
+      const formValue = this.description_form.value;
+      const total = formValue.random + formValue.professional + formValue.humorous + formValue.sarcastic + formValue.support;
+      const replyCount = formValue.reply_count;
+      if (total < replyCount) {
+        formValue.random = replyCount - total;
+      }
+      const jsonValue = JSON.stringify(formValue);
+      console.log(jsonValue);
+      return true;
+    } else {
+      this.requiredError = true;
+      this.messageService.add({ severity: 'error', summary: '錯誤訊息', detail: '表單未填寫完畢', life: 3000 });
+      return false;
     }
   }
 
@@ -129,7 +169,7 @@ export class HomeComponent implements OnInit {
 
   addOverlay(story: any) {
     this.activeOverlay = story.id;
-    this.selected_story = story.content;
+    this.description_form.controls['story'].setValue(story.content);
   }
 
   countText(text: any): number {

@@ -1,1 +1,27 @@
-<p>profile works!</p>
+<p-card styleClass="bg-white-alpha-80" [style]="{height: '82vh'}">
+  <div class="flex flex-column gap-2 p-4 border-round bg-blue-50 overflow-y-scroll" [style]="{height: '76vh'}">
+    <div class="col-12">
+      <span class="text-2xl font-bold">帳號設定</span>
+    </div>
+    <div class="col-12">
+      <span class="text-lg font-bold">個人資料</span>
+    </div>
+    <div class="col-12">
+      <div class="field">
+        <label class="text-sm font-medium">帳號（信箱）</label>
+        <input value="Sien" class="w-full bg-blue-50" type="text" pInputText/>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="field">
+        <label class="text-sm font-medium">顯示名稱</label>
+        <input value="Anya Forger" class="w-full bg-blue-50" type="text" pInputText/>
+      </div>
+    </div>
+    <div class="col-12">
+      <p-button label="保存設定"
+                severity="help"
+                styleClass="text-sm w-full h-2rem"></p-button>
+    </div>
+  </div>
+</p-card>
