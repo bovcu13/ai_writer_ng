@@ -1,27 +1,30 @@
+::ng-deep{
+  .p-card .p-card-content {
+    padding: 0;
+  }
+}
+
 .username {
   font-weight: bold;
 }
 
 .username:hover {
   text-decoration: underline;
-  text-decoration-color: white;
   cursor: pointer;
 }
 
 .menu-item {
-  font-weight: 400;
+  font-weight: 500;
   padding: 6px;
   border-radius: 6px;
-  color: white;
-  font-size: 14px;
 
   &:hover {
-    background: rgba(#EDE6ED, 0.2);
+    background: rgba(#EDE6ED, 0.8);
     cursor: pointer;
   }
 
   &.active {
-    background: rgba(#EDE6ED, 0.2);
+    background: rgba(#EDE6ED, 0.8);
     font-weight: 700;
   }
 }
