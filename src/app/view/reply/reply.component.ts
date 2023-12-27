@@ -114,13 +114,13 @@ export class ReplyComponent implements OnInit {
   getChipColor(style: any) {
     switch (style) {
       case "專業評論":
-        return 'text-xs bg-blue-100';
+        return 'text-xs bg-indigo-600 text-white';
       case "幽默有趣":
-        return 'text-xs bg-green-100';
+        return 'text-xs bg-indigo-700 text-white';
       case "嘲諷酸":
-        return 'text-xs bg-yellow-100';
+        return 'text-xs bg-indigo-800 text-white';
       case "跟風支持":
-        return 'text-xs bg-indigo-100';
+        return 'text-xs bg-indigo-900 text-white';
       default:
         return 'text-xs';
     }
