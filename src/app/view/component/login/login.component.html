@@ -1,19 +1,25 @@
 <div class="col-12 h-screen flex justify-content-center align-items-center">
-  <div class="col-4 border-round-left-2xl shadow-4" style="background: #E26EE5; height: 80vh"></div>
+  <div class="col-4 border-round-left-2xl shadow-4" style="background: #b8c1ec; height: 80vh"></div>
   <div class="col-4 border-round-right-2xl shadow-4 flex justify-content-center align-items-center"
-       style="background: #F3F8FF; height: 80vh">
+       style="background: #fffffe; height: 80vh">
     <div class="col-10 flex flex-column align-items-center gap-5">
       <span class="p-float-label w-15rem">
-        <input class="w-15rem" pInputText/>
-        <label class="flex gap-2 align-items-center"><span class="text-xs pi pi-user"></span>帳號</label>
+        <input class="w-15rem" [style]="{color: '#232946'}" pInputText/>
+        <label class="flex gap-2 align-items-center">
+          <span class="text-xs pi pi-user"></span>
+          帳號
+        </label>
       </span>
       <span class="p-float-label w-15rem">
-        <input class="w-15rem" pInputText/>
-        <label class="flex gap-2 align-items-center"><span class="text-xs pi pi-key"></span>密碼</label>
+        <input class="w-15rem" [style]="{color: '#232946'}" pInputText/>
+        <label class="flex gap-2 align-items-center">
+          <span class="text-xs pi pi-key"></span>
+          密碼
+        </label>
       </span>
       <p-button label="登入" routerLink="/home"
                 styleClass="text-sm border-none w-15rem h-2rem"
-                [style]="{background: '#E26EE5'}"></p-button>
+                [style]="{background: '#eebbc3', color: '#232946'}"></p-button>
     </div>
   </div>
 </div>

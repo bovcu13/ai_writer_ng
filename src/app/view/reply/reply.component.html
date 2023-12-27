@@ -171,9 +171,10 @@
               <p-button label="回文生成"
                         (click)="confirm()"
                         [rounded]="true"
-                        [raised]="true"
-                        size="small" styleClass="text-xs"
-                        severity="help"></p-button>
+                        size="small"
+                        styleClass="text-xs border-none"
+                        severity="help"
+                        [style]="{background: '#232946', color: '#b8c1ec'}"></p-button>
             </div>
           </div>
         </div>
@@ -181,18 +182,17 @@
     </p-card>
   </div>
   <div class="col-5">
-    <p-card styleClass="bg-white-alpha-80" [style]="{height: '82vh'}">
+    <p-card styleClass="bg-white-alpha-80 overflow-y-auto" [style]="{height: '82vh'}">
       <div class="flex flex-column gap-3">
         <div class="flex flex-column gap-2 p-4 border-round bg-blue-50">
           <span class="text-2xl font-bold">怪客口碑</span>
           <p-table [value]="comment_output"
-                   [scrollable]="true"
-                   scrollHeight="63vh">
+                   [scrollable]="true">
             <ng-template pTemplate="body" let-comment>
               <tr style="background: transparent">
                 <td style="background: transparent">
-                  <div class="flex align-items-start gap-3">
-                    <p-avatar label="{{comment.id}}" styleClass="text-xs" shape="circle"></p-avatar>
+                  <div class="flex align-items-center gap-3">
+                    <label class="text-xs">{{comment.id}}.</label>
                     <div class="flex flex-column gap-2  w-full">
                       <div class="flex align-items-start">
                         <div class="justify-content-start">
