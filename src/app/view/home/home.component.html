@@ -269,14 +269,18 @@
             <div class="flex justify-content-center gap-4">
               <p-button label="口碑/故事切角生成"
                         (click)="confirm()"
-                        [rounded]="true" [raised]="true"
-                        size="small" styleClass="text-xs"
-                        severity="help"></p-button>
+                        [rounded]="true"
+                        size="small"
+                        styleClass="text-xs border-none"
+                        severity="help"
+                        [style]="{background: '#232946', color: '#b8c1ec'}"></p-button>
               <p-button label="文章生成"
                         (click)="confirm2()"
-                        [rounded]="true" [raised]="true"
-                        size="small" styleClass="text-xs"
-                        severity="help"></p-button>
+                        [rounded]="true"
+                        size="small"
+                        styleClass="text-xs border-none"
+                        severity="help"
+                        [style]="{background: '#232946', color: '#b8c1ec'}"></p-button>
             </div>
           </div>
         </div>
@@ -305,14 +309,15 @@
           <div class="flex align-items-start">
             <div class="flex flex-column gap-2">
               <p-fileUpload mode="basic" chooseLabel="相關圖上傳"
-                            styleClass="text-sm bg-indigo-500 border-round-3xl"
+                            styleClass="text-sm border-none border-round-3xl"
                             name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php"
                             accept="image/*"
                             chooseIcon="text-sm pi pi-plus"
                             [maxFileSize]="1000000"
                             [multiple]="true"
                             [showCancelButton]="true"
-                            [showUploadButton]="true"></p-fileUpload>
+                            [showUploadButton]="true"
+                            [style]="{background: '#232946', color: '#b8c1ec'}"></p-fileUpload>
             </div>
             <div class="ml-auto p-3 border-round bg-white-alpha-50">
               <span class="text-xs">為此回應評分</span>
