@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PRIMENG_MODULES } from "../../../share/primeng";
 
 @Component({
@@ -10,5 +10,16 @@ import { PRIMENG_MODULES } from "../../../share/primeng";
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
+
+  register: boolean = false;
+
+    constructor() { }
+
+    ngOnInit(): void {
+    }
+
+    showRegister() {
+      this.register = true;
+    }
 }
