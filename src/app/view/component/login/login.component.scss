@@ -1,0 +1,176 @@
+// Colors
+$color-1: #E91E63;
+$color-2: #03A9F4;
+$color-3: #2ecc71;
+$black: #000;
+
+$base-duration: 1200ms;
+
+.btn {
+  position: relative;
+  padding: 0.6em 2.5em;
+  display: inline-block;
+  border-radius: 6px;
+  transition: all .2s;
+  border: none;
+  font-weight: 500;
+  background: #232946;
+  color: #b8c1ec;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(#b8c1ec, 0.3);
+}
+
+.btn:active {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 10px rgba(#b8c1ec, 0.2);
+}
+
+.btn::after {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  transition: all .4s;
+}
+
+.btn::after {
+  background-color: rgba(#232946, 0.4);
+}
+
+.btn:hover::after {
+  transform: scaleX(1.4) scaleY(1.6);
+  opacity: 0;
+}
+
+.bg-image {
+  background-image: url("/assets/img/myedit_ai_image_1228133823.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.tit1 {
+  position: absolute;
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 32px;
+  font-weight: 900;
+  top: 92%;
+  right: 10%;
+  color: rgba($color-1, 0.6);
+  animation: distort1 $base-duration linear infinite;
+}
+
+.tit2 {
+  position: absolute;
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 32px;
+  font-weight: 900;
+  top: 88%;
+  right: 10%;
+  color: rgba($color-2, 0.6);
+  animation: distort2 $base-duration linear infinite;
+}
+
+.title {
+  position: absolute;
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 32px;
+  font-weight: 900;
+  top: 90%;
+  right: 10%;
+}
+
+.reg {
+  color: #232946;
+  font-weight: bold;
+
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline; /* 當滑鼠懸停時，添加下劃線 */
+  }
+}
+
+@keyframes distort1 {
+  0% {
+    top: 89.5%;
+    right: 9.5%;
+  }
+  12.5% {
+    top: 89.5%;
+    right: 10%;
+  }
+  25% {
+    top: 89.5%;
+    right: 10.5%;
+  }
+  37.5% {
+    top: 90%;
+    right: 10.5%;
+  }
+  50% {
+    top: 90.5%;
+    right: 10.5%;
+  }
+  62.5% {
+    top: 90.5%;
+    right: 10%;
+  }
+  75% {
+    top: 90.5%;
+    right: 9.5%;
+  }
+  87.5% {
+    top: 90%;
+    right: 9.5%;
+  }
+  100% {
+    top: 89.5%;
+    right: 9.5%;
+  }
+}
+
+@keyframes distort2 {
+  0% {
+    top: 90.5%;
+    right: 10.5%;
+  }
+  12.5% {
+    top: 90%;
+    right: 10.5%;
+  }
+  25% {
+    top: 89.5%;
+    right: 10.5%;
+  }
+  37.5% {
+    top: 89.5%;
+    right: 10%;
+  }
+  50% {
+    top: 89.5%;
+    right: 9.5%;
+  }
+  62.5% {
+    top: 90%;
+    right: 9.5%;
+  }
+  75% {
+    top: 90.5%;
+    right: 9.5%;
+  }
+  87.5% {
+    top: 90.5%;
+    right: 10%;
+  }
+  100% {
+    top: 90.5%;
+    right: 10.5%;
+  }
+}
