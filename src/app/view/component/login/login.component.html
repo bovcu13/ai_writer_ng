@@ -28,9 +28,38 @@
         </label>
       </span>
       <div class="flex flex-column align-items-center gap-2">
-      <button class="btn w-15rem" routerLink="/home"> 登入</button>
-      <span class="text-xs text-900">還沒有帳號嗎？<span class="reg"> 註冊</span></span>
+        <button class="btn w-15rem" routerLink="/home">登入</button>
+        <span class="text-xs text-900">還沒有帳號嗎？<span class="reg" (click)="showRegister()"> 註冊</span></span>
       </div>
     </div>
   </div>
 </div>
+
+<p-dialog header="註冊" styleClass="flip animation-duration-500"
+          [(visible)]="register" [modal]="true" [style]="{ width: '35vw' }" [draggable]="false" [resizable]="false">
+  <div class="col-12 flex flex-column align-items-center gap-5"
+       style="z-index: 999">
+      <span class="mt-3 p-float-label w-15rem">
+        <input class="w-15rem" [style]="{color: '#232946'}" pInputText/>
+        <label class="flex gap-2 align-items-center">
+          <span class="text-xs fa-solid fa-signature"></span>
+          姓名
+        </label>
+      </span>
+    <span class="p-float-label w-15rem">
+        <input class="w-15rem" [style]="{color: '#232946'}" pInputText/>
+        <label class="flex gap-2 align-items-center">
+          <span class="text-xs pi pi-envelope"></span>
+          帳號信箱
+        </label>
+      </span>
+    <span class="p-float-label w-15rem">
+        <input class="w-15rem" [style]="{color: '#232946'}" pInputText/>
+        <label class="flex gap-2 align-items-center">
+          <span class="text-xs pi pi-key"></span>
+          密碼
+        </label>
+      </span>
+    <button class="btn w-15rem" routerLink="/home">註冊</button>
+  </div>
+</p-dialog>

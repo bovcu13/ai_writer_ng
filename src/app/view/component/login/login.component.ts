@@ -12,8 +12,14 @@ import { PRIMENG_MODULES } from "../../../share/primeng";
 })
 export class LoginComponent implements OnInit {
 
+  register: boolean = false;
+
     constructor() { }
 
     ngOnInit(): void {
+    }
+
+    showRegister() {
+      this.register = true;
     }
 }
