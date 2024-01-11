@@ -30,7 +30,7 @@
               <p-dropdown [options]="content"
                           formControlName="content"
                           placeholder="內容形式選擇"
-                          styleClass="input-bg input-bg w-full border-round-3xl"
+                          styleClass="gradient-bg gradient-bg w-full border-round-3xl"
                           appendTo="body"></p-dropdown>
             </div>
           </div>
@@ -49,7 +49,7 @@
                             formControlName="forum"
                             (onChange)="getTypes()"
                             placeholder="論壇選擇"
-                            styleClass="input-bg w-full border-round-3xl"
+                            styleClass="gradient-bg w-full border-round-3xl"
                             appendTo="body"></p-dropdown>
               </div>
             </div>
@@ -65,7 +65,7 @@
                             formControlName="board"
                             placeholder="文章版位"
                             emptyMessage="請先選擇論壇"
-                            styleClass="input-bg w-full border-round-3xl"
+                            styleClass="gradient-bg w-full border-round-3xl"
                             appendTo="body"></p-dropdown>
               </div>
             </div>
@@ -76,7 +76,7 @@
                 <p-dropdown [options]="type"
                             formControlName="type"
                             placeholder="文章類型"
-                            styleClass="input-bg w-full border-round-3xl"
+                            styleClass="gradient-bg w-full border-round-3xl"
                             appendTo="body"></p-dropdown>
               </div>
             </div>
@@ -87,7 +87,7 @@
                 <p-dropdown [options]="style"
                             formControlName="style"
                             placeholder="文章風格"
-                            styleClass="input-bg w-full border-round-3xl"
+                            styleClass="gradient-bg w-full border-round-3xl"
                             appendTo="body"></p-dropdown>
               </div>
             </div>
@@ -98,7 +98,7 @@
                 <p-dropdown [options]="sponsorship"
                             formControlName="sponsorship"
                             placeholder="業配程度"
-                            styleClass="input-bg w-full border-round-3xl"
+                            styleClass="gradient-bg w-full border-round-3xl"
                             appendTo="body"></p-dropdown>
               </div>
             </div>
@@ -123,7 +123,7 @@
               <p-dropdown [options]="gender"
                           formControlName="gender"
                           placeholder="性別"
-                          styleClass="input-bg w-full border-round-3xl"
+                          styleClass="gradient-bg w-full border-round-3xl"
                           appendTo="body"></p-dropdown>
             </div>
           </div>
@@ -149,14 +149,14 @@
             <div class="field">
               <label class="text-sm font-medium text-white">特性</label>
               <input formControlName="character_trait"
-                     class="input-bg w-full" type="text" pInputText/>
+                     class="gradient-bg w-full" type="text" pInputText/>
             </div>
           </div>
           <div class="col-12">
             <div class="field">
               <label class="text-sm font-medium text-white">其他細部描述</label>
               <textarea formControlName="character_remarks"
-                        rows="5" class="input-bg w-full" pInputTextarea></textarea>
+                        rows="5" class="gradient-bg w-full" pInputTextarea></textarea>
             </div>
           </div>
           <div class="col-12">
@@ -175,7 +175,7 @@
                       class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
               </label>
               <input formControlName="product_name"
-                     class="input-bg w-full" type="text" pInputText/>
+                     class="gradient-bg w-full" type="text" pInputText/>
             </div>
           </div>
           <div class="col-12">
@@ -186,7 +186,7 @@
                       class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
               </label>
               <textarea formControlName="product_feature"
-                        rows="5" class="input-bg w-full" pInputTextarea></textarea>
+                        rows="5" class="gradient-bg w-full" pInputTextarea></textarea>
             </div>
           </div>
           <div class="col-12">
@@ -197,7 +197,7 @@
                       class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
               </label>
               <textarea formControlName="product_highlights"
-                        rows="5" class="input-bg w-full" pInputTextarea></textarea>
+                        rows="5" class="gradient-bg w-full" pInputTextarea></textarea>
             </div>
           </div>
           <div class="col-12">
@@ -232,7 +232,7 @@
                       class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
               </label>
               <input formControlName="title"
-                     class="input-bg w-full" type="text" pInputText/>
+                     class="gradient-bg w-full" type="text" pInputText/>
             </div>
           </div>
           <div [ngClass]="{'col-6': colSize === 'col-5', 'col-12': colSize === 'col-3'}">
@@ -254,7 +254,7 @@
             <div class="field">
               <label class="text-sm font-medium text-white">帶給閱聽眾關鍵訊息</label>
               <input formControlName="key_message"
-                     class="input-bg w-full" type="text" pInputText/>
+                     class="gradient-bg w-full" type="text" pInputText/>
             </div>
           </div>
           <div class="col-12">
@@ -262,7 +262,7 @@
               <label class="text-sm font-medium text-white">口碑/故事切角</label>
               <textarea formControlName="story"
                         rows="5"
-                        class="input-bg w-full" placeholder="輸入內容或點擊按鈕由AI生成" pInputTextarea></textarea>
+                        class="gradient-bg w-full" placeholder="輸入內容或點擊按鈕由AI生成" pInputTextarea></textarea>
             </div>
           </div>
           <div class="col-12">
@@ -294,7 +294,7 @@
           <div class="flex flex-column gap-2 p-4 border-round">
             <span class="text-2xl font-bold text-white">怪客口碑</span>
             <textarea formControlName="article_output"
-                      class="inner_content output-bg w-full text-sm border-none" rows="15"
+                      class="inner_content gradient-bg w-full text-sm border-none" rows="15"
                       style="resize: none; overflow: auto;"
                       pInputTextarea>
           </textarea>

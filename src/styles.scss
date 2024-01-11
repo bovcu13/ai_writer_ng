@@ -28,13 +28,20 @@ textarea::-webkit-input-placeholder {
   background-color: rgba(10, 0, 99, 0.5);
 }
 
-.input-bg {
+.gradient-bg {
   background: linear-gradient(90deg, rgba(85, 114, 245, 0.5) 0%, rgba(62, 216, 221, 0.5) 100%);
   border: none;
 }
 
-.output-bg {
-  background: linear-gradient(90deg, rgba(85, 114, 245, 0.5) 0%, rgba(62, 216, 221, 0.5) 100%);
+.full-gradient-bg {
+  background: linear-gradient(90deg, rgba(85, 114, 245, 1) 0%, rgba(62, 216, 221, 1) 100%);
+  border: none;
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, rgba(85, 114, 245, 1) 0%, rgba(62, 216, 221, 1) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .p-inputtext {
