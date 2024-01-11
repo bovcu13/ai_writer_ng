@@ -1,11 +1,11 @@
 <p-toast></p-toast>
 <div class="flex justify-content-center align-items-center h-full">
   <div [class]="colSize">
-    <p-card styleClass="bg-white-alpha-80 overflow-y-scroll" [style]="{height: '82vh'}">
+    <p-card styleClass="inner_content bg-c overflow-y-scroll" [style]="{height: '82vh'}">
       <ng-template pTemplate="header">
         <div class="flex align-items-center p-3">
           <div class="mr-auto">
-            <span class="text-xl font-bold">怪客口碑</span>
+            <span class="text-xl font-bold text-white">怪客口碑</span>
           </div>
           <div class="flex justify-content-end">
             <p-button icon="text-xs pi pi-chevron-right" [text]="true" severity="help"
@@ -21,7 +21,7 @@
         <div class="grid">
           <div class="col-12">
             <div class="field">
-              <label class="text-sm font-medium">
+              <label class="text-sm font-medium text-white">
                 內容形式選擇
                 <span *ngIf="!description_form.controls['content'].value && requiredError"
                       class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
@@ -30,7 +30,7 @@
               <p-dropdown [options]="content"
                           formControlName="content"
                           placeholder="內容形式選擇"
-                          styleClass="w-full border-round-3xl bg-blue-50"
+                          styleClass="input-bg input-bg w-full border-round-3xl"
                           appendTo="body"></p-dropdown>
             </div>
           </div>
@@ -39,7 +39,7 @@
           <div class="grid">
             <div [ngClass]="{'col-6': colSize === 'col-5', 'col-12': colSize === 'col-3'}">
               <div class="field">
-                <label class="text-sm font-medium">
+                <label class="text-sm font-medium text-white">
                   論壇選擇
                   <span *ngIf="!description_form.controls['forum'].value && requiredError"
                         class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
@@ -49,13 +49,13 @@
                             formControlName="forum"
                             (onChange)="getTypes()"
                             placeholder="論壇選擇"
-                            styleClass="w-full border-round-3xl bg-blue-50"
+                            styleClass="input-bg w-full border-round-3xl"
                             appendTo="body"></p-dropdown>
               </div>
             </div>
             <div [ngClass]="{'col-6': colSize === 'col-5', 'col-12': colSize === 'col-3'}">
               <div class="field">
-                <label class="text-sm font-medium">
+                <label class="text-sm font-medium text-white">
                   文章版位
                   <span *ngIf="!description_form.controls['board'].value && requiredError"
                         class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
@@ -65,40 +65,40 @@
                             formControlName="board"
                             placeholder="文章版位"
                             emptyMessage="請先選擇論壇"
-                            styleClass="w-full border-round-3xl bg-blue-50"
+                            styleClass="input-bg w-full border-round-3xl"
                             appendTo="body"></p-dropdown>
               </div>
             </div>
             <div [ngClass]="{'col-6': colSize === 'col-5', 'col-12': colSize === 'col-3'}">
               <div class="field">
-                <label class="text-sm font-medium">文章類型</label>
+                <label class="text-sm font-medium text-white">文章類型</label>
                 <br>
                 <p-dropdown [options]="type"
                             formControlName="type"
                             placeholder="文章類型"
-                            styleClass="w-full border-round-3xl bg-blue-50"
+                            styleClass="input-bg w-full border-round-3xl"
                             appendTo="body"></p-dropdown>
               </div>
             </div>
             <div [ngClass]="{'col-6': colSize === 'col-5', 'col-12': colSize === 'col-3'}">
               <div class="field">
-                <label class="text-sm font-medium">文章風格</label>
+                <label class="text-sm font-medium text-white">文章風格</label>
                 <br>
                 <p-dropdown [options]="style"
                             formControlName="style"
                             placeholder="文章風格"
-                            styleClass="w-full border-round-3xl bg-blue-50"
+                            styleClass="input-bg w-full border-round-3xl"
                             appendTo="body"></p-dropdown>
               </div>
             </div>
             <div [ngClass]="{'col-6': colSize === 'col-5', 'col-12': colSize === 'col-3'}">
               <div class="field">
-                <label class="text-sm font-medium">業配程度</label>
+                <label class="text-sm font-medium text-white">業配程度</label>
                 <br>
                 <p-dropdown [options]="sponsorship"
                             formControlName="sponsorship"
                             placeholder="業配程度"
-                            styleClass="w-full border-round-3xl bg-blue-50"
+                            styleClass="input-bg w-full border-round-3xl"
                             appendTo="body"></p-dropdown>
               </div>
             </div>
@@ -109,12 +109,12 @@
           <div class="col-12">
             <div class="field">
               <p-divider></p-divider>
-              <label class="font-medium">人物設定</label>
+              <label class="font-medium text-white">人物設定</label>
             </div>
           </div>
           <div [ngClass]="{'col-6': colSize === 'col-5', 'col-12': colSize === 'col-3'}">
             <div class="field">
-              <label class="text-sm font-medium">
+              <label class="text-sm font-medium text-white">
                 性別
                 <span *ngIf="!description_form.controls['gender'].value && requiredError"
                       class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
@@ -123,13 +123,13 @@
               <p-dropdown [options]="gender"
                           formControlName="gender"
                           placeholder="性別"
-                          styleClass="w-full border-round-3xl bg-blue-50"
+                          styleClass="input-bg w-full border-round-3xl"
                           appendTo="body"></p-dropdown>
             </div>
           </div>
           <div [ngClass]="{'col-6': colSize === 'col-5', 'col-12': colSize === 'col-3'}">
             <div class="field">
-              <label class="text-sm font-medium">年齡</label>
+              <label class="text-sm font-medium text-white">年齡</label>
               <br>
               <div class="slider-container">
                 <label class="slider-label text-xs"
@@ -147,67 +147,67 @@
           </div>
           <div class="col-12">
             <div class="field">
-              <label class="text-sm font-medium">特性</label>
+              <label class="text-sm font-medium text-white">特性</label>
               <input formControlName="character_trait"
-                     class="w-full bg-blue-50" type="text" pInputText/>
+                     class="input-bg w-full" type="text" pInputText/>
             </div>
           </div>
           <div class="col-12">
             <div class="field">
-              <label class="text-sm font-medium">其他細部描述</label>
+              <label class="text-sm font-medium text-white">其他細部描述</label>
               <textarea formControlName="character_remarks"
-                        rows="5" class="w-full bg-blue-50" pInputTextarea></textarea>
+                        rows="5" class="input-bg w-full" pInputTextarea></textarea>
             </div>
           </div>
           <div class="col-12">
             <div class="field">
               <p-divider></p-divider>
-              <label class="font-medium">產品資訊 *</label>
+              <label class="font-medium text-white">產品資訊 *</label>
               <br>
-              <label class="text-sm">(必填，請盡可能把提及產品名稱、功能、特點描述寫清楚)</label>
+              <label class="text-sm text-white">(必填，請盡可能把提及產品名稱、功能、特點描述寫清楚)</label>
             </div>
           </div>
           <div class="col-12">
             <div class="field">
-              <label class="text-sm font-medium">
+              <label class="text-sm font-medium text-white">
                 產品名稱
                 <span *ngIf="!description_form.controls['product_name'].value && requiredError"
                       class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
               </label>
               <input formControlName="product_name"
-                     class="w-full bg-blue-50" type="text" pInputText/>
+                     class="input-bg w-full" type="text" pInputText/>
             </div>
           </div>
           <div class="col-12">
             <div class="field">
-              <label class="text-sm font-medium">
+              <label class="text-sm font-medium text-white">
                 產品功能
                 <span *ngIf="!description_form.controls['product_feature'].value && requiredError"
                       class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
               </label>
               <textarea formControlName="product_feature"
-                        rows="5" class="w-full bg-blue-50" pInputTextarea></textarea>
+                        rows="5" class="input-bg w-full" pInputTextarea></textarea>
             </div>
           </div>
           <div class="col-12">
             <div class="field">
-              <label class="text-sm font-medium">
+              <label class="text-sm font-medium text-white">
                 產品特點及市場差異性
                 <span *ngIf="!description_form.controls['product_highlights'].value && requiredError"
                       class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
               </label>
               <textarea formControlName="product_highlights"
-                        rows="5" class="w-full bg-blue-50" pInputTextarea></textarea>
+                        rows="5" class="input-bg w-full" pInputTextarea></textarea>
             </div>
           </div>
           <div class="col-12">
             <div class="field">
-              <label class="text-sm font-medium">是否出現與競品比較內容</label>
+              <label class="text-sm font-medium text-white">是否出現與競品比較內容</label>
               <div class="flex gap-3">
                 <div class="flex align-items-center">
                   <p-radioButton formControlName="comparative" name="comparative"
                                  [value]="true" (onClick)="comparative_dialog = true"></p-radioButton>
-                  <label class="ml-2">是</label>
+                  <label class="ml-2 text-white">是</label>
                   <p-button *ngIf="description_form.controls['comparative'].value"
                             (click)="openComparativeDialog()" [text]="true"
                             icon="text-xs pi pi-external-link"
@@ -216,7 +216,7 @@
                 </div>
                 <div class="flex align-items-center">
                   <p-radioButton [value]="false" formControlName="comparative" name="comparative"></p-radioButton>
-                  <label class="ml-2">否</label>
+                  <label class="ml-2 text-white">否</label>
                 </div>
               </div>
             </div>
@@ -226,18 +226,18 @@
           </div>
           <div class="col-12">
             <div class="field">
-              <label class="text-sm font-medium">
+              <label class="text-sm font-medium text-white">
                 文章標題
                 <span *ngIf="!description_form.controls['title'].value && requiredError"
                       class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
               </label>
               <input formControlName="title"
-                     class="w-full bg-blue-50" type="text" pInputText/>
+                     class="input-bg w-full" type="text" pInputText/>
             </div>
           </div>
           <div [ngClass]="{'col-6': colSize === 'col-5', 'col-12': colSize === 'col-3'}">
             <div class="field">
-              <label class="text-sm font-medium">字數限制</label>
+              <label class="text-sm font-medium text-white">字數限制</label>
               <br>
               <div class="slider-container">
                 <label class="slider-label text-xs"
@@ -252,17 +252,17 @@
           </div>
           <div [ngClass]="{'col-6': colSize === 'col-5', 'col-12': colSize === 'col-3'}">
             <div class="field">
-              <label class="text-sm font-medium">帶給閱聽眾關鍵訊息</label>
+              <label class="text-sm font-medium text-white">帶給閱聽眾關鍵訊息</label>
               <input formControlName="key_message"
-                     class="w-full bg-blue-50" type="text" pInputText/>
+                     class="input-bg w-full" type="text" pInputText/>
             </div>
           </div>
           <div class="col-12">
             <div class="field">
-              <label class="text-sm font-medium">口碑/故事切角</label>
+              <label class="text-sm font-medium text-white">口碑/故事切角</label>
               <textarea formControlName="story"
                         rows="5"
-                        class="w-full bg-blue-50" placeholder="輸入內容或點擊按鈕由AI生成" pInputTextarea></textarea>
+                        class="input-bg w-full" placeholder="輸入內容或點擊按鈕由AI生成" pInputTextarea></textarea>
             </div>
           </div>
           <div class="col-12">
@@ -288,13 +288,13 @@
     </p-card>
   </div>
   <div class="col-5">
-    <p-card styleClass="bg-white-alpha-80" [style]="{height: '82vh'}">
+    <p-card styleClass="bg-c" [style]="{height: '82vh'}">
       <form [formGroup]="description_form">
         <div class="flex flex-column gap-3">
-          <div class="flex flex-column gap-2 p-4 border-round bg-blue-50">
-            <span class="text-2xl font-bold">怪客口碑</span>
+          <div class="flex flex-column gap-2 p-4 border-round">
+            <span class="text-2xl font-bold text-white">怪客口碑</span>
             <textarea formControlName="article_output"
-                      class="w-full text-sm border-none bg-blue-50" rows="15"
+                      class="inner_content output-bg w-full text-sm border-none" rows="15"
                       style="resize: none; overflow: auto;"
                       pInputTextarea>
           </textarea>
@@ -322,7 +322,7 @@
             <div class="ml-auto p-3 border-round bg-white-alpha-50">
               <span class="text-xs">為此回應評分</span>
               <div class="flex align-items-center gap-3 mt-2">
-                <span class="text-sm font-medium">文章分數</span>
+                <span class="text-sm font-medium text-white">文章分數</span>
                 <p-rating formControlName="rating" [cancel]="false"
                           iconOnClass="text-indigo-900 pi pi-star-fill"></p-rating>
               </div>
@@ -407,10 +407,10 @@
 <p-dialog header="切角示範文章" [(visible)]="demo_dialog" [modal]="true" [style]="{width: '70vw'}">
   <div class="flex justify-content-center">
     <div *ngFor="let story of story_output" class="col-4" style="position: relative" (click)="addOverlay(story)">
-      <div class="flex flex-column gap-2 p-4 border-round bg-blue-50">
+      <div class="flex flex-column gap-2 p-4 border-round">
         <span class="text-lgl font-bold">切角示範 {{ story.id }}</span>
         <textarea [(ngModel)]="story.content"
-                  class="w-full text-sm border-none bg-blue-50 select-input" rows="15"
+                  class="w-full text-sm border-none select-input" rows="15"
                   style="resize: none; overflow: auto;"
                   pInputTextarea>
         </textarea>
