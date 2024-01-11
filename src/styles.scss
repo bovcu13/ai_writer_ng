@@ -70,3 +70,13 @@ textarea::-webkit-input-placeholder {
   border-radius: 999em;
   background: rgba(10, 0, 99, 0.3);
 }
+
+.p-radiobutton .p-radiobutton-box {
+  border: none;
+  background: linear-gradient(90deg, rgba(85, 114, 245, 1) 0%, rgba(62, 216, 221, 1) 100%);
+  width: 22px;
+  height: 22px;
+  color: #4b5563;
+  border-radius: 50%;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
