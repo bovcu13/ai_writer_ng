@@ -82,16 +82,17 @@
 .speech-bubble:after {
   content: '';
   position: absolute;
-  right: 0;
-  top: 50%;
-  width: 0;
-  height: 0;
-  border: 51px solid transparent;
-  border-left-color: rgba(255, 255, 255, 0.5);
-  border-right: 0;
-  border-top: 0;
-  margin-top: -25.5px;
-  margin-right: -51px;
+  left: 100%;
+  top: 0px;
+  width: 22px;
+  height: 31px;
+  border-width: 0;
+  border-style: solid;
+  border-color: transparent;
+  border-bottom-width: 12px;
+  border-bottom-color: currentColor;
+  border-radius: 0 0 62px 0;
+  color: rgba(255, 255, 255, 0.5);
 }
 
 @media (max-width: 600px) {

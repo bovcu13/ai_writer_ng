@@ -329,13 +329,10 @@
             <p-image src="assets/img/ai_robot02.svg" alt="Image"></p-image>
           </div>
           <div class="flex justify-content-center mt-5">
-            <div class="speech-bubble p-3 border-round">
-              <span class="text-xs">為此回應評分</span>
-              <div class="flex align-items-center gap-3 mt-2">
-                <span class="text-sm font-medium text-white">文章分數</span>
-                <p-rating formControlName="rating" [cancel]="false"
-                          iconOnClass="text-indigo-900 pi pi-star-fill"></p-rating>
-              </div>
+            <div class="speech-bubble flex flex-column align-items-center gap-3 p-3 border-round">
+              <span class="text-lg">這篇文章是否符合你的需求？</span>
+              <p-rating formControlName="rating" [cancel]="false"
+                        iconOnClass="text-indigo-900 pi pi-star-fill"></p-rating>
             </div>
           </div>
         </div>
