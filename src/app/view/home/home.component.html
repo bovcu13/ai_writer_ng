@@ -1,318 +1,306 @@
 <p-toast></p-toast>
-<div class="flex justify-content-center align-items-center h-full">
-  <div [class]="colSize" style="">
-    <p-card styleClass="bg-c" [style]="{height: '82vh', position: 'relative'}">
-      <!--      <div class="flex align-items-center p-3">-->
-      <!--        <div class="mr-auto">-->
-      <!--          <span class="text-xl font-bold text-white">怪客口碑</span>-->
-      <!--        </div>-->
-      <!--        <div class="flex justify-content-end">-->
-      <!--          <p-button icon="text-xs pi pi-chevron-right" [text]="true" severity="help"-->
-      <!--                    (click)="changeColSize()" *ngIf="colSize === 'col-3'"-->
-      <!--                    size="small"></p-button>-->
-      <!--          <p-button icon="text-xs pi pi-chevron-left" [text]="true" severity="help"-->
-      <!--                    (click)="changeColSize()" *ngIf="colSize === 'col-5'"-->
-      <!--                    size="small"></p-button>-->
-      <!--        </div>-->
-      <!--      </div>-->
-      <div class="" style="position: relative">
-        <img src="assets/img/ai_title.svg" width="300" alt="QPlan.Ai"
-             style="position: absolute; right: 30px"/>
-        <img src="assets/img/ai_robot01.svg" width="250" alt=""
-             style="position: absolute; top:-40px; z-index: 999"/>
-
-        <div class="flex flex-column gap-3 p-3 border-round overflow-y-auto inner_content"
-             style="height: 60vh; position: absolute; top: 100px;">
-          <div class="gradient-bg border-round p-3 text-white">
-            <div class="flex align-items-end">
-              <div class="mr-auto">
-                <h3>口碑創作者</h3>
-                <h2>Anya Forger</h2>
-              </div>
-              <div class="flex justify-content-end">
-                <p>
-                  <i class="fa-regular fa-gem"></i>10/一篇文
-                </p>
+<div class="grid flex justify-content-center align-items-center h-full">
+  <div class="col-12 md:col-12 lg:col-4">
+    <p-card styleClass="bg-c" [style]="{height: '82vh'}">
+      <div style="height: 100px; position: relative">
+        <div class="title">
+          <p-image src="assets/img/ai_title.svg" alt="Image"></p-image>
+        </div>
+        <div class="robot01">
+          <p-image src="assets/img/ai_robot01.svg" alt="Image"></p-image>
+        </div>
+      </div>
+      <div class="flex flex-column gap-3 p-3 border-round overflow-y-auto inner_content"
+           style="height: calc(82vh - 140px)">
+        <div class="gradient-bg border-round p-3 text-white">
+          <div class="flex align-items-end">
+            <div class="mr-auto">
+              <h3>口碑創作者</h3>
+              <h2>Anya Forger</h2>
+            </div>
+            <div class="flex justify-content-end">
+              <p>
+                <i class="fa-regular fa-gem"></i>10/一篇文
+              </p>
+            </div>
+          </div>
+        </div>
+        <form [formGroup]="description_form">
+          <div class="grid">
+            <div class="col-12">
+              <div class="field">
+                <label class="text-sm font-medium text-white">
+                  內容形式選擇
+                  <span *ngIf="!description_form.controls['content'].value && requiredError"
+                        class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
+                </label>
+                <br>
+                <p-dropdown [options]="content"
+                            formControlName="content"
+                            placeholder="內容形式選擇"
+                            styleClass="gradient-bg gradient-bg w-full border-round-3xl"
+                            appendTo="body"></p-dropdown>
               </div>
             </div>
           </div>
-          <form [formGroup]="description_form">
+          <ng-container *ngIf="description_form.controls['content'].value === '論壇'">
             <div class="grid">
               <div class="col-12">
                 <div class="field">
                   <label class="text-sm font-medium text-white">
-                    內容形式選擇
-                    <span *ngIf="!description_form.controls['content'].value && requiredError"
+                    論壇選擇
+                    <span *ngIf="!description_form.controls['forum'].value && requiredError"
                           class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
                   </label>
                   <br>
-                  <p-dropdown [options]="content"
-                              formControlName="content"
-                              placeholder="內容形式選擇"
-                              styleClass="gradient-bg gradient-bg w-full border-round-3xl"
-                              appendTo="body"></p-dropdown>
-                </div>
-              </div>
-            </div>
-            <ng-container *ngIf="description_form.controls['content'].value === '論壇'">
-              <div class="grid">
-                <div [ngClass]="{'col-6': colSize === 'col-5', 'col-12': colSize === 'col-3'}">
-                  <div class="field">
-                    <label class="text-sm font-medium text-white">
-                      論壇選擇
-                      <span *ngIf="!description_form.controls['forum'].value && requiredError"
-                            class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
-                    </label>
-                    <br>
-                    <p-dropdown [options]="forum"
-                                formControlName="forum"
-                                (onChange)="getTypes()"
-                                placeholder="論壇選擇"
-                                styleClass="gradient-bg w-full border-round-3xl"
-                                appendTo="body"></p-dropdown>
-                  </div>
-                </div>
-                <div [ngClass]="{'col-6': colSize === 'col-5', 'col-12': colSize === 'col-3'}">
-                  <div class="field">
-                    <label class="text-sm font-medium text-white">
-                      文章版位
-                      <span *ngIf="!description_form.controls['board'].value && requiredError"
-                            class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
-                    </label>
-                    <br>
-                    <p-dropdown [options]="board"
-                                formControlName="board"
-                                placeholder="文章版位"
-                                emptyMessage="請先選擇論壇"
-                                styleClass="gradient-bg w-full border-round-3xl"
-                                appendTo="body"></p-dropdown>
-                  </div>
-                </div>
-                <div [ngClass]="{'col-6': colSize === 'col-5', 'col-12': colSize === 'col-3'}">
-                  <div class="field">
-                    <label class="text-sm font-medium text-white">文章類型</label>
-                    <br>
-                    <p-dropdown [options]="type"
-                                formControlName="type"
-                                placeholder="文章類型"
-                                styleClass="gradient-bg w-full border-round-3xl"
-                                appendTo="body"></p-dropdown>
-                  </div>
-                </div>
-                <div [ngClass]="{'col-6': colSize === 'col-5', 'col-12': colSize === 'col-3'}">
-                  <div class="field">
-                    <label class="text-sm font-medium text-white">文章風格</label>
-                    <br>
-                    <p-dropdown [options]="style"
-                                formControlName="style"
-                                placeholder="文章風格"
-                                styleClass="gradient-bg w-full border-round-3xl"
-                                appendTo="body"></p-dropdown>
-                  </div>
-                </div>
-                <div class="col-12">
-                  <div class="field">
-                    <label class="text-sm font-medium text-white">業配程度</label>
-                    <br>
-                    <p-dropdown [options]="sponsorship"
-                                formControlName="sponsorship"
-                                placeholder="業配程度"
-                                styleClass="gradient-bg w-full border-round-3xl"
-                                appendTo="body"></p-dropdown>
-                  </div>
-                </div>
-              </div>
-            </ng-container>
-            <!--通用-->
-            <div class="grid">
-              <div class="col-12">
-                <div class="field">
-                  <p-divider></p-divider>
-                  <label class="font-medium text-white">人物設定</label>
-                </div>
-              </div>
-              <div [ngClass]="{'col-6': colSize === 'col-5', 'col-12': colSize === 'col-3'}">
-                <div class="field">
-                  <label class="text-sm font-medium text-white">
-                    性別
-                    <span *ngIf="!description_form.controls['gender'].value && requiredError"
-                          class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
-                  </label>
-                  <br>
-                  <p-dropdown [options]="gender"
-                              formControlName="gender"
-                              placeholder="性別"
+                  <p-dropdown [options]="forum"
+                              formControlName="forum"
+                              (onChange)="getTypes()"
+                              placeholder="論壇選擇"
                               styleClass="gradient-bg w-full border-round-3xl"
                               appendTo="body"></p-dropdown>
                 </div>
               </div>
-              <div [ngClass]="{'col-6': colSize === 'col-5', 'col-12': colSize === 'col-3'}">
+              <div class="col-12">
                 <div class="field">
-                  <label class="text-sm font-medium text-white">年齡</label>
+                  <label class="text-sm font-medium text-white">
+                    文章版位
+                    <span *ngIf="!description_form.controls['board'].value && requiredError"
+                          class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
+                  </label>
                   <br>
-                  <div class="slider-container">
-                    <label class="slider-label text-xs"
-                           [style.left.%]="(minAge - 0) / (100 - 0) * 82">{{ minAge }}歲</label>
-                    <p-slider formControlName="age"
-                              (onChange)="ageSliderChange($event)"
-                              [min]="0"
-                              [max]="100"
-                              [animate]="true"
-                              [range]="true"></p-slider>
-                    <label class="slider-label text-xs"
-                           [style.left.%]="(maxAge - 0) / (100 - 0) * 82">{{ maxAge }}歲</label>
-                  </div>
+                  <p-dropdown [options]="board"
+                              formControlName="board"
+                              placeholder="文章版位"
+                              emptyMessage="請先選擇論壇"
+                              styleClass="gradient-bg w-full border-round-3xl"
+                              appendTo="body"></p-dropdown>
                 </div>
               </div>
               <div class="col-12">
                 <div class="field">
-                  <label class="text-sm font-medium text-white">特性</label>
-                  <input formControlName="character_trait"
-                         class="gradient-bg w-full" type="text" pInputText/>
-                </div>
-              </div>
-              <div class="col-12">
-                <div class="field">
-                  <label class="text-sm font-medium text-white">其他細部描述</label>
-                  <textarea formControlName="character_remarks"
-                            rows="5" class="gradient-bg w-full" pInputTextarea></textarea>
-                </div>
-              </div>
-              <div class="col-12">
-                <div class="field">
-                  <p-divider></p-divider>
-                  <label class="font-medium text-white">產品資訊 *</label>
+                  <label class="text-sm font-medium text-white">文章類型</label>
                   <br>
-                  <label class="text-sm text-white">(必填，請盡可能把提及產品名稱、功能、特點描述寫清楚)</label>
+                  <p-dropdown [options]="type"
+                              formControlName="type"
+                              placeholder="文章類型"
+                              styleClass="gradient-bg w-full border-round-3xl"
+                              appendTo="body"></p-dropdown>
                 </div>
               </div>
               <div class="col-12">
                 <div class="field">
-                  <label class="text-sm font-medium text-white">
-                    產品名稱
-                    <span *ngIf="!description_form.controls['product_name'].value && requiredError"
-                          class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
-                  </label>
-                  <input formControlName="product_name"
-                         class="gradient-bg w-full" type="text" pInputText/>
-                </div>
-              </div>
-              <div class="col-12">
-                <div class="field">
-                  <label class="text-sm font-medium text-white">
-                    產品功能
-                    <span *ngIf="!description_form.controls['product_feature'].value && requiredError"
-                          class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
-                  </label>
-                  <textarea formControlName="product_feature"
-                            rows="5" class="gradient-bg w-full" pInputTextarea></textarea>
-                </div>
-              </div>
-              <div class="col-12">
-                <div class="field">
-                  <label class="text-sm font-medium text-white">
-                    產品特點及市場差異性
-                    <span *ngIf="!description_form.controls['product_highlights'].value && requiredError"
-                          class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
-                  </label>
-                  <textarea formControlName="product_highlights"
-                            rows="5" class="gradient-bg w-full" pInputTextarea></textarea>
-                </div>
-              </div>
-              <div class="col-12">
-                <div class="field">
-                  <label class="text-sm font-medium text-white">是否出現與競品比較內容</label>
-                  <div class="flex gap-3">
-                    <div class="flex align-items-center">
-                      <p-radioButton formControlName="comparative" name="comparative"
-                                     [value]="true" (onClick)="comparative_dialog = true"></p-radioButton>
-                      <label class="ml-2 text-white">是</label>
-                      <p-button *ngIf="description_form.controls['comparative'].value"
-                                (click)="openComparativeDialog()" [text]="true"
-                                icon="text-xs pi pi-external-link"
-                                size="small" severity="help "
-                                styleClass="ml-3"></p-button>
-                    </div>
-                    <div class="flex align-items-center">
-                      <p-radioButton [value]="false" formControlName="comparative" name="comparative"></p-radioButton>
-                      <label class="ml-2 text-white">否</label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-12">
-                <p-divider></p-divider>
-              </div>
-              <div class="col-12">
-                <div class="field">
-                  <label class="text-sm font-medium text-white">
-                    文章標題
-                    <span *ngIf="!description_form.controls['title'].value && requiredError"
-                          class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
-                  </label>
-                  <input formControlName="title"
-                         class="gradient-bg w-full" type="text" pInputText/>
-                </div>
-              </div>
-              <div [ngClass]="{'col-6': colSize === 'col-5', 'col-12': colSize === 'col-3'}">
-                <div class="field">
-                  <label class="text-sm font-medium text-white">字數限制</label>
+                  <label class="text-sm font-medium text-white">文章風格</label>
                   <br>
-                  <div class="slider-container">
-                    <label class="slider-label text-xs"
-                           [style.left.%]="(description_form.controls['word_limit'].value - 100) / (1000 - 100) * 82">{{ description_form.controls['word_limit'].value }}
-                      字</label>
-                    <p-slider formControlName="word_limit"
-                              [step]="300"
-                              [min]="100"
-                              [max]="1000"></p-slider>
-                  </div>
-                </div>
-              </div>
-              <div [ngClass]="{'col-6': colSize === 'col-5', 'col-12': colSize === 'col-3'}">
-                <div class="field">
-                  <label class="text-sm font-medium text-white">帶給閱聽眾關鍵訊息</label>
-                  <input formControlName="key_message"
-                         class="gradient-bg w-full" type="text" pInputText/>
+                  <p-dropdown [options]="style"
+                              formControlName="style"
+                              placeholder="文章風格"
+                              styleClass="gradient-bg w-full border-round-3xl"
+                              appendTo="body"></p-dropdown>
                 </div>
               </div>
               <div class="col-12">
                 <div class="field">
-                  <label class="text-sm font-medium text-white">口碑/故事切角</label>
-                  <textarea formControlName="story"
-                            rows="5"
-                            class="gradient-bg w-full" placeholder="輸入內容或點擊按鈕由AI生成"
-                            pInputTextarea></textarea>
-                </div>
-              </div>
-              <div class="col-12">
-                <div class="flex flex-column gap-2">
-                  <p-button label="口碑/故事切角生成"
-                            (click)="confirm()"
-                            [rounded]="true"
-                            size="small"
-                            styleClass="full-gradient-bg w-full border-none"></p-button>
-                  <p-button label="文章生成"
-                            (click)="confirm2()"
-                            [rounded]="true"
-                            size="small"
-                            styleClass="full-gradient-bg w-full border-none"></p-button>
+                  <label class="text-sm font-medium text-white">業配程度</label>
+                  <br>
+                  <p-dropdown [options]="sponsorship"
+                              formControlName="sponsorship"
+                              placeholder="業配程度"
+                              styleClass="gradient-bg w-full border-round-3xl"
+                              appendTo="body"></p-dropdown>
                 </div>
               </div>
             </div>
-          </form>
-        </div>
+          </ng-container>
+          <!--通用-->
+          <div class="grid">
+            <div class="col-12">
+              <div class="field">
+                <p-divider></p-divider>
+                <label class="font-medium text-white">人物設定</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="field">
+                <label class="text-sm font-medium text-white">
+                  性別
+                  <span *ngIf="!description_form.controls['gender'].value && requiredError"
+                        class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
+                </label>
+                <br>
+                <p-dropdown [options]="gender"
+                            formControlName="gender"
+                            placeholder="性別"
+                            styleClass="gradient-bg w-full border-round-3xl"
+                            appendTo="body"></p-dropdown>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="field">
+                <label class="text-sm font-medium text-white">年齡</label>
+                <br>
+                <div class="slider-container">
+                  <label class="slider-label text-xs"
+                         [style.left.%]="(minAge - 0) / (100 - 0) * 82">{{ minAge }}歲</label>
+                  <p-slider formControlName="age"
+                            (onChange)="ageSliderChange($event)"
+                            [min]="0"
+                            [max]="100"
+                            [animate]="true"
+                            [range]="true"></p-slider>
+                  <label class="slider-label text-xs"
+                         [style.left.%]="(maxAge - 0) / (100 - 0) * 82">{{ maxAge }}歲</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="field">
+                <label class="text-sm font-medium text-white">特性</label>
+                <input formControlName="character_trait"
+                       class="gradient-bg w-full" type="text" pInputText/>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="field">
+                <label class="text-sm font-medium text-white">其他細部描述</label>
+                <textarea formControlName="character_remarks"
+                          rows="5" class="gradient-bg w-full" pInputTextarea></textarea>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="field">
+                <p-divider></p-divider>
+                <label class="font-medium text-white">產品資訊 *</label>
+                <br>
+                <label class="text-sm text-white">(必填，請盡可能把提及產品名稱、功能、特點描述寫清楚)</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="field">
+                <label class="text-sm font-medium text-white">
+                  產品名稱
+                  <span *ngIf="!description_form.controls['product_name'].value && requiredError"
+                        class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
+                </label>
+                <input formControlName="product_name"
+                       class="gradient-bg w-full" type="text" pInputText/>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="field">
+                <label class="text-sm font-medium text-white">
+                  產品功能
+                  <span *ngIf="!description_form.controls['product_feature'].value && requiredError"
+                        class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
+                </label>
+                <textarea formControlName="product_feature"
+                          rows="5" class="gradient-bg w-full" pInputTextarea></textarea>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="field">
+                <label class="text-sm font-medium text-white">
+                  產品特點及市場差異性
+                  <span *ngIf="!description_form.controls['product_highlights'].value && requiredError"
+                        class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
+                </label>
+                <textarea formControlName="product_highlights"
+                          rows="5" class="gradient-bg w-full" pInputTextarea></textarea>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="field">
+                <label class="text-sm font-medium text-white">是否出現與競品比較內容</label>
+                <div class="flex gap-3">
+                  <div class="flex align-items-center">
+                    <p-radioButton formControlName="comparative" name="comparative"
+                                   [value]="true" (onClick)="comparative_dialog = true"></p-radioButton>
+                    <label class="ml-2 text-white">是</label>
+                    <p-button *ngIf="description_form.controls['comparative'].value"
+                              (click)="openComparativeDialog()" [text]="true"
+                              icon="text-xs pi pi-external-link"
+                              size="small" severity="help "
+                              styleClass="ml-3"></p-button>
+                  </div>
+                  <div class="flex align-items-center">
+                    <p-radioButton [value]="false" formControlName="comparative" name="comparative"></p-radioButton>
+                    <label class="ml-2 text-white">否</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <p-divider></p-divider>
+            </div>
+            <div class="col-12">
+              <div class="field">
+                <label class="text-sm font-medium text-white">
+                  文章標題
+                  <span *ngIf="!description_form.controls['title'].value && requiredError"
+                        class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
+                </label>
+                <input formControlName="title"
+                       class="gradient-bg w-full" type="text" pInputText/>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="field">
+                <label class="text-sm font-medium text-white">字數限制</label>
+                <br>
+                <div class="slider-container">
+                  <label class="slider-label text-xs"
+                         [style.left.%]="(description_form.controls['word_limit'].value - 100) / (1000 - 100) * 82">{{ description_form.controls['word_limit'].value }}
+                    字</label>
+                  <p-slider formControlName="word_limit"
+                            [step]="300"
+                            [min]="100"
+                            [max]="1000"></p-slider>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="field">
+                <label class="text-sm font-medium text-white">帶給閱聽眾關鍵訊息</label>
+                <input formControlName="key_message"
+                       class="gradient-bg w-full" type="text" pInputText/>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="field">
+                <label class="text-sm font-medium text-white">口碑/故事切角</label>
+                <textarea formControlName="story"
+                          rows="5"
+                          class="gradient-bg w-full" placeholder="輸入內容或點擊按鈕由AI生成"
+                          pInputTextarea></textarea>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="flex flex-column gap-2">
+                <p-button label="口碑/故事切角生成"
+                          (click)="confirm()"
+                          [rounded]="true"
+                          size="small"
+                          styleClass="full-gradient-bg w-full border-none"></p-button>
+                <p-button label="文章生成"
+                          (click)="confirm2()"
+                          [rounded]="true"
+                          size="small"
+                          styleClass="full-gradient-bg w-full border-none"></p-button>
+              </div>
+            </div>
+          </div>
+        </form>
       </div>
     </p-card>
   </div>
-  <div class="col-5">
+  <div class="col-12 md:col-12 lg:col-6">
     <p-card styleClass="bg-c" [style]="{height: '82vh'}">
       <form [formGroup]="description_form">
-        <div class="flex flex-column gap-3">
+        <div class="flex flex-column gap-3" style="position: relative">
           <div class="flex flex-column gap-2 p-4 border-round gradient-bg">
             <span class="text-2xl font-bold text-white">怪客口碑</span>
             <textarea formControlName="article_output"
-                      class="inner_content w-full text-sm border-none" rows="15"
+                      class="inner_content w-full text-sm border-none" rows="10"
                       style="resize: none; overflow: auto; background: transparent"
                       pInputTextarea>
           </textarea>
@@ -321,24 +309,27 @@
                 class="text-xs text-white text-right">字數：{{ countText(description_form.controls['article_output'].value) }}</span>
             </div>
           </div>
-          <div class="flex align-items-start">
-            <div class="flex align-items-center gap-2">
-              <p-button (click)="copyArticleOutput()"
-                        label="複製文章"
-                        icon="pi pi-copy text-sm"
-                        styleClass="text-sm full-gradient-bg"
-                        [rounded]="true"></p-button>
-              <p-fileUpload mode="basic" chooseLabel="上傳圖片"
-                            styleClass="full-gradient-bg text-sm border-none border-round-3xl"
-                            name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php"
-                            accept="image/*"
-                            chooseIcon="pi pi-plus"
-                            [maxFileSize]="1000000"
-                            [multiple]="true"
-                            [showCancelButton]="true"
-                            [showUploadButton]="true"></p-fileUpload>
-            </div>
-            <div class="ml-auto p-3 border-round bg-white-alpha-50">
+          <div class="flex align-items-center gap-2">
+            <p-button (click)="copyArticleOutput()"
+                      label="複製文章"
+                      icon="pi pi-copy text-sm"
+                      styleClass="text-sm full-gradient-bg"
+                      [rounded]="true"></p-button>
+            <p-fileUpload mode="basic" chooseLabel="上傳圖片"
+                          styleClass="full-gradient-bg text-sm border-none border-round-3xl"
+                          name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php"
+                          accept="image/*"
+                          chooseIcon="pi pi-plus"
+                          [maxFileSize]="1000000"
+                          [multiple]="true"
+                          [showCancelButton]="true"
+                          [showUploadButton]="true"></p-fileUpload>
+          </div>
+          <div class="" style="position: absolute; width: 150px; right: 0; bottom: 0">
+            <p-image src="assets/img/ai_robot02.svg" alt="Image"></p-image>
+          </div>
+          <div class="flex justify-content-center mt-5">
+            <div class="speech-bubble p-3 border-round">
               <span class="text-xs">為此回應評分</span>
               <div class="flex align-items-center gap-3 mt-2">
                 <span class="text-sm font-medium text-white">文章分數</span>
