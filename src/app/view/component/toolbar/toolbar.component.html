@@ -30,55 +30,56 @@
         <span class="font-bold text-white">Anya Forger</span>
       </div>
     </p-button>
-    <p-overlayPanel #op>
-      <ng-template pTemplate="content">
-        <div class="flex flex-column gap-2" [style]="{width: '20vw'}">
-          <div class="flex align-items-center pr-4 pl-4 pt-2 pb-2 mt-3">
-            <div class="mr-auto">
-              <i class="text-gradient text-sm fa-regular fa-gem mr-2"></i>
-              <span class="text-sm font-medium text-blue-800">220</span>
-            </div>
-            <div class="flex justify-content-end">
-              <p-button label="訂閱"
-                        [rounded]="true"
-                        [raised]="true"
-                        [style]="{height: '4vh', width: '6vw'}"
-                        size="small"
-                        styleClass="full-gradient-bg text-xs"></p-button>
-            </div>
-          </div>
-          <div class="styled-box flex align-items-center gap-2 pr-4 pl-4 pt-2 pb-2">
-            <div class="flex align-items-center mr-auto gap-2">
-              <p-avatar image="https://scontent.xx.fbcdn.net/v/t1.15752-9/403632736_209874148745940_1652731190527561711_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=510075&_nc_ohc=aXMO3Dpxx_cAX80v9jj&_nc_oc=AQlrmG712RQgkk4QvUL9RxSg8TgLnfSJ3eA-wkZNs8jwqbfhWdBjL0nh0jGP7WjI9TskZc1NOrDIkBZnTr_yLQ7G&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdQx1oCSvxNB5D25p2pO5Z5WuW73z3-XYTneCw4DA8AWOQ&oe=65B0B8AA"
-                        shape="circle"/>
-              <span class="text-xs font-bold text-blue-800">Anya Forger</span>
-            </div>
-            <div class="flex justify-content-end">
-              <div class="full-gradient-bg text-xs text-white font-bold p-2 border-round-lg">
-                Pro
-              </div>
-            </div>
-          </div>
-          <div class="styled-box flex align-items-center gap-2 pr-4 pl-4 pt-2 pb-2" routerLink="/settings/profile">
-            <div class="w-1 text-center">
-              <i class="text-gradient fa-regular fa-user"></i>
-            </div>
-            <span class="text-sm text-blue-800">帳號/歷史紀錄</span>
-          </div>
-          <div class="styled-box flex align-items-center gap-2 pr-4 pl-4 pt-2 pb-2">
-            <div class="w-1 text-center">
-              <i class="text-gradient fa-regular fa-credit-card"></i>
-            </div>
-            <span class="text-sm text-blue-800">訂閱方案</span>
-          </div>
-          <div class="styled-box flex align-items-center gap-2 pr-4 pl-4 pt-2 pb-2 mb-3" routerLink="/">
-            <div class="w-1 text-center">
-              <i class="text-gradient fa-solid fa-arrow-right-from-bracket"></i>
-            </div>
-            <span class="text-sm text-blue-800">登出</span>
-          </div>
-        </div>
-      </ng-template>
-    </p-overlayPanel>
   </ng-template>
 </p-toolbar>
+
+<p-overlayPanel #op>
+  <ng-template pTemplate="content">
+    <div class="flex flex-column gap-2" [style]="{width: '20vw'}">
+      <div class="flex align-items-center pr-4 pl-4 pt-2 pb-2 mt-3">
+        <div class="mr-auto">
+          <i class="text-gradient text-sm fa-regular fa-gem mr-2"></i>
+          <span class="text-sm font-medium text-blue-800">220</span>
+        </div>
+        <div class="flex justify-content-end">
+          <p-button label="訂閱"
+                    [rounded]="true"
+                    [raised]="true"
+                    [style]="{height: '4vh', width: '6vw'}"
+                    size="small"
+                    styleClass="full-gradient-bg text-xs"></p-button>
+        </div>
+      </div>
+      <div class="styled-box flex align-items-center gap-2 pr-4 pl-4 pt-2 pb-2">
+        <div class="flex align-items-center mr-auto gap-2">
+          <p-avatar image="https://scontent.xx.fbcdn.net/v/t1.15752-9/403632736_209874148745940_1652731190527561711_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=510075&_nc_ohc=aXMO3Dpxx_cAX80v9jj&_nc_oc=AQlrmG712RQgkk4QvUL9RxSg8TgLnfSJ3eA-wkZNs8jwqbfhWdBjL0nh0jGP7WjI9TskZc1NOrDIkBZnTr_yLQ7G&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdQx1oCSvxNB5D25p2pO5Z5WuW73z3-XYTneCw4DA8AWOQ&oe=65B0B8AA"
+                    shape="circle"/>
+          <span class="text-xs font-bold text-blue-800">Anya Forger</span>
+        </div>
+        <div class="flex justify-content-end">
+          <div class="full-gradient-bg text-xs text-white font-bold p-2 border-round-lg">
+            Pro
+          </div>
+        </div>
+      </div>
+      <div class="styled-box flex align-items-center gap-2 pr-4 pl-4 pt-2 pb-2" routerLink="/settings/profile">
+        <div class="w-1 text-center">
+          <i class="text-gradient fa-regular fa-user"></i>
+        </div>
+        <span class="text-sm text-blue-800">帳號/歷史紀錄</span>
+      </div>
+      <div class="styled-box flex align-items-center gap-2 pr-4 pl-4 pt-2 pb-2">
+        <div class="w-1 text-center">
+          <i class="text-gradient fa-regular fa-credit-card"></i>
+        </div>
+        <span class="text-sm text-blue-800">訂閱方案</span>
+      </div>
+      <div class="styled-box flex align-items-center gap-2 pr-4 pl-4 pt-2 pb-2 mb-3" routerLink="/">
+        <div class="w-1 text-center">
+          <i class="text-gradient fa-solid fa-arrow-right-from-bracket"></i>
+        </div>
+        <span class="text-sm text-blue-800">登出</span>
+      </div>
+    </div>
+  </ng-template>
+</p-overlayPanel>

@@ -34,7 +34,6 @@ export class HomeComponent implements OnInit {
   gender = ['男', '女', '無性別'];
   comparative_dialog: boolean = false;
   demo_dialog: boolean = false;
-  colSize: string = 'col-5';
   activeOverlay: any;
   minAge: number = 20;
   maxAge: number = 45;
@@ -182,10 +181,6 @@ export class HomeComponent implements OnInit {
 
   openDemoDialog() {
     this.demo_dialog = true;
-  }
-
-  changeColSize() {
-    this.colSize = this.colSize === 'col-3' ? 'col-5' : 'col-3';
   }
 
   getTypes() {
