@@ -36,7 +36,7 @@
 
   .p-menubar .p-menuitem:not(.p-highlight):not(.p-disabled).p-focus > .p-menuitem-content {
     color: #fff;
-    background: transparent;
+    background: linear-gradient(90deg, rgba(85, 114, 245, 1) 0%, rgba(62, 216, 221, 1) 100%);
   }
 
 
