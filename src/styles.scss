@@ -38,6 +38,11 @@ textarea::-webkit-input-placeholder {
   border: none;
 }
 
+.danger-bg {
+  background: linear-gradient(to right, #ed6ea0 0%, #ec8c69 100%);
+  border: none;
+}
+
 .text-gradient {
   background: linear-gradient(90deg, rgba(85, 114, 245, 1) 0%, rgba(62, 216, 221, 1) 100%);
   -webkit-background-clip: text;
@@ -79,4 +84,28 @@ textarea::-webkit-input-placeholder {
   color: #4b5563;
   border-radius: 50%;
   transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.title {
+  width: 220px;
+  position: absolute;
+  right: 20px;
+  top: 10px;
+}
+
+.robot01 {
+  position: absolute;
+  left: -10px;
+  top: -40px;
+  width: 250px;
+  z-index: 1;
+}
+
+.icon-hover {
+  transition: all 0.1s ease-in-out;
+
+  &:hover {
+    transform: scale(0.9);
+    cursor: pointer;
+  }
 }

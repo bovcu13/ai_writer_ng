@@ -2,4 +2,91 @@
   .p-overlaypanel .p-overlaypanel-content {
     padding: 0;
   }
+
+  .p-menubar {
+    padding: 0.5rem;
+    background: rgba(10, 0, 99, 0.5);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+  }
+
+  .p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-content {
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+    background: linear-gradient(90deg, rgba(85, 114, 245, 0.5) 0%, rgba(62, 216, 221, 0.5) 100%);
+    color: #fff;
+    transition: box-shadow 0.2s;
+    border-radius: 50px;
+  }
+
+  .p-menubar .p-menubar-root-list > .p-menuitem:not(.p-highlight):not(.p-disabled) > .p-menuitem-content:hover {
+    color: #fff;
+    background: linear-gradient(90deg, rgba(85, 114, 245, 1) 0%, rgba(62, 216, 221, 1) 100%);
+  }
+
+  .p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-content .p-menuitem-link .p-menuitem-text {
+    color: #fff;
+  }
+
+  .p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-content .p-menuitem-link .p-menuitem-icon {
+    color: #fff;
+    margin-right: 0.5rem;
+  }
+
+  .p-menubar .p-menuitem:not(.p-highlight):not(.p-disabled).p-focus > .p-menuitem-content {
+    color: #fff;
+    background: linear-gradient(90deg, rgba(85, 114, 245, 1) 0%, rgba(62, 216, 221, 1) 100%);
+  }
+
+
+  @media screen and (max-width: 960px) {
+    // 縮小後的button
+    .p-menubar .p-menubar-button {
+      display: flex;
+      width: 2rem;
+      height: 2rem;
+      color: #fff;
+      border-radius: 6px;
+      transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+    }
+    .p-menubar .p-menubar-button:hover {
+      color: #fff;
+      background: linear-gradient(90deg, rgba(85, 114, 245, 0.3) 0%, rgba(62, 216, 221, 0.3) 100%);
+    }
+    .p-menubar .p-menubar-button:focus {
+      outline: none;
+      outline-offset: 0;
+      box-shadow: none;
+    }
+    .p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-content {
+      margin-right: 1rem;
+      color: var(--blue-800);
+      background: transparent;
+      transition: box-shadow 0.2s;
+      border-radius: 50px;
+    }
+
+    .p-menubar .p-menubar-root-list > .p-menuitem:not(.p-highlight):not(.p-disabled) > .p-menuitem-content:hover {
+      color: var(--blue-800);
+      background: rgba(#EDE6ED, 0.6);
+      border-radius: 0;
+    }
+
+    .p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-content .p-menuitem-link .p-menuitem-text {
+      color: var(--blue-800);
+    }
+
+    .p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-content .p-menuitem-link .p-menuitem-icon {
+      background: linear-gradient(90deg, rgba(85, 114, 245, 1) 0%, rgba(62, 216, 221, 1) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-right: 0.5rem;
+    }
+
+    .p-menubar .p-menuitem:not(.p-highlight):not(.p-disabled).p-focus > .p-menuitem-content {
+      color: var(--blue-800);
+      background: transparent;
+    }
+  }
 }

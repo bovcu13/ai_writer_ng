@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { PRIMENG_MODULES } from "../../../share/primeng";
+import { menu } from "../../../share/data/toolbar";
 
 @Component({
   selector: 'app-toolbar',
@@ -11,5 +12,5 @@ import { PRIMENG_MODULES } from "../../../share/primeng";
   styleUrl: './toolbar.component.scss'
 })
 export class ToolbarComponent {
-
+  menu = menu;
 }

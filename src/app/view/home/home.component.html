@@ -1,5 +1,5 @@
 <p-toast></p-toast>
-<div class="grid flex justify-content-center align-items-center h-full">
+<div class="flex justify-content-center align-items-center h-full">
   <div class="col-12 md:col-12 lg:col-4">
     <p-card styleClass="bg-c" [style]="{height: '82vh'}">
       <div style="height: 100px; position: relative">
@@ -216,11 +216,9 @@
                     <p-radioButton formControlName="comparative" name="comparative"
                                    [value]="true" (onClick)="comparative_dialog = true"></p-radioButton>
                     <label class="ml-2 text-white">是</label>
-                    <p-button *ngIf="description_form.controls['comparative'].value"
-                              (click)="openComparativeDialog()" [text]="true"
-                              icon="text-xs pi pi-external-link"
-                              size="small" severity="help "
-                              styleClass="ml-3"></p-button>
+                    <i class="ml-2 text-lg fa-regular fa-pen-to-square text-gradient icon-hover"
+                       *ngIf="description_form.controls['comparative'].value"
+                       (click)="openComparativeDialog()"></i>
                   </div>
                   <div class="flex align-items-center">
                     <p-radioButton [value]="false" formControlName="comparative" name="comparative"></p-radioButton>
@@ -303,7 +301,7 @@
                       class="inner_content w-full text-sm border-none" rows="10"
                       style="resize: none; overflow: auto; background: transparent"
                       pInputTextarea>
-          </textarea>
+            </textarea>
             <div class="flex justify-content-end">
               <span
                 class="text-xs text-white text-right">字數：{{ countText(description_form.controls['article_output'].value) }}</span>
@@ -325,14 +323,15 @@
                           [showCancelButton]="true"
                           [showUploadButton]="true"></p-fileUpload>
           </div>
-          <div class="" style="position: absolute; width: 150px; right: 0; bottom: 0">
+          <div class="robot02">
             <p-image src="assets/img/ai_robot02.svg" alt="Image"></p-image>
           </div>
-          <div class="flex justify-content-center mt-5">
-            <div class="speech-bubble flex flex-column align-items-center gap-3 p-3 border-round">
-              <span class="text-lg">這篇文章是否符合你的需求？</span>
-              <p-rating formControlName="rating" [cancel]="false"
-                        iconOnClass="text-indigo-900 pi pi-star-fill"></p-rating>
+          <div class="flex justify-content-end mt-5" style="margin-right: 180px">
+            <div class="dialog flex flex-column gap-3">
+              <p class="text-white">這篇文章是否符合你的需求？</p>
+              <p><p-rating formControlName="rating" [cancel]="false"
+                           iconOffClass="text-yellow-500 pi pi-star"
+                           iconOnClass="text-yellow-500 pi pi-star-fill"></p-rating></p>
             </div>
           </div>
         </div>
@@ -400,44 +399,40 @@
   </p-table>
   <div class="flex justify-content-end mt-5 gap-3">
     <p-button label="取消"
-              (click)="comparative_dialog = false" [outlined]="true"
-              size="small" styleClass="text-sm"
-              severity="help"></p-button>
+              (click)="comparative_dialog = false"
+              size="small" styleClass="text-sm danger-bg"
+              severity="danger"></p-button>
     <p-button label="確認"
-              (click)="comparative_dialog = false" [raised]="true"
-              size="small" styleClass="text-sm"
-              severity="help"></p-button>
+              (click)="comparative_dialog = false"
+              size="small" styleClass="text-sm full-gradient-bg"></p-button>
   </div>
 </p-dialog>
 
 <!--切角-->
 <p-dialog header="切角示範文章" [(visible)]="demo_dialog" [modal]="true" [style]="{width: '70vw'}">
   <div class="flex justify-content-center">
-    <div *ngFor="let story of story_output" class="col-4" style="position: relative" (click)="addOverlay(story)">
-      <div class="flex flex-column gap-2 p-4 border-round">
+    <div *ngFor="let story of story_output" class="col-4" (click)="addOverlay(story)">
+      <div class="flex flex-column gap-2 p-4 border-round surface-100" style="position: relative">
         <span class="text-lgl font-bold">切角示範 {{ story.id }}</span>
         <textarea [(ngModel)]="story.content"
-                  class="w-full text-sm border-none select-input" rows="15"
-                  style="resize: none; overflow: auto;"
-                  pInputTextarea>
+                  class="w-full text-sm border-none story-textarea" rows="15"
+                  pInputTextarea readonly>
         </textarea>
         <span class="text-xs text-400 text-right">字數：{{ countText(story.content) }}</span>
-      </div>
-      <div *ngIf="activeOverlay === story.id"
-           class="overlay border-round flex align-items-center justify-content-center">
-        <i class="pi pi-check-circle" style="font-size: 5rem; z-index: 999; color: #18122B"></i>
+        <div *ngIf="activeOverlay === story.id"
+             class="overlay border-round flex align-items-center justify-content-center">
+          <i class="pi pi-check-circle" style="font-size: 5rem; z-index: 999; color: #18122B"></i>
+        </div>
       </div>
     </div>
   </div>
   <div class="flex justify-content-end mt-5 gap-3">
     <p-button label="取消"
-              (click)="demo_dialog = false" [outlined]="true"
-              size="small" styleClass="text-sm"
-              severity="help"></p-button>
+              (click)="demo_dialog = false" severity="danger"
+              size="small" styleClass="text-sm danger-bg"></p-button>
     <p-button label="確認"
-              (click)="demo_dialog = false" [raised]="true"
-              size="small" styleClass="text-sm"
-              severity="help"></p-button>
+              (click)="demo_dialog = false"
+              size="small" styleClass="text-sm full-gradient-bg"></p-button>
   </div>
 </p-dialog>
 
@@ -453,7 +448,7 @@
       <p class="mb-0">{{ message.message }}</p>
       <div class="flex align-items-center gap-2 mt-4">
         <p-button label="取消" (click)="cd.reject()"
-                  [outlined]="true" styleClass="w-8rem" severity="danger"></p-button>
+                  styleClass="w-8rem danger-bg" severity="danger"></p-button>
         <p-button label="確定" (click)="cd.accept()"
                   styleClass="w-8rem full-gradient-bg"></p-button>
       </div>

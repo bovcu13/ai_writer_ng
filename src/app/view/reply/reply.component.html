@@ -1,216 +1,227 @@
 <p-toast></p-toast>
 <div class="flex justify-content-center align-items-center h-full">
-  <div [class]="colSize">
-    <p-card styleClass="bg-white-alpha-80 overflow-y-scroll" [style]="{height: '82vh'}">
-      <ng-template pTemplate="header">
-        <div class="flex align-items-center p-3">
-          <div class="mr-auto">
-            <span class="text-xl font-bold">怪客口碑</span>
-          </div>
-          <div class="flex justify-content-end">
-            <p-button icon="text-xs pi pi-chevron-right" [text]="true" severity="help"
-                      (click)="changeColSize()" *ngIf="colSize === 'col-3'"
-                      size="small"></p-button>
-            <p-button icon="text-xs pi pi-chevron-left" [text]="true" severity="help"
-                      (click)="changeColSize()" *ngIf="colSize === 'col-5'"
-                      size="small"></p-button>
+  <div class="col-12 md:col-12 lg:col-4">
+    <p-card styleClass="bg-c" [style]="{height: '82vh'}">
+      <div style="height: 100px; position: relative">
+        <div class="title">
+          <p-image src="assets/img/ai_title.svg" alt="Image"></p-image>
+        </div>
+        <div class="robot01">
+          <p-image src="assets/img/ai_robot01.svg" alt="Image"></p-image>
+        </div>
+      </div>
+      <div class="flex flex-column gap-3 p-3 border-round overflow-y-auto inner_content"
+           style="height: calc(82vh - 140px)">
+        <div class="gradient-bg border-round p-3 text-white">
+          <div class="flex align-items-end">
+            <div class="mr-auto">
+              <h3>口碑創作者</h3>
+              <h2>Anya Forger</h2>
+            </div>
+            <div class="flex justify-content-end">
+              <p>
+                <i class="fa-regular fa-gem"></i>10/一篇文
+              </p>
+            </div>
           </div>
         </div>
-      </ng-template>
-      <form [formGroup]="description_form">
-        <div class="grid">
-          <div class="col-12">
-            <div class="field">
-              <label class="text-sm font-medium">
-                選擇回文文章
-                <span *ngIf="!description_form.controls['article'].value && requiredError"
-                      class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
-              </label>
-              <div class="flex gap-2">
-                <div class="flex align-items-center">
-                  <p-radioButton name="source" formControlName="source"
-                                 [value]="'由生成文章'"
-                                 (onClick)="selectArticleDialog = true"></p-radioButton>
-                  <label class="ml-2 text-sm">由生成文章</label>
-                  <p-button *ngIf="description_form.controls['source'].value === '由生成文章'"
-                            icon="text-xs pi pi-external-link"
-                            (click)="openSelectArticleDialog()" [text]="true"
-                            size="small" severity="help "
-                            styleClass="ml-3"></p-button>
-                </div>
-                <div class="flex align-items-center">
-                  <p-radioButton name="source" formControlName="source"
-                                 [value]="'其他文章'"
-                                 (onClick)="selectArticleDialog = true"></p-radioButton>
-                  <label class="ml-2 text-sm">其他文章</label>
-                  <p-button *ngIf="description_form.controls['source'].value === '其他文章'"
-                            icon="text-xs pi pi-external-link"
-                            (click)="openSelectArticleDialog()" [text]="true"
-                            size="small" severity="help "
-                            styleClass="ml-3"></p-button>
+        <form [formGroup]="description_form">
+          <div class="grid">
+            <div class="col-12">
+              <div class="field">
+                <label class="text-sm font-medium text-white text-white">
+                  選擇回文文章
+                  <span *ngIf="!description_form.controls['article'].value && requiredError"
+                        class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
+                </label>
+                <div class="flex gap-2">
+                  <div class="flex align-items-center">
+                    <p-radioButton name="source" formControlName="source"
+                                   [value]="'由生成文章'"
+                                   (onClick)="selectArticleDialog = true"></p-radioButton>
+                    <label class="ml-2 text-sm text-white">由生成文章</label>
+                    <i class="ml-2 text-lg fa-regular fa-pen-to-square text-gradient icon-hover"
+                       *ngIf="description_form.controls['source'].value === '由生成文章'"
+                       (click)="openSelectArticleDialog()"></i>
+                  </div>
+                  <div class="flex align-items-center">
+                    <p-radioButton name="source" formControlName="source"
+                                   [value]="'其他文章'"
+                                   (onClick)="selectArticleDialog = true"></p-radioButton>
+                    <label class="ml-2 text-sm text-white">其他文章</label>
+                    <i class="ml-2 text-lg fa-regular fa-pen-to-square text-gradient icon-hover"
+                       *ngIf="description_form.controls['source'].value === '其他文章'"
+                       (click)="openSelectArticleDialog()"></i>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div [ngClass]="{'col-6': colSize === 'col-5', 'col-12': colSize === 'col-3'}">
-            <div class="field">
-              <label class="text-sm font-medium">回文數量</label>
-              <br>
-              <div class="slider-container">
-                <label class="slider-label text-xs"
-                       [style.left.%]="(description_form.controls['reply_count'].value - 10) / (100 - 10) * 87">{{ description_form.controls['reply_count'].value }}
-                  則</label>
-                <p-slider formControlName="reply_count"
-                          [step]="30"
-                          [min]="10"
-                          [max]="100"></p-slider>
+            <div class="col-12">
+              <div class="field">
+                <label class="text-sm font-medium text-white text-white">回文數量</label>
+                <br>
+                <div class="slider-container">
+                  <label class="slider-label text-xs"
+                         [style.left.%]="(description_form.controls['reply_count'].value - 10) / (100 - 10) * 87">{{ description_form.controls['reply_count'].value }}
+                    則</label>
+                  <p-slider formControlName="reply_count"
+                            [step]="30"
+                            [min]="10"
+                            [max]="100"></p-slider>
+                </div>
               </div>
             </div>
-          </div>
-          <div [ngClass]="{'col-6': colSize === 'col-5', 'col-12': colSize === 'col-3'}">
-            <div class="field">
-              <label class="text-sm font-medium">字數限制</label>
-              <br>
-              <div class="slider-container">
-                <label class="slider-label text-xs"
-                       [style.left.%]="(description_form.controls['word_limit'].value - 30) / (150 - 30) * 87">{{ description_form.controls['word_limit'].value }}
-                  字</label>
-                <p-slider formControlName="word_limit"
-                          [step]="30"
-                          [min]="30"
-                          [max]="150"></p-slider>
+            <div class="col-12">
+              <div class="field">
+                <label class="text-sm font-medium text-white">字數限制</label>
+                <br>
+                <div class="slider-container">
+                  <label class="slider-label text-xs"
+                         [style.left.%]="(description_form.controls['word_limit'].value - 30) / (150 - 30) * 87">{{ description_form.controls['word_limit'].value }}
+                    字</label>
+                  <p-slider formControlName="word_limit"
+                            [step]="30"
+                            [min]="30"
+                            [max]="150"></p-slider>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="col-12">
-            <div class="field">
-              <p-divider></p-divider>
-              <label class="font-medium">回文風格</label>
-              <br>
-              <label class="text-sm">(填入回文風格數量)</label>
+            <div class="col-12">
+              <div class="field">
+                <p-divider></p-divider>
+                <label class="font-medium text-white">回文風格</label>
+                <br>
+                <label class="text-sm text-white">(填入回文風格數量)</label>
+              </div>
             </div>
-          </div>
-          <div [ngClass]="{'col-6': colSize === 'col-5', 'col-12': colSize === 'col-3'}">
-            <div class="field">
-              <label class="text-sm font-medium">隨機</label>
-              <br>
-              <p-inputNumber formControlName="random"
-                             styleClass="w-full" suffix=" 則" inputId="integeronly"></p-inputNumber>
+            <div class="col-12">
+              <div class="field">
+                <label class="text-sm font-medium text-white">隨機</label>
+                <br>
+                <p-inputNumber formControlName="random"
+                               class="w-full"
+                               styleClass="w-full"
+                               suffix=" 則" inputId="integeronly"></p-inputNumber>
+              </div>
             </div>
-          </div>
-          <div [ngClass]="{'col-6': colSize === 'col-5', 'col-12': colSize === 'col-3'}">
-            <div class="field">
-              <label class="text-sm font-medium">專業評論</label>
-              <br>
-              <p-inputNumber formControlName="professional"
-                             styleClass="w-full" suffix=" 則" inputId="integeronly"></p-inputNumber>
+            <div class="col-12">
+              <div class="field">
+                <label class="text-sm font-medium text-white">專業評論</label>
+                <br>
+                <p-inputNumber formControlName="professional"
+                               class="w-full"
+                               styleClass="w-full"
+                               suffix=" 則" inputId="integeronly"></p-inputNumber>
+              </div>
             </div>
-          </div>
-          <div [ngClass]="{'col-6': colSize === 'col-5', 'col-12': colSize === 'col-3'}">
-            <div class="field">
-              <label class="text-sm font-medium">幽默有趣</label>
-              <br>
-              <p-inputNumber formControlName="humorous"
-                             styleClass="w-full" suffix=" 則" inputId="integeronly"></p-inputNumber>
+            <div class="col-12">
+              <div class="field">
+                <label class="text-sm font-medium text-white">幽默有趣</label>
+                <br>
+                <p-inputNumber formControlName="humorous"
+                               class="w-full"
+                               styleClass="w-full"
+                               suffix=" 則" inputId="integeronly"></p-inputNumber>
+              </div>
             </div>
-          </div>
-          <div [ngClass]="{'col-6': colSize === 'col-5', 'col-12': colSize === 'col-3'}">
-            <div class="field">
-              <label class="text-sm font-medium">嘲諷酸</label>
-              <br>
-              <p-inputNumber formControlName="sarcastic"
-                             styleClass="w-full" suffix=" 則" inputId="integeronly"></p-inputNumber>
+            <div class="col-12">
+              <div class="field">
+                <label class="text-sm font-medium text-white">嘲諷酸</label>
+                <br>
+                <p-inputNumber formControlName="sarcastic"
+                               class="w-full"
+                               styleClass="w-full"
+                               suffix=" 則" inputId="integeronly"></p-inputNumber>
+              </div>
             </div>
-          </div>
-          <div [ngClass]="{'col-6': colSize === 'col-5', 'col-12': colSize === 'col-3'}">
-            <div class="field">
-              <label class="text-sm font-medium">跟風支持</label>
-              <br>
-              <p-inputNumber formControlName="support"
-                             styleClass="w-full" suffix=" 則" inputId="integeronly"></p-inputNumber>
+            <div class="col-12">
+              <div class="field">
+                <label class="text-sm font-medium text-white">跟風支持</label>
+                <br>
+                <p-inputNumber formControlName="support"
+                               class="w-full"
+                               styleClass="w-full"
+                               suffix=" 則" inputId="integeronly"></p-inputNumber>
+              </div>
             </div>
-          </div>
-          <div class="col-12">
-            <div class="field">
-              <p-divider></p-divider>
-              <label class="font-medium">回文內容切角</label>
-              <br>
-              <label class="text-sm">(填入關鍵字，輸入完成按下Enter)</label>
+            <div class="col-12">
+              <div class="field">
+                <p-divider></p-divider>
+                <label class="font-medium text-white">回文內容切角</label>
+                <br>
+                <label class="text-sm text-white">(填入關鍵字，輸入完成按下Enter)</label>
+              </div>
             </div>
-          </div>
-          <div [ngClass]="{'col-6': colSize === 'col-5', 'col-12': colSize === 'col-3'}">
-            <div class="field">
-              <label class="text-sm font-medium">專業評論</label>
-              <br>
-              <p-chips formControlName="professional_keyword" styleClass="w-full"></p-chips>
+            <div class="col-12">
+              <div class="field">
+                <label class="text-sm font-medium text-white">專業評論</label>
+                <br>
+                <p-chips formControlName="professional_keyword"
+                         inputStyleClass="text-white" styleClass="w-full"></p-chips>
+              </div>
             </div>
-          </div>
-          <div [ngClass]="{'col-6': colSize === 'col-5', 'col-12': colSize === 'col-3'}">
-            <div class="field">
-              <label class="text-sm font-medium">幽默有趣</label>
-              <br>
-              <p-chips formControlName="humorous_keyword" styleClass="w-full"></p-chips>
+            <div class="col-12">
+              <div class="field">
+                <label class="text-sm font-medium text-white">幽默有趣</label>
+                <br>
+                <p-chips formControlName="humorous_keyword"
+                         inputStyleClass="text-white" styleClass="w-full"></p-chips>
+              </div>
             </div>
-          </div>
-          <div [ngClass]="{'col-6': colSize === 'col-5', 'col-12': colSize === 'col-3'}">
-            <div class="field">
-              <label class="text-sm font-medium">嘲諷酸</label>
-              <br>
-              <p-chips formControlName="sarcastic_keyword" styleClass="w-full"></p-chips>
+            <div class="col-12">
+              <div class="field">
+                <label class="text-sm font-medium text-white">嘲諷酸</label>
+                <br>
+                <p-chips formControlName="sarcastic_keyword"
+                         inputStyleClass="text-white" styleClass="w-full"></p-chips>
+              </div>
             </div>
-          </div>
-          <div [ngClass]="{'col-6': colSize === 'col-5', 'col-12': colSize === 'col-3'}">
-            <div class="field">
-              <label class="text-sm font-medium">跟風支持</label>
-              <br>
-              <p-chips formControlName="support_keyword" styleClass="w-full"></p-chips>
+            <div class="col-12">
+              <div class="field">
+                <label class="text-sm font-medium text-white">跟風支持</label>
+                <br>
+                <p-chips formControlName="support_keyword"
+                         inputStyleClass="text-white" styleClass="w-full"></p-chips>
+              </div>
             </div>
-          </div>
-          <div class="col-12">
-            <div class="flex justify-content-center gap-4">
+            <div class="col-12">
               <p-button label="回文生成"
                         (click)="confirm()"
                         [rounded]="true"
                         size="small"
-                        styleClass="text-xs border-none"
-                        severity="help"
-                        [style]="{background: '#232946', color: '#b8c1ec'}"></p-button>
+                        styleClass="border-none full-gradient-bg w-full"></p-button>
             </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </p-card>
   </div>
-  <div class="col-5">
-    <p-card styleClass="bg-white-alpha-80 overflow-y-auto" [style]="{height: '82vh'}">
-      <div class="flex flex-column gap-3">
-        <div class="flex flex-column gap-2 p-4 border-round bg-blue-50">
-          <span class="text-2xl font-bold">怪客口碑</span>
-          <p-table [value]="comment_output"
-                   [scrollable]="true">
+  <div class="col-12 md:col-12 lg:col-6">
+    <p-card styleClass="bg-c" [style]="{height: '82vh'}">
+      <div class="flex flex-column p-4 border-round gradient-bg" style="height: calc(82vh - 40px)">
+        <div class="inner_content_title">
+          <img src="assets/img/ai_title_white.svg" alt="QPlan.Ai"/>
+        </div>
+        <div class="inner_content overflow-y-auto" style="height: 100%">
+          <p-table [value]="comment_output" [scrollable]="true">
             <ng-template pTemplate="body" let-comment>
               <tr style="background: transparent">
-                <td style="background: transparent">
-                  <div class="flex align-items-center gap-3">
-                    <label class="text-xs">{{comment.id}}.</label>
+                <td class="border-none">
+                  <div class="flex align-items-center gap-3 p-3 bg-c border-round">
+                    <label class="text-xs text-white">{{ comment.id }}.</label>
                     <div class="flex flex-column gap-2  w-full">
                       <div class="flex align-items-start">
                         <div class="justify-content-start">
                           <p-chip label="{{comment.style}}" [styleClass]="getChipColor(comment.style)"></p-chip>
                         </div>
-                        <div class="flex gap-2 ml-auto">
-                          <p-button icon="pi pi-copy text-xs" [rounded]="true" [text]="true"
-                                    (click)="copy(comment.comment)"
-                                    styleClass="w-1rem h-1rem" severity="secondary "></p-button>
-                          <p-button icon="pi pi-thumbs-up text-xs" [rounded]="true" [text]="true"
-                                    styleClass="w-1rem h-1rem" severity="secondary "></p-button>
-                          <p-button icon="pi pi-thumbs-down text-xs" [rounded]="true" [text]="true"
-                                    styleClass="w-1rem h-1rem" severity="secondary "></p-button>
-                          <p-button icon="pi pi-undo text-xs" [rounded]="true" [text]="true"
-                                    styleClass="w-1rem h-1rem" severity="secondary "></p-button>
+                        <div class="flex text-300 gap-3 ml-auto">
+                          <i class="icon-hover" [class]="thumbsUpStatus[comment.id] ? 'fa-solid fa-thumbs-up' : 'fa-regular fa-thumbs-up'" (click)="toggleThumbsUp(comment.id)"></i>
+                          <i class="icon-hover" [class]="thumbsDownStatus[comment.id] ? 'fa-solid fa-thumbs-down' : 'fa-regular fa-thumbs-down'" (click)="toggleThumbsDown(comment.id)"></i>
+                          <i class="icon-hover fa-regular fa-copy" (click)="copy(comment.comment)"></i>
+                          <i class="icon-hover fa-solid fa-rotate-left"></i>
                         </div>
                       </div>
-                      <span class="text-sm">{{ comment.comment }}</span>
+                      <span class="text-sm text-white">{{ comment.comment }}</span>
                     </div>
                   </div>
                 </td>
@@ -226,7 +237,8 @@
 <p-confirmDialog #cd>
   <ng-template pTemplate="headless" let-message>
     <div class="flex flex-column align-items-center p-5 surface-overlay border-round">
-      <div class="bg-purple-600 border-circle inline-flex justify-content-center align-items-center h-6rem w-6rem -mt-8"
+      <div
+        class="full-gradient-bg border-circle inline-flex justify-content-center align-items-center h-6rem w-6rem -mt-8"
       >
         <i class="pi pi-question text-5xl text-white"></i>
       </div>
@@ -234,9 +246,9 @@
       <p class="mb-0">{{ message.message }}</p>
       <div class="flex align-items-center gap-2 mt-4">
         <p-button label="取消" (click)="cd.reject()"
-                  [outlined]="true" styleClass="w-8rem" severity="danger"></p-button>
+                  styleClass="w-8rem danger-bg" severity="danger"></p-button>
         <p-button label="確定" (click)="cd.accept()"
-                  styleClass="w-8rem" severity="help"></p-button>
+                  styleClass="w-8rem full-gradient-bg"></p-button>
       </div>
     </div>
   </ng-template>
@@ -250,7 +262,7 @@
     } @else {
 
       <div class="field">
-        <label class="text-sm font-medium">請提供文章內容</label>
+        <label class="text-sm font-medium text-white">請提供文章內容</label>
         <br>
         <textarea formControlName="article"
                   rows="15"

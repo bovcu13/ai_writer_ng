@@ -23,9 +23,10 @@ import { ConfirmationService, MessageService } from "primeng/api";
 export class ReplyComponent implements OnInit {
   comment_output = comment;
   selectArticleDialog: boolean = false;
-  colSize: string = 'col-3';
   errorShown: boolean = false;
   requiredError: boolean = false;
+  thumbsUpStatus = [{}];
+  thumbsDownStatus = [{}];
 
   description_form: FormGroup;
 
@@ -103,10 +104,6 @@ export class ReplyComponent implements OnInit {
     }
   }
 
-  changeColSize() {
-    this.colSize = this.colSize === 'col-3' ? 'col-5' : 'col-3';
-  }
-
   openSelectArticleDialog() {
     this.selectArticleDialog = true;
   }
@@ -132,5 +129,21 @@ export class ReplyComponent implements OnInit {
     }).catch(err => {
       console.error('Could not copy text: ', err);
     });
+  }
+
+  toggleThumbsUp(commentId: any) {
+    this.thumbsUpStatus[commentId] = !this.thumbsUpStatus[commentId];
+    this.messageService.add({ severity: 'success', summary: 'Like!', detail: '感謝您的反饋' });
+    if (this.thumbsUpStatus[commentId]) {
+      this.thumbsDownStatus[commentId] = false;
+    }
+  }
+
+  toggleThumbsDown(commentId: any) {
+    this.thumbsDownStatus[commentId] = !this.thumbsDownStatus[commentId];
+    this.messageService.add({ severity: 'success', summary: 'Dislike!', detail: '感謝您的反饋' });
+    if (this.thumbsDownStatus[commentId]) {
+      this.thumbsUpStatus[commentId] = false;
+    }
   }
 }
