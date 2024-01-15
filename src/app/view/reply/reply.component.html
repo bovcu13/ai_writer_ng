@@ -40,22 +40,18 @@
                                    [value]="'由生成文章'"
                                    (onClick)="selectArticleDialog = true"></p-radioButton>
                     <label class="ml-2 text-sm text-white">由生成文章</label>
-                    <p-button *ngIf="description_form.controls['source'].value === '由生成文章'"
-                              icon="text-xs pi pi-external-link"
-                              (click)="openSelectArticleDialog()" [text]="true"
-                              size="small" severity="help "
-                              styleClass="ml-3"></p-button>
+                    <i class="ml-2 text-lg fa-regular fa-pen-to-square text-gradient icon-hover"
+                       *ngIf="description_form.controls['source'].value === '由生成文章'"
+                       (click)="openSelectArticleDialog()"></i>
                   </div>
                   <div class="flex align-items-center">
                     <p-radioButton name="source" formControlName="source"
                                    [value]="'其他文章'"
                                    (onClick)="selectArticleDialog = true"></p-radioButton>
                     <label class="ml-2 text-sm text-white">其他文章</label>
-                    <p-button *ngIf="description_form.controls['source'].value === '其他文章'"
-                              icon="text-xs pi pi-external-link"
-                              (click)="openSelectArticleDialog()" [text]="true"
-                              size="small" severity="help "
-                              styleClass="ml-3"></p-button>
+                    <i class="ml-2 text-lg fa-regular fa-pen-to-square text-gradient icon-hover"
+                       *ngIf="description_form.controls['source'].value === '其他文章'"
+                       (click)="openSelectArticleDialog()"></i>
                   </div>
                 </div>
               </div>
@@ -189,15 +185,11 @@
               </div>
             </div>
             <div class="col-12">
-              <div class="flex justify-content-center gap-4">
-                <p-button label="回文生成"
-                          (click)="confirm()"
-                          [rounded]="true"
-                          size="small"
-                          styleClass="text-xs border-none"
-                          severity="help"
-                          [style]="{background: '#232946', color: '#b8c1ec'}"></p-button>
-              </div>
+              <p-button label="回文生成"
+                        (click)="confirm()"
+                        [rounded]="true"
+                        size="small"
+                        styleClass="border-none full-gradient-bg w-full"></p-button>
             </div>
           </div>
         </form>
@@ -222,16 +214,11 @@
                         <div class="justify-content-start">
                           <p-chip label="{{comment.style}}" [styleClass]="getChipColor(comment.style)"></p-chip>
                         </div>
-                        <div class="flex gap-2 ml-auto">
-                          <p-button icon="pi pi-copy text-xs" [rounded]="true" [text]="true"
-                                    (click)="copy(comment.comment)"
-                                    styleClass="w-1rem h-1rem" severity="secondary "></p-button>
-                          <p-button icon="pi pi-thumbs-up text-xs" [rounded]="true" [text]="true"
-                                    styleClass="w-1rem h-1rem" severity="secondary "></p-button>
-                          <p-button icon="pi pi-thumbs-down text-xs" [rounded]="true" [text]="true"
-                                    styleClass="w-1rem h-1rem" severity="secondary "></p-button>
-                          <p-button icon="pi pi-undo text-xs" [rounded]="true" [text]="true"
-                                    styleClass="w-1rem h-1rem" severity="secondary "></p-button>
+                        <div class="flex text-300 gap-3 ml-auto">
+                          <i class="icon-hover" [class]="thumbsUpStatus[comment.id] ? 'fa-solid fa-thumbs-up' : 'fa-regular fa-thumbs-up'" (click)="toggleThumbsUp(comment.id)"></i>
+                          <i class="icon-hover" [class]="thumbsDownStatus[comment.id] ? 'fa-solid fa-thumbs-down' : 'fa-regular fa-thumbs-down'" (click)="toggleThumbsDown(comment.id)"></i>
+                          <i class="icon-hover fa-regular fa-copy" (click)="copy(comment.comment)"></i>
+                          <i class="icon-hover fa-solid fa-rotate-left"></i>
                         </div>
                       </div>
                       <span class="text-sm text-white">{{ comment.comment }}</span>
@@ -250,7 +237,8 @@
 <p-confirmDialog #cd>
   <ng-template pTemplate="headless" let-message>
     <div class="flex flex-column align-items-center p-5 surface-overlay border-round">
-      <div class="bg-purple-600 border-circle inline-flex justify-content-center align-items-center h-6rem w-6rem -mt-8"
+      <div
+        class="full-gradient-bg border-circle inline-flex justify-content-center align-items-center h-6rem w-6rem -mt-8"
       >
         <i class="pi pi-question text-5xl text-white"></i>
       </div>
@@ -258,9 +246,9 @@
       <p class="mb-0">{{ message.message }}</p>
       <div class="flex align-items-center gap-2 mt-4">
         <p-button label="取消" (click)="cd.reject()"
-                  [outlined]="true" styleClass="w-8rem" severity="danger"></p-button>
+                  styleClass="w-8rem danger-bg" severity="danger"></p-button>
         <p-button label="確定" (click)="cd.accept()"
-                  styleClass="w-8rem" severity="help"></p-button>
+                  styleClass="w-8rem full-gradient-bg"></p-button>
       </div>
     </div>
   </ng-template>
