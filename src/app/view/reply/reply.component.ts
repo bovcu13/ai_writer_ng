@@ -23,7 +23,6 @@ import { ConfirmationService, MessageService } from "primeng/api";
 export class ReplyComponent implements OnInit {
   comment_output = comment;
   selectArticleDialog: boolean = false;
-  colSize: string = 'col-3';
   errorShown: boolean = false;
   requiredError: boolean = false;
 
@@ -101,10 +100,6 @@ export class ReplyComponent implements OnInit {
       this.errorShown = false;
       this.messageService.clear();
     }
-  }
-
-  changeColSize() {
-    this.colSize = this.colSize === 'col-3' ? 'col-5' : 'col-3';
   }
 
   openSelectArticleDialog() {

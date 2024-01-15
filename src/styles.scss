@@ -80,3 +80,18 @@ textarea::-webkit-input-placeholder {
   border-radius: 50%;
   transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
 }
+
+.title {
+  width: 220px;
+  position: absolute;
+  right: 20px;
+  top: 10px;
+}
+
+.robot01 {
+  position: absolute;
+  left: -10px;
+  top: -40px;
+  width: 250px;
+  z-index: 1;
+}
