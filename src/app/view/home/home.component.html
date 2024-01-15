@@ -296,7 +296,9 @@
       <form [formGroup]="description_form">
         <div class="flex flex-column gap-3" style="position: relative">
           <div class="flex flex-column gap-2 p-4 border-round gradient-bg">
-            <span class="text-2xl font-bold text-white">怪客口碑</span>
+            <div class="inner_content_title">
+              <img src="assets/img/ai_title_white.svg" alt="QPlan.Ai"/>
+            </div>
             <textarea formControlName="article_output"
                       class="inner_content w-full text-sm border-none" rows="10"
                       style="resize: none; overflow: auto; background: transparent"
@@ -329,9 +331,11 @@
           <div class="flex justify-content-end mt-5" style="margin-right: 180px">
             <div class="dialog flex flex-column gap-3">
               <p class="text-white">這篇文章是否符合你的需求？</p>
-              <p><p-rating formControlName="rating" [cancel]="false"
-                           iconOffClass="text-yellow-500 pi pi-star"
-                           iconOnClass="text-yellow-500 pi pi-star-fill"></p-rating></p>
+              <p>
+                <p-rating formControlName="rating" [cancel]="false"
+                          iconOffClass="text-yellow-500 pi pi-star"
+                          iconOnClass="text-yellow-500 pi pi-star-fill"></p-rating>
+              </p>
             </div>
           </div>
         </div>
