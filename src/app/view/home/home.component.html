@@ -325,14 +325,15 @@
                           [showCancelButton]="true"
                           [showUploadButton]="true"></p-fileUpload>
           </div>
-          <div class="" style="position: absolute; width: 150px; right: 0; bottom: 0">
+          <div class="robot02">
             <p-image src="assets/img/ai_robot02.svg" alt="Image"></p-image>
           </div>
-          <div class="flex justify-content-center mt-5">
-            <div class="speech-bubble flex flex-column align-items-center gap-3 p-3 border-round">
-              <span class="text-lg">這篇文章是否符合你的需求？</span>
-              <p-rating formControlName="rating" [cancel]="false"
-                        iconOnClass="text-indigo-900 pi pi-star-fill"></p-rating>
+          <div class="flex justify-content-end mt-5" style="margin-right: 180px">
+            <div class="dialog flex flex-column gap-3">
+              <p class="text-white">這篇文章是否符合你的需求？</p>
+              <p><p-rating formControlName="rating" [cancel]="false"
+                           iconOffClass="text-yellow-500 pi pi-star"
+                           iconOnClass="text-yellow-500 pi pi-star-fill"></p-rating></p>
             </div>
           </div>
         </div>

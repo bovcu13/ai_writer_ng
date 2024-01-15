@@ -35,23 +35,25 @@
 
 <p-menubar [model]="menu">
   <ng-template pTemplate="end">
-    <p-button label="220"
-              icon="text-sm fa-regular fa-gem"
-              [text]="true"
-              size="small"
-              styleClass="text-white mr-3"></p-button>
-    <p-button [text]="true"
-              [rounded]="true"
-              size="small"
-              styleClass="gradient-bg"
-              (click)="op.toggle($event)">
-      <div class="flex align-items-center gap-3">
-        <p-avatar
-          image="https://scontent.xx.fbcdn.net/v/t1.15752-9/403632736_209874148745940_1652731190527561711_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=510075&_nc_ohc=aXMO3Dpxx_cAX80v9jj&_nc_oc=AQlrmG712RQgkk4QvUL9RxSg8TgLnfSJ3eA-wkZNs8jwqbfhWdBjL0nh0jGP7WjI9TskZc1NOrDIkBZnTr_yLQ7G&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdQx1oCSvxNB5D25p2pO5Z5WuW73z3-XYTneCw4DA8AWOQ&oe=65B0B8AA"
-          shape="circle"/>
-        <span class="font-bold text-white">Anya Forger</span>
-      </div>
-    </p-button>
+    <div class="flex align-items-center">
+      <p-button label="220"
+                icon="text-sm fa-regular fa-gem"
+                [text]="true"
+                size="small"
+                styleClass="text-white mr-3"></p-button>
+      <p-button [text]="true"
+                [rounded]="true"
+                size="small"
+                styleClass="gradient-bg"
+                (click)="op.toggle($event)">
+        <div class="flex align-items-center gap-3">
+          <p-avatar
+            image="https://scontent.xx.fbcdn.net/v/t1.15752-9/403632736_209874148745940_1652731190527561711_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=510075&_nc_ohc=aXMO3Dpxx_cAX80v9jj&_nc_oc=AQlrmG712RQgkk4QvUL9RxSg8TgLnfSJ3eA-wkZNs8jwqbfhWdBjL0nh0jGP7WjI9TskZc1NOrDIkBZnTr_yLQ7G&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdQx1oCSvxNB5D25p2pO5Z5WuW73z3-XYTneCw4DA8AWOQ&oe=65B0B8AA"
+            shape="circle"/>
+          <span class="font-bold text-white">Anya Forger</span>
+        </div>
+      </p-button>
+    </div>
   </ng-template>
 </p-menubar>
 
