@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PRIMENG_MODULES } from "../../../share/primeng";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -14,12 +15,25 @@ export class LoginComponent implements OnInit {
 
   register: boolean = false;
 
-    constructor() { }
+  constructor(private router: Router) {
+  }
 
-    ngOnInit(): void {
-    }
 
-    showRegister() {
-      this.register = true;
-    }
+  ngOnInit(): void {
+
+  }
+
+  login() {
+    window.sessionStorage.setItem('user', 'user');
+    this.router.navigate(['/home']);
+  }
+
+  adminLogin() {
+    window.sessionStorage.setItem('user', 'admin');
+    this.router.navigate(['/admin']);
+  }
+
+  showRegister() {
+    this.register = true;
+  }
 }
