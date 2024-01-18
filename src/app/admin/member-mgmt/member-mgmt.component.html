@@ -1,9 +1,10 @@
-<div class="col-12 bg-c border-round p-5" style="height: 100%">
-  <div class="flex flex-column gap-3 p-4 gradient-bg overflow-y-auto inner_content border-round"
-       style="height: 100%">
-    <span class="font-medium text-white text-4xl">會員管理</span>
-    <p-chip label="已啟用" styleClass="full-gradient-bg text-sm"></p-chip>
-    <div class="p-5 bg-white border-round">
+<div class="flex flex-column gap-3 p-4 gradient-bg overflow-y-auto inner_content border-round"
+     style="height: 100%">
+  <span class="font-medium text-white text-4xl">會員管理</span>
+  <div class="bg-white border-round-2xl shadow-1 text-center" style="width: 75px">
+    <p-chip label="已啟用" styleClass="text-sm font-bold text-gradient"></p-chip>
+  </div>
+  <div class="p-3 bg-white border-round">
     <p-table [value]="member"
              [(selection)]="selectedMembers">
       <ng-template pTemplate="header">
@@ -26,7 +27,8 @@
             <div class="flex align-items-center gap-2">
               <p-avatar [label]="member.last_name"
                         [style]="{ 'background-color': '#2196F3', color: '#ffffff' }" shape="circle"></p-avatar>
-              <span class="member-view">{{ member.name }}</span>
+              <span class="member-view"
+                    (click)="goToMemberView(member.id)">{{ member.name }}</span>
               <p-tag [value]="member.membership_type"
                      styleClass="border-round-2xl"
                      [style]="{background:member.membership_type === 'Silver' ? '#C0C0C0' : member.membership_type === 'Gold' ? '#FFD700' : '#CD7F32', color: '#000'}">
@@ -39,6 +41,5 @@
         </tr>
       </ng-template>
     </p-table>
-    </div>
   </div>
 </div>
