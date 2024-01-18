@@ -10,3 +10,16 @@ export const menu = [
     icon: 'pi pi-fw pi-pencil',
   },
 ]
+
+export const admin_menu = [
+  {
+    label: '會員管理',
+    routerLink: '/admin/member-mgmt',
+    icon: 'fa-regular fa-user',
+  },
+  {
+    label: '點數管理',
+    routerLink: '/admin/point-mgmt',
+    icon: 'fa-regular fa-gem',
+  },
+]
