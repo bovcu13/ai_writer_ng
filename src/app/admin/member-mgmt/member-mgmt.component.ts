@@ -3,6 +3,7 @@ import { PRIMENG_MODULES } from "../../share/primeng";
 import { member } from "../../share/data/member";
 import { ContainerComponent } from "../../view/container/container.component";
 import { NgClass } from "@angular/common";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-member-mgmt',
@@ -21,10 +22,13 @@ export class MemberMgmtComponent implements OnInit {
     ));
   selectedMembers: any[] = [];
 
-  constructor() {
-  }
+  constructor(private router: Router) { }
 
   ngOnInit() {
     console.log('member', this.member)
+  }
+
+  goToMemberView(id: string) {
+    this.router.navigate(['/admin/member-mgmt', id]);
   }
 }

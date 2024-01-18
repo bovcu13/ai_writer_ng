@@ -90,3 +90,18 @@ export const member = [
     "active": true
   }
 ]
+
+export const member_settings = [
+  {
+    icon: 'fa-regular fa-address-card',
+    name: '會員檔案',
+  },
+  {
+    icon: 'fa-regular fa-newspaper',
+    name: '產文紀錄',
+  },
+  {
+    icon: 'fa-regular fa-gem',
+    name: '儲值紀錄',
+  },
+]
