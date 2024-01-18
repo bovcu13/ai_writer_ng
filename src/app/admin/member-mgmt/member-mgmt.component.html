@@ -1,0 +1,44 @@
+<div class="col-12 bg-c border-round p-5" style="height: 100%">
+  <div class="flex flex-column gap-3 p-4 gradient-bg overflow-y-auto inner_content border-round"
+       style="height: 100%">
+    <span class="font-medium text-white text-4xl">會員管理</span>
+    <p-chip label="已啟用" styleClass="full-gradient-bg text-sm"></p-chip>
+    <div class="p-5 bg-white border-round">
+    <p-table [value]="member"
+             [(selection)]="selectedMembers">
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 4rem">
+            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+          </th>
+          <th>姓名</th>
+          <th>信箱</th>
+          <th>電話</th>
+          <th>加入時間</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-member>
+        <tr>
+          <td>
+            <p-tableCheckbox [value]="member"></p-tableCheckbox>
+          </td>
+          <td>
+            <div class="flex align-items-center gap-2">
+              <p-avatar [label]="member.last_name"
+                        [style]="{ 'background-color': '#2196F3', color: '#ffffff' }" shape="circle"></p-avatar>
+              <span class="member-view">{{ member.name }}</span>
+              <p-tag [value]="member.membership_type"
+                     styleClass="border-round-2xl"
+                     [style]="{background:member.membership_type === 'Silver' ? '#C0C0C0' : member.membership_type === 'Gold' ? '#FFD700' : '#CD7F32', color: '#000'}">
+              </p-tag>
+            </div>
+          </td>
+          <td>{{ member.email }}</td>
+          <td>{{ member.phone }}</td>
+          <td>{{ member.join_date }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+    </div>
+  </div>
+</div>
