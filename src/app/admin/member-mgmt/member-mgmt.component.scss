@@ -41,3 +41,26 @@
     text-decoration: underline;
   }
 }
+
+.active-item {
+  background: #fff;
+  border-radius: 1rem;
+  text-align: center;
+  border: 1px solid var(--surface-400);
+  color: var(--text-color-secondary);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 18px 8px 18px;
+  transition: all 0.1s ease-in-out;
+
+
+  &:hover {
+    transform: scale(0.9);
+    cursor: pointer;
+  }
+
+  &.active {
+    color: var(--blue-800);
+    background: var(--primary-100);
+  }
+}
