@@ -1,8 +1,8 @@
 <div class="flex flex-column gap-3 p-4 gradient-bg overflow-y-auto inner_content border-round"
      style="height: 100%">
-  <div class="flex gap-5 align-items-center p-1 border-round-xl" style="background: #90caf9">
+  <div class="flex gap-5 justify-content-center align-items-center border-round-3xl" style="background: #fff">
     <div *ngFor="let item of member_settings; let i = index"
-         class="flex align-items-center menu-item border-round-xl text-center"
+         class="flex align-items-center menu-item border-round-3xl text-center"
          (click)="toggleActive(i)"
          [ngClass]="{'active': isActive === i}">
       <span>{{ item.name }}</span>
@@ -47,30 +47,66 @@
   </ng-container>
   <ng-container *ngIf="isActive === 1">
     <div class="bg-white border-round-xl p-3">
-    <p-table [value]="output_history"
-             [scrollable]="true"
-             styleClass="mt-3">
-      <ng-template pTemplate="body" let-output>
-        <tr style="background: transparent">
-          <td style="background: transparent">
-            <div class="flex gap-3 p-2">
-              <p-avatar icon="fa-regular fa-newspaper"
-                        styleClass="mr-2"
-                        size="large"
-                        [style]="{'background-color':'#b8c1ec', 'color': '#232946'}"></p-avatar>
-              <div class="flex flex-column gap-2">
+      <p-table [value]="output_history"
+               [scrollable]="true"
+               styleClass="mt-3">
+        <ng-template pTemplate="body" let-output>
+          <tr style="background: transparent">
+            <td style="background: transparent">
+              <div class="flex gap-3 p-4 styled-box">
+                <p-avatar icon="fa-regular fa-newspaper"
+                          styleClass="mr-2 full-gradient-bg text-white"
+                          size="large"></p-avatar>
+                <div class="flex flex-column gap-2">
                   <span
-                    class="w-13rem font-bold white-space-nowrap overflow-hidden text-overflow-ellipsis md:w-full lg:w-full">{{ output.title }}</span>
-                <span class="text-sm">{{ output.created_at | date: 'yyyy-MM-dd' }}</span>
+                    class="w-5rem font-bold white-space-nowrap overflow-hidden text-overflow-ellipsis md:w-full lg:w-full">{{ output.title }}</span>
+                  <span class="text-sm">{{ output.created_at | date: 'yyyy-MM-dd' }}</span>
+                </div>
+                <div class="flex align-items-center gap-4 ml-auto">
+                  <p-chip styleClass="full-gradient-bg text-white font-bold">
+                    <div class="flex align-items-center gap-2 p-2">
+                      <i class="fa-regular fa-gem"></i>
+                      <span>-10</span>
+                    </div>
+                  </p-chip>
+                  <i class="fa-solid fa-angle-right"></i>
+                </div>
               </div>
-            </div>
-          </td>
-        </tr>
-      </ng-template>
-    </p-table>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
     </div>
   </ng-container>
   <ng-container *ngIf="isActive === 2">
-    <span>789</span>
+    <div class="bg-white border-round-xl p-3">
+      <p-table [value]="trade_record">
+        <ng-template pTemplate="body" let-trade>
+          <tr>
+            <td>
+              <div class="flex flex-column align-items-center p-3 styled-box md:flex-row lg:flex-row">
+                <div class="col-12 flex align-items-center gap-3 md:col-3 lg:col-3">
+                  <p-avatar [icon]="getPaymentIcon(trade.method)"
+                            styleClass="mr-2 full-gradient-bg text-white"
+                            size="large"></p-avatar>
+                  <span>{{ trade.method }}</span>
+                </div>
+                <div class="col-6 flex align-items-center md:col-3 lg:col-3">
+                  <p-chip label="{{trade.status}}"
+                          [styleClass]="getTradeStatusClass(trade.status)"></p-chip>
+                </div>
+                <div class="col-6 flex align-items-center md:col-3 lg:col-3">
+                  <span class="font-bold">$ {{ trade.amount }}</span>
+                </div>
+                <div class="col-6 flex flex-column gap-2 align-items-start justify-content-center md:col-3 lg:col-3">
+                  <span class="font-bold">{{ trade.date | date:"MMM d , y" }}</span>
+                  <span class="text-sm">{{ trade.date | date:"hh:mm a" }}</span>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
   </ng-container>
 </div>

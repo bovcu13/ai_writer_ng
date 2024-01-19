@@ -43,6 +43,14 @@ textarea::-webkit-input-placeholder {
   border: none;
 }
 
+.warning-bg {
+  background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+}
+
+.success-bg {
+  background: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
+}
+
 .text-gradient {
   background: linear-gradient(90deg, rgba(85, 114, 245, 1) 0%, rgba(62, 216, 221, 1) 100%);
   -webkit-background-clip: text;
