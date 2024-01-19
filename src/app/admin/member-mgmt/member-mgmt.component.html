@@ -1,45 +1,128 @@
 <div class="flex flex-column gap-3 p-4 gradient-bg overflow-y-auto inner_content border-round"
      style="height: 100%">
   <span class="font-medium text-white text-4xl">會員管理</span>
-  <div class="bg-white border-round-2xl shadow-1 text-center" style="width: 75px">
-    <p-chip label="已啟用" styleClass="text-sm font-bold text-gradient"></p-chip>
+  <div class="flex gap-2 align-items-center">
+    <div class="active-item" (click)="showActive()" [class.active]="isActiveActive">
+      <span>{{ active }} 已啟用</span>
+    </div>
+    <div class="active-item" (click)="showInactive()" [class.active]="isActiveInactive">
+      <span>{{ inactive }} 未啟用</span>
+    </div>
   </div>
   <div class="p-3 bg-white border-round">
     <p-table [value]="member"
              [(selection)]="selectedMembers">
       <ng-template pTemplate="header">
         <tr>
-          <th style="width: 4rem">
-            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+          <th style="width: 7rem">
+            <div class="flex gap-3">
+              <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+              <span>全選</span>
+            </div>
           </th>
-          <th>姓名</th>
-          <th>信箱</th>
-          <th>電話</th>
-          <th>加入時間</th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-member>
-        <tr>
+        <tr *ngIf="member.active === showActiveMembers">
           <td>
             <p-tableCheckbox [value]="member"></p-tableCheckbox>
           </td>
           <td>
-            <div class="flex align-items-center gap-2">
+            <div class="flex align-items-center gap-3">
               <p-avatar [label]="member.last_name"
                         [style]="{ 'background-color': '#2196F3', color: '#ffffff' }" shape="circle"></p-avatar>
-              <span class="member-view"
-                    (click)="goToMemberView(member.id)">{{ member.name }}</span>
+              <div class="flex flex-column gap-2">
+                <span class="member-view"
+                      (click)="goToMemberView(member.id)">{{ member.name }}</span>
+                <span class="text-xs text-500"><i class="fa-solid fa-at"></i> {{ member.account }}</span>
+              </div>
               <p-tag [value]="member.membership_type"
                      styleClass="border-round-2xl"
                      [style]="{background:member.membership_type === 'Silver' ? '#C0C0C0' : member.membership_type === 'Gold' ? '#FFD700' : '#CD7F32', color: '#000'}">
               </p-tag>
             </div>
           </td>
-          <td>{{ member.email }}</td>
-          <td>{{ member.phone }}</td>
-          <td>{{ member.join_date }}</td>
+          <td>
+            <div class="flex align-items-center gap-3">
+              <i class="fa-solid fa-envelope"></i>
+              {{ member.email }}
+            </div>
+          </td>
+          <td>
+            <div class="flex align-items-center gap-3">
+              <i class="fa-solid fa-phone"></i> {{ member.phone }}
+            </div>
+          </td>
+          <td>
+            <div class="flex flex-column gap-2">
+              {{ member.join_date }}
+              <span class="text-xs text-500">加入日期</span>
+            </div>
+          </td>
+          <td>
+            <div class="flex align-items-center gap-4 text-lg text-600">
+              <i class="fa-regular fa-gem icon-hover"
+                 (click)="openMemberPointDialog(member)"></i>
+              <i class="fa-regular fa-pen-to-square icon-hover"
+                 (click)="goToMemberView(member.id)"></i>
+              <!-- 在已啟用的畫面中顯示禁用的圖標 -->
+              <i class="fa-solid fa-ban icon-hover" *ngIf="member.active" (click)="disableMember(member)"></i>
+              <!-- 在禁用的畫面中顯示啟用的圖標 -->
+              <i class="fa-solid fa-check icon-hover" *ngIf="!member.active" (click)="enableMember(member)"></i>
+            </div>
+          </td>
         </tr>
       </ng-template>
     </p-table>
   </div>
 </div>
+
+
+<p-dialog *ngIf="memberPoint" [(visible)]="pointsDialog"
+          [style]="{position: 'relative', width: '50vw'}"
+          [modal]="true" [draggable]="false" [resizable]="false">
+  <div class="flex flex-column align-items-center gap-5">
+    <div style="position: absolute; top: 20px;"
+         class="full-gradient-bg border-circle inline-flex justify-content-center align-items-center h-6rem w-6rem -mt-8"
+    >
+      <i class="fa-regular fa-gem text-5xl text-white"></i>
+    </div>
+    <span class="text-2xl font-bold">會員儲值</span>
+    <div class="flex justify-content-between w-full">
+      <div class="flex align-items-center gap-3">
+        <p-avatar [label]="memberPoint.last_name"
+                  size="large"
+                  [style]="{ 'background-color': '#2196F3', color: '#ffffff' }" shape="circle"></p-avatar>
+        <div class="flex flex-column gap-2">
+          <span>{{ memberPoint.name }}</span>
+          <span class="text-xs text-500"><i class="fa-solid fa-at"></i> {{ memberPoint.account }}</span>
+        </div>
+      </div>
+      <div class="flex align-items-center gap-3">
+        <span>目前點數：</span>
+        <span class="text-blue-800"><i class="fa-regular fa-gem text-gradient mr-2"></i>{{ memberPoint.points }}</span>
+      </div>
+    </div>
+    <p-inputNumber [(ngModel)]="point" [showButtons]="true"
+                   class="text-0"
+                   buttonLayout="vertical"
+                   spinnerMode="vertical"
+                   inputId="vertical"
+                   decrementButtonClass="p-button-secondary"
+                   incrementButtonClass="p-button-secondary"
+                   incrementButtonIcon="pi pi-plus"
+                   decrementButtonIcon="pi pi-minus"></p-inputNumber>
+    <div class="flex align-items-center gap-2 mt-4">
+      <p-button label="取消"
+                styleClass="w-8rem danger-bg" severity="danger"></p-button>
+      <p-button label="確定"
+                styleClass="w-8rem full-gradient-bg"></p-button>
+    </div>
+  </div>
+
+</p-dialog>
