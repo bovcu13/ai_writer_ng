@@ -4,7 +4,12 @@
 
 body {
   margin: 0;
-  background-image: url("assets/img/bg.png");
+  background: url("assets/img/bg.png") fixed no-repeat;
+  background-size: cover;
+}
+
+body.overflow {
+  overflow: hidden;
 }
 
 input::-webkit-input-placeholder,

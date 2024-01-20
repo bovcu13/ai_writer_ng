@@ -1,8 +1,8 @@
 <div class="flex flex-column justify-content-center h-screen p-2">
-  <div [style]="{height: '12%'}">
+  <div class="" [style]="{height: '80px'}">
     <app-toolbar></app-toolbar>
   </div>
-  <div [style]="{height: '88%'}">
+  <div style="height: calc(100% - 80px)">
     <router-outlet></router-outlet>
   </div>
 </div>
