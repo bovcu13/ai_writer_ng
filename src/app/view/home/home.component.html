@@ -299,17 +299,19 @@
             <div class="inner_content_title">
               <img src="assets/img/ai_title_white.svg" alt="QPlan.Ai"/>
             </div>
-            <textarea formControlName="article_output"
-                      class="inner_content w-full text-sm border-none" rows="10"
-                      style="resize: none; overflow: auto; background: transparent"
-                      pInputTextarea>
-            </textarea>
+            <span
+              class="inner_content output-textarea text-sm">{{ description_form.controls['ai_output'].value }}</span>
             <div class="flex justify-content-end">
               <span
-                class="text-xs text-white text-right">字數：{{ countText(description_form.controls['article_output'].value) }}</span>
+                class="text-xs text-white text-right">字數：{{ countText(description_form.controls['ai_output'].value) }}</span>
             </div>
           </div>
           <div class="flex align-items-center gap-2">
+            <p-button (click)="openEditAiOutputDialog()"
+                      label="編輯文章"
+                      icon="fa-solid fa-wand-magic-sparkles text-sm"
+                      styleClass="text-sm full-gradient-bg"
+                      [rounded]="true"></p-button>
             <p-button (click)="copyArticleOutput()"
                       label="複製文章"
                       icon="pi pi-copy text-sm"
@@ -412,7 +414,6 @@
   </div>
 </p-dialog>
 
-<!--切角-->
 <p-dialog header="切角示範文章" [(visible)]="demo_dialog" [modal]="true" [style]="{width: '70vw'}">
   <div class="flex justify-content-center">
     <div *ngFor="let story of story_output" class="col-4" (click)="addOverlay(story)">
@@ -439,6 +440,30 @@
               size="small" styleClass="text-sm full-gradient-bg"></p-button>
   </div>
 </p-dialog>
+
+
+<p-dialog header="編輯文章"
+          [(visible)]="edit_ai_output_dialog"
+          [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+  <form [formGroup]="description_form">
+    <div class="p-2">
+    <textarea formControlName="user_output"
+              class="inner_content w-full text-sm border-none" rows="20"
+              style="color:#000; resize: none; overflow: auto; background: transparent"
+              pInputTextarea>
+            </textarea>
+      <div class="flex justify-content-center mt-5 gap-3">
+        <p-button label="取消"
+                  (click)="edit_ai_output_dialog = false" severity="danger"
+                  styleClass="text-sm danger-bg"></p-button>
+        <p-button label="確認"
+                  (click)="edit_ai_output_dialog = false"
+                  styleClass="text-sm full-gradient-bg"></p-button>
+      </div>
+    </div>
+  </form>
+</p-dialog>
+
 
 <p-confirmDialog #cd>
   <ng-template pTemplate="headless" let-message>
