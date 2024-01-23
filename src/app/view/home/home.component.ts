@@ -22,7 +22,7 @@ import { ConfirmationService, MessageService } from "primeng/api";
 })
 export class HomeComponent implements OnInit {
   pk = pk;
-  content = ['論壇', '新聞稿', '部落格', '社群貼文', '廣告文案'];
+  content_type = ['論壇', '新聞稿', '部落格', '社群貼文', '廣告文案'];
   forum = ['Dcard', 'Mobile01', 'PTT',];
   board: any[] = [];
   dcard_board = ['美妝', '感情', '閒聊', '健康', '美食', '旅遊'];
@@ -54,7 +54,7 @@ export class HomeComponent implements OnInit {
 
   comparative_dialog: boolean = false;
   demo_dialog: boolean = false;
-  edit_ai_output_dialog: boolean = false;
+  edit_ai_article_dialog: boolean = false;
 
   description_form: FormGroup;
 
@@ -64,7 +64,7 @@ export class HomeComponent implements OnInit {
     private messageService: MessageService
   ) {
     this.description_form = this.fb.group({
-      content: ['論壇', Validators.required],
+      content_type: ['論壇', Validators.required],
       // 選擇論壇 - 第一層描述
       forum: ['', Validators.required],
       board: ['', Validators.required],
@@ -74,23 +74,21 @@ export class HomeComponent implements OnInit {
       // 人物設定
       gender: ['', Validators.required],
       age: [0],
-      from_age: [''],
-      to_age: [''],
       character_trait: [''],
       character_remarks: [''],
       //產品資訊
       product_name: ['', Validators.required],
       product_feature: ['', Validators.required],
       product_highlights: ['', Validators.required],
-      comparative: [false],
+      has_comparative: [false],
       //文章資訊
       title: ['', Validators.required],
       word_limit: [100],
       key_message: [''],
       story: [''],
       //文章生成
-      ai_output: ['我由Dcard上熱門文章構成，專精於製作真實且客製化的口碑文。 無論任何話題，只需提供方向，我便能為您編寫出充滿鄉民感的內容。 讓我簡要為您說明操作步驟： 1️⃣️ 在「文章版位」，決定您希望撰寫的版位、字數，以及創意值（範圍從保守到幻想）。 2️⃣ 在「產品資訊」，描述您希望推薦的商品或服務。 3️⃣ 在「人物設定」，告訴我您心中的理想作者或特定人物特質，我將根據描述進行變身。 💡小提示，詳細的描述能讓我提供更符合您期待的文章。 4️⃣ 若有特定故事走向或情境，請於「口碑切角」填寫，或是選擇留空，讓我發揮最大的創意，為您構思一段獨特的故事。 現在，開啟您的創作之旅吧！🌟'],
-      user_output: [''],
+      ai_article: ['我由Dcard上熱門文章構成，專精於製作真實且客製化的口碑文。 無論任何話題，只需提供方向，我便能為您編寫出充滿鄉民感的內容。 讓我簡要為您說明操作步驟： 1️⃣️ 在「文章版位」，決定您希望撰寫的版位、字數，以及創意值（範圍從保守到幻想）。 2️⃣ 在「產品資訊」，描述您希望推薦的商品或服務。 3️⃣ 在「人物設定」，告訴我您心中的理想作者或特定人物特質，我將根據描述進行變身。 💡小提示，詳細的描述能讓我提供更符合您期待的文章。 4️⃣ 若有特定故事走向或情境，請於「口碑切角」填寫，或是選擇留空，讓我發揮最大的創意，為您構思一段獨特的故事。 現在，開啟您的創作之旅吧！🌟'],
+      modify_article: [''],
       img: [''],
       rating: [''],
       created_at: [''],
@@ -180,8 +178,8 @@ export class HomeComponent implements OnInit {
   }
 
   openEditAiOutputDialog() {
-    this.description_form.controls['user_output'].setValue(this.description_form.controls['ai_output'].value);
-    this.edit_ai_output_dialog = true;
+    this.description_form.controls['modify_article'].setValue(this.description_form.controls['ai_article'].value);
+    this.edit_ai_article_dialog = true;
   }
 
   getTypes() {
@@ -198,7 +196,7 @@ export class HomeComponent implements OnInit {
   }
 
   copyArticleOutput() {
-    navigator.clipboard.writeText(this.description_form.controls['ai_output'].value).then(() => {
+    navigator.clipboard.writeText(this.description_form.controls['ai_article'].value).then(() => {
       this.messageService.add({ severity: 'success', summary: '複製成功', detail: '已複製文章內容' });
     }).catch(err => {
       console.error('Could not copy text: ', err);
