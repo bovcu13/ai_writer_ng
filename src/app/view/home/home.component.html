@@ -31,19 +31,19 @@
               <div class="field">
                 <label class="text-sm font-medium text-white">
                   內容形式選擇
-                  <span *ngIf="!description_form.controls['content'].value && requiredError"
+                  <span *ngIf="!description_form.controls['content_type'].value && requiredError"
                         class="text-xs text-danger font-bold"> * 此欄位為必填</span>
                 </label>
                 <br>
-                <p-dropdown [options]="content"
-                            formControlName="content"
+                <p-dropdown [options]="content_type"
+                            formControlName="content_type"
                             placeholder="內容形式選擇"
                             styleClass="gradient-bg gradient-bg w-full border-round-3xl"
                             appendTo="body"></p-dropdown>
               </div>
             </div>
           </div>
-          <ng-container *ngIf="description_form.controls['content'].value === '論壇'">
+          <ng-container *ngIf="description_form.controls['content_type'].value === '論壇'">
             <div class="grid">
               <div class="col-12">
                 <div class="field">
@@ -213,15 +213,15 @@
                 <label class="text-sm font-medium text-white">是否出現與競品比較內容</label>
                 <div class="flex gap-3">
                   <div class="flex align-items-center">
-                    <p-radioButton formControlName="comparative" name="comparative"
+                    <p-radioButton formControlName="has_comparative" name="has_comparative"
                                    [value]="true" (onClick)="comparative_dialog = true"></p-radioButton>
                     <label class="ml-2 text-white">是</label>
                     <i class="ml-2 text-lg fa-regular fa-pen-to-square text-gradient icon-hover"
-                       *ngIf="description_form.controls['comparative'].value"
+                       *ngIf="description_form.controls['has_comparative'].value"
                        (click)="openComparativeDialog()"></i>
                   </div>
                   <div class="flex align-items-center">
-                    <p-radioButton [value]="false" formControlName="comparative" name="comparative"></p-radioButton>
+                    <p-radioButton [value]="false" formControlName="has_comparative" name="has_comparative"></p-radioButton>
                     <label class="ml-2 text-white">否</label>
                   </div>
                 </div>
@@ -300,10 +300,10 @@
               <img src="assets/img/ai_title_white.svg" alt="QPlan.Ai"/>
             </div>
             <span
-              class="inner_content output-textarea text-sm">{{ description_form.controls['ai_output'].value }}</span>
+              class="inner_content output-textarea text-sm">{{ description_form.controls['ai_article'].value }}</span>
             <div class="flex justify-content-end">
               <span
-                class="text-xs text-white text-right">字數：{{ countText(description_form.controls['ai_output'].value) }}</span>
+                class="text-xs text-white text-right">字數：{{ countText(description_form.controls['ai_article'].value) }}</span>
             </div>
           </div>
           <div class="flex align-items-center gap-2">
@@ -443,21 +443,21 @@
 
 
 <p-dialog header="編輯文章"
-          [(visible)]="edit_ai_output_dialog"
+          [(visible)]="edit_ai_article_dialog"
           [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
   <form [formGroup]="description_form">
     <div class="p-2">
-    <textarea formControlName="user_output"
+    <textarea formControlName="modify_article"
               class="inner_content w-full text-sm border-none" rows="20"
               style="color:#000; resize: none; overflow: auto; background: transparent"
               pInputTextarea>
             </textarea>
       <div class="flex justify-content-center mt-5 gap-3">
         <p-button label="取消"
-                  (click)="edit_ai_output_dialog = false" severity="danger"
+                  (click)="edit_ai_article_dialog = false" severity="danger"
                   styleClass="text-sm danger-bg"></p-button>
         <p-button label="確認"
-                  (click)="edit_ai_output_dialog = false"
+                  (click)="edit_ai_article_dialog = false"
                   styleClass="text-sm full-gradient-bg"></p-button>
       </div>
     </div>
