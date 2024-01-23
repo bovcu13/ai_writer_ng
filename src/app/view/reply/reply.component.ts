@@ -23,6 +23,7 @@ import { output_history } from "../../share/data/output-history";
   providers: [ConfirmationService, MessageService]
 })
 export class ReplyComponent implements OnInit {
+  protected readonly output_history = output_history;
   comment_output = comment;
   selectArticleDialog: boolean = false;
   selectedArticle: any;
@@ -152,8 +153,24 @@ export class ReplyComponent implements OnInit {
 
   setActiveItem(item: any) {
     this.selectedArticle = item;
-    console.log(this.selectedArticle);
+    console.log(this.selectedArticle.title);
   }
 
-    protected readonly output_history = output_history;
+  checkArticle() {
+    if (this.selectedArticle) {
+      this.description_form.controls['article'].setValue(this.selectedArticle.article); //應該要是內容
+      this.selectArticleDialog = false;
+      console.log(this.description_form.controls['article'].value);
+    } else {
+      console.log(this.description_form.controls['article'].value);
+      this.selectArticleDialog = false;
+    }
+  }
+
+  cancelArticle() {
+    this.description_form.controls['article'].setValue('');
+    this.selectArticleDialog = false;
+    console.log(this.description_form.controls['article'].value);
+  }
+
 }

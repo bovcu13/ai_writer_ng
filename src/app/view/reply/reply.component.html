@@ -37,11 +37,11 @@
                 <div class="flex gap-2">
                   <div class="flex align-items-center">
                     <p-radioButton name="source" formControlName="source"
-                                   [value]="'由生成文章'"
+                                   [value]="'生成文章'"
                                    (onClick)="selectArticleDialog = true"></p-radioButton>
                     <label class="ml-2 text-sm text-white">由生成文章</label>
                     <i class="ml-2 text-lg fa-regular fa-pen-to-square text-gradient icon-hover"
-                       *ngIf="description_form.controls['source'].value === '由生成文章'"
+                       *ngIf="description_form.controls['source'].value === '生成文章'"
                        (click)="openSelectArticleDialog()"></i>
                   </div>
                   <div class="flex align-items-center">
@@ -261,7 +261,7 @@
 <p-dialog header="{{description_form.controls['source'].value}}" [modal]="true" [(visible)]="selectArticleDialog"
           [style]="{width: '50vw'}">
   <form [formGroup]="description_form">
-    @if (description_form.controls['source'].value === '由生成文章') {
+    @if (description_form.controls['source'].value === '生成文章') {
       <p-table [value]="output_history"
                [scrollable]="true"
                styleClass="mt-3">
@@ -300,11 +300,11 @@
   </form>
   <div class="flex justify-content-end mt-5 gap-3">
     <p-button label="取消"
-              (click)="selectArticleDialog = false"
+              (click)="cancelArticle()"
               size="small" styleClass="text-sm danger-bg"
               severity="danger"></p-button>
     <p-button label="確認"
-              (click)="selectArticleDialog = false"
+              (click)="checkArticle()"
               size="small" styleClass="text-sm full-gradient-bg"></p-button>
   </div>
 </p-dialog>
