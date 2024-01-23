@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { PRIMENG_MODULES } from "../../share/primeng";
 import { comment } from "../../share/data/comment";
-import { NgClass, NgForOf, NgIf } from "@angular/common";
+import { DatePipe, NgClass, NgForOf, NgIf } from "@angular/common";
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { ConfirmationService, MessageService } from "primeng/api";
+import { output_history } from "../../share/data/output-history";
 
 @Component({
   selector: 'app-reply',
@@ -15,6 +16,7 @@ import { ConfirmationService, MessageService } from "primeng/api";
     ReactiveFormsModule,
     FormsModule,
     NgClass,
+    DatePipe,
   ],
   templateUrl: './reply.component.html',
   styleUrl: './reply.component.scss',
@@ -23,6 +25,7 @@ import { ConfirmationService, MessageService } from "primeng/api";
 export class ReplyComponent implements OnInit {
   comment_output = comment;
   selectArticleDialog: boolean = false;
+  selectedArticle: any;
   errorShown: boolean = false;
   requiredError: boolean = false;
   thumbsUpStatus = [{}];
@@ -146,4 +149,11 @@ export class ReplyComponent implements OnInit {
       this.thumbsUpStatus[commentId] = false;
     }
   }
+
+  setActiveItem(item: any) {
+    this.selectedArticle = item;
+    console.log(this.selectedArticle);
+  }
+
+    protected readonly output_history = output_history;
 }
