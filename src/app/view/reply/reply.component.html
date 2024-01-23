@@ -10,7 +10,7 @@
           <p-image src="assets/img/ai_robot01.svg" alt="Image"></p-image>
         </div>
       </div>
-      <div class="flex flex-column gap-3 p-3 border-round overflow-y-auto inner_content"
+      <div class="flex flex-column gap-3 p-3 border-round overflow-x-hidden overflow-y-auto inner_content"
            style="height: calc(82vh - 140px)">
         <div class="gradient-bg border-round p-3 text-white">
           <div class="flex align-items-end">
@@ -32,16 +32,16 @@
                 <label class="text-sm font-medium text-white text-white">
                   選擇回文文章
                   <span *ngIf="!description_form.controls['article'].value && requiredError"
-                        class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
+                        class="text-xs text-danger font-bold"> * 此欄位為必填</span>
                 </label>
                 <div class="flex gap-2">
                   <div class="flex align-items-center">
                     <p-radioButton name="source" formControlName="source"
-                                   [value]="'由生成文章'"
+                                   [value]="'生成文章'"
                                    (onClick)="selectArticleDialog = true"></p-radioButton>
                     <label class="ml-2 text-sm text-white">由生成文章</label>
                     <i class="ml-2 text-lg fa-regular fa-pen-to-square text-gradient icon-hover"
-                       *ngIf="description_form.controls['source'].value === '由生成文章'"
+                       *ngIf="description_form.controls['source'].value === '生成文章'"
                        (click)="openSelectArticleDialog()"></i>
                   </div>
                   <div class="flex align-items-center">
@@ -215,8 +215,12 @@
                           <p-chip label="{{comment.style}}" [styleClass]="getChipColor(comment.style)"></p-chip>
                         </div>
                         <div class="flex text-300 gap-3 ml-auto">
-                          <i class="icon-hover" [class]="thumbsUpStatus[comment.id] ? 'fa-solid fa-thumbs-up' : 'fa-regular fa-thumbs-up'" (click)="toggleThumbsUp(comment.id)"></i>
-                          <i class="icon-hover" [class]="thumbsDownStatus[comment.id] ? 'fa-solid fa-thumbs-down' : 'fa-regular fa-thumbs-down'" (click)="toggleThumbsDown(comment.id)"></i>
+                          <i class="icon-hover"
+                             [class]="thumbsUpStatus[comment.id] ? 'fa-solid fa-thumbs-up' : 'fa-regular fa-thumbs-up'"
+                             (click)="toggleThumbsUp(comment.id)"></i>
+                          <i class="icon-hover"
+                             [class]="thumbsDownStatus[comment.id] ? 'fa-solid fa-thumbs-down' : 'fa-regular fa-thumbs-down'"
+                             (click)="toggleThumbsDown(comment.id)"></i>
                           <i class="icon-hover fa-regular fa-copy" (click)="copy(comment.comment)"></i>
                           <i class="icon-hover fa-solid fa-rotate-left"></i>
                         </div>
@@ -257,17 +261,38 @@
 <p-dialog header="{{description_form.controls['source'].value}}" [modal]="true" [(visible)]="selectArticleDialog"
           [style]="{width: '50vw'}">
   <form [formGroup]="description_form">
-    @if (description_form.controls['source'].value === '由生成文章') {
-
+    @if (description_form.controls['source'].value === '生成文章') {
+      <p-table [value]="output_history"
+               [scrollable]="true"
+               styleClass="mt-3">
+        <ng-template pTemplate="body" let-output>
+          <tr style="background: transparent">
+            <td style="background: transparent">
+              <div class="flex gap-3 p-4 styled-box"
+                   [ngClass]="{'active': selectedArticle === output}"
+                   (click)="setActiveItem(output)">
+                <p-avatar icon="fa-regular fa-newspaper"
+                          styleClass="mr-2 full-gradient-bg text-white"
+                          size="large"></p-avatar>
+                <div class="flex flex-column gap-2">
+                  <span
+                    class="w-5rem font-bold white-space-nowrap overflow-hidden text-overflow-ellipsis md:w-full lg:w-full">{{ output.title }}</span>
+                  <span class="text-sm">{{ output.created_at | date: 'yyyy-MM-dd' }}</span>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
     } @else {
 
       <div class="field">
-        <label class="text-sm font-medium text-white">請提供文章內容</label>
+        <label class="text-sm font-medium">請提供文章內容</label>
         <br>
         <textarea formControlName="article"
                   rows="15"
                   class="w-full text-sm border-none bg-blue-50"
-                  style="resize: none; overflow: auto;"
+                  style="resize: none; overflow: auto; color: #000;"
                   pInputTextarea></textarea>
       </div>
 
@@ -275,12 +300,11 @@
   </form>
   <div class="flex justify-content-end mt-5 gap-3">
     <p-button label="取消"
-              (click)="selectArticleDialog = false" [outlined]="true"
-              size="small" styleClass="text-sm"
-              severity="help"></p-button>
+              (click)="cancelArticle()"
+              size="small" styleClass="text-sm danger-bg"
+              severity="danger"></p-button>
     <p-button label="確認"
-              (click)="selectArticleDialog = false" [raised]="true"
-              size="small" styleClass="text-sm"
-              severity="help"></p-button>
+              (click)="checkArticle()"
+              size="small" styleClass="text-sm full-gradient-bg"></p-button>
   </div>
 </p-dialog>

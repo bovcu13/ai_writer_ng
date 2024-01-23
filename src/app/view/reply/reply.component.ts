@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { PRIMENG_MODULES } from "../../share/primeng";
 import { comment } from "../../share/data/comment";
-import { NgClass, NgForOf, NgIf } from "@angular/common";
+import { DatePipe, NgClass, NgForOf, NgIf } from "@angular/common";
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { ConfirmationService, MessageService } from "primeng/api";
+import { output_history } from "../../share/data/output-history";
 
 @Component({
   selector: 'app-reply',
@@ -15,14 +16,17 @@ import { ConfirmationService, MessageService } from "primeng/api";
     ReactiveFormsModule,
     FormsModule,
     NgClass,
+    DatePipe,
   ],
   templateUrl: './reply.component.html',
   styleUrl: './reply.component.scss',
   providers: [ConfirmationService, MessageService]
 })
 export class ReplyComponent implements OnInit {
+  protected readonly output_history = output_history;
   comment_output = comment;
   selectArticleDialog: boolean = false;
+  selectedArticle: any;
   errorShown: boolean = false;
   requiredError: boolean = false;
   thumbsUpStatus = [{}];
@@ -146,4 +150,27 @@ export class ReplyComponent implements OnInit {
       this.thumbsUpStatus[commentId] = false;
     }
   }
+
+  setActiveItem(item: any) {
+    this.selectedArticle = item;
+    console.log(this.selectedArticle.title);
+  }
+
+  checkArticle() {
+    if (this.selectedArticle) {
+      this.description_form.controls['article'].setValue(this.selectedArticle.article); //應該要是內容
+      this.selectArticleDialog = false;
+      console.log(this.description_form.controls['article'].value);
+    } else {
+      console.log(this.description_form.controls['article'].value);
+      this.selectArticleDialog = false;
+    }
+  }
+
+  cancelArticle() {
+    this.description_form.controls['article'].setValue('');
+    this.selectArticleDialog = false;
+    console.log(this.description_form.controls['article'].value);
+  }
+
 }

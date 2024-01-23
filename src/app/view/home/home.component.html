@@ -32,7 +32,7 @@
                 <label class="text-sm font-medium text-white">
                   內容形式選擇
                   <span *ngIf="!description_form.controls['content'].value && requiredError"
-                        class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
+                        class="text-xs text-danger font-bold"> * 此欄位為必填</span>
                 </label>
                 <br>
                 <p-dropdown [options]="content"
@@ -50,7 +50,7 @@
                   <label class="text-sm font-medium text-white">
                     論壇選擇
                     <span *ngIf="!description_form.controls['forum'].value && requiredError"
-                          class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
+                          class="text-xs text-danger font-bold"> * 此欄位為必填</span>
                   </label>
                   <br>
                   <p-dropdown [options]="forum"
@@ -66,7 +66,7 @@
                   <label class="text-sm font-medium text-white">
                     文章版位
                     <span *ngIf="!description_form.controls['board'].value && requiredError"
-                          class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
+                          class="text-xs text-danger font-bold"> * 此欄位為必填</span>
                   </label>
                   <br>
                   <p-dropdown [options]="board"
@@ -125,7 +125,7 @@
                 <label class="text-sm font-medium text-white">
                   性別
                   <span *ngIf="!description_form.controls['gender'].value && requiredError"
-                        class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
+                        class="text-xs text-danger font-bold"> * 此欄位為必填</span>
                 </label>
                 <br>
                 <p-dropdown [options]="gender"
@@ -180,7 +180,7 @@
                 <label class="text-sm font-medium text-white">
                   產品名稱
                   <span *ngIf="!description_form.controls['product_name'].value && requiredError"
-                        class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
+                        class="text-xs text-danger font-bold"> * 此欄位為必填</span>
                 </label>
                 <input formControlName="product_name"
                        class="gradient-bg w-full" type="text" pInputText/>
@@ -191,7 +191,7 @@
                 <label class="text-sm font-medium text-white">
                   產品功能
                   <span *ngIf="!description_form.controls['product_feature'].value && requiredError"
-                        class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
+                        class="text-xs text-danger font-bold"> * 此欄位為必填</span>
                 </label>
                 <textarea formControlName="product_feature"
                           rows="5" class="gradient-bg w-full" pInputTextarea></textarea>
@@ -202,7 +202,7 @@
                 <label class="text-sm font-medium text-white">
                   產品特點及市場差異性
                   <span *ngIf="!description_form.controls['product_highlights'].value && requiredError"
-                        class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
+                        class="text-xs text-danger font-bold"> * 此欄位為必填</span>
                 </label>
                 <textarea formControlName="product_highlights"
                           rows="5" class="gradient-bg w-full" pInputTextarea></textarea>
@@ -235,7 +235,7 @@
                 <label class="text-sm font-medium text-white">
                   文章標題
                   <span *ngIf="!description_form.controls['title'].value && requiredError"
-                        class="text-xs text-red-600 font-bold"> * 此欄位為必填</span>
+                        class="text-xs text-danger font-bold"> * 此欄位為必填</span>
                 </label>
                 <input formControlName="title"
                        class="gradient-bg w-full" type="text" pInputText/>
