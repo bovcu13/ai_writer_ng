@@ -31,7 +31,7 @@ import { ChipModule } from 'primeng/chip';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MenubarModule } from 'primeng/menubar';
-
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 export const PRIMENG_MODULES = [
   CardModule,
@@ -66,5 +66,6 @@ export const PRIMENG_MODULES = [
   ChipModule,
   OverlayPanelModule,
   ConfirmDialogModule,
-  MenubarModule
+  MenubarModule,
+  ProgressSpinnerModule,
 ];
