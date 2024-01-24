@@ -275,7 +275,7 @@
             <div class="col-12">
               <div class="flex flex-column gap-2">
                 <p-button label="口碑/故事切角生成"
-                          (click)="confirm()"
+                          (click)="confirmPostStory()"
                           [rounded]="true"
                           size="small"
                           styleClass="full-gradient-bg w-full border-none"></p-button>
@@ -448,8 +448,7 @@
   <form [formGroup]="article_form">
     <div class="p-2">
     <textarea formControlName="modify_article"
-              class="inner_content w-full text-sm border-none" rows="20"
-              style="color:#000; resize: none; overflow: auto; background: transparent"
+              class="inner_content w-full text-sm border-none bg-blue-50 story-textarea" rows="20"
               pInputTextarea>
             </textarea>
       <div class="flex justify-content-center mt-5 gap-3">

@@ -107,22 +107,22 @@ export class HomeComponent implements OnInit {
     this.description_form.controls['age'].setValue([20, 45]);
   }
 
-  // 回文confirm
-  confirm() {
+  // 口碑故事切角confirm
+  confirmPostStory() {
     if (this.description_form.controls['story'].value == '') {
       this.confirmationService.confirm({
         header: '確定內容了嗎?',
         message: '確認後將產生三篇切角示範文章，請確認您的內容描述無誤。',
         accept: () => {
           if (this.isFormCompleted()) {
-            this.showInfo('回文產生中，請稍候');
+            this.showInfo('口碑/故事產生中，請稍候');
+            // 3秒後打開口碑故事切角dialog
             setTimeout(() => {
               this.openDemoDialog();
-            }, 3000); // 3秒後打開
+            }, 3000);
           }
         },
         reject: () => {
-
         }
       });
     } else {
@@ -142,7 +142,6 @@ export class HomeComponent implements OnInit {
         }
       },
       reject: () => {
-
       }
     });
   }
@@ -184,7 +183,7 @@ export class HomeComponent implements OnInit {
   }
 
   openEditAiOutputDialog() {
-    this.description_form.controls['modify_article'].setValue(this.description_form.controls['ai_article'].value);
+    this.article_form.controls['modify_article'].setValue(this.article_form.controls['ai_article'].value);
     this.edit_ai_article_dialog = true;
   }
 
