@@ -280,7 +280,7 @@
                           size="small"
                           styleClass="full-gradient-bg w-full border-none"></p-button>
                 <p-button label="文章生成"
-                          (click)="confirm2()"
+                          (click)="confirmPostArticle()"
                           [rounded]="true"
                           size="small"
                           styleClass="full-gradient-bg w-full border-none"></p-button>
@@ -293,17 +293,17 @@
   </div>
   <div class="col-12 md:col-12 lg:col-6">
     <p-card styleClass="bg-c overflow-y-auto inner_content" [style]="{height: '82vh'}">
-      <form [formGroup]="description_form">
+      <form [formGroup]="article_form">
         <div class="flex flex-column gap-3" style="position: relative">
           <div class="flex flex-column gap-2 p-4 border-round gradient-bg">
             <div class="inner_content_title">
               <img src="assets/img/ai_title_white.svg" alt="QPlan.Ai"/>
             </div>
             <span
-              class="inner_content output-textarea text-sm">{{ description_form.controls['ai_article'].value }}</span>
+              class="inner_content output-textarea text-sm">{{ article_form.controls['ai_article'].value }}</span>
             <div class="flex justify-content-end">
               <span
-                class="text-xs text-white text-right">字數：{{ countText(description_form.controls['ai_article'].value) }}</span>
+                class="text-xs text-white text-right">字數：{{ countText(article_form.controls['ai_article'].value) }}</span>
             </div>
           </div>
           <div class="flex align-items-center gap-2">
@@ -445,7 +445,7 @@
 <p-dialog header="編輯文章"
           [(visible)]="edit_ai_article_dialog"
           [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
-  <form [formGroup]="description_form">
+  <form [formGroup]="article_form">
     <div class="p-2">
     <textarea formControlName="modify_article"
               class="inner_content w-full text-sm border-none" rows="20"
