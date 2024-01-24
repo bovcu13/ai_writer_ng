@@ -57,7 +57,10 @@ export class HomeComponent implements OnInit {
   demo_dialog: boolean = false;
   edit_ai_article_dialog: boolean = false;
 
+  // 定時器
+  private progressTimerId: any = null;
   ai_article_loading: boolean = false;
+  ai_article_progress: number = 0;
 
   description_form: FormGroup;
   article_form: FormGroup;
@@ -141,6 +144,17 @@ export class HomeComponent implements OnInit {
         if (this.isFormCompleted()) {
           this.showInfo('文章產生中，請稍候');
           this.ai_article_loading = true;
+
+          // 啟動定時器，每隔一段時間隨機增加 ai_article_progress 的值
+          this.progressTimerId = setInterval(() => {
+            this.ai_article_progress += Math.floor(Math.random() * 10) + 1;
+            if (this.ai_article_progress >= 100) {
+              this.ai_article_progress = 100;
+              clearInterval(this.progressTimerId);
+              this.progressTimerId = null;
+            }
+          }, 1000);
+
           this.postArticleRequest();
         }
       },
@@ -181,6 +195,14 @@ export class HomeComponent implements OnInit {
     let body = this.description_form.value;
     this.articleServ.postArticleRequest(body).subscribe({
       next: data => {
+
+        // 請求完成時清除定時器並將 ai_article_progress 設置為 100
+        if (this.progressTimerId) {
+          clearInterval(this.progressTimerId);
+          this.progressTimerId = null;
+        }
+        this.ai_article_progress = 100;
+
         this.showSussess('產文成功！');
         this.ai_article_loading = false;
         this.article_form.controls['ai_article'].setValue(data.body.ai_article);
