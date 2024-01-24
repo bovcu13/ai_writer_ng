@@ -148,8 +148,8 @@ export class HomeComponent implements OnInit {
           // 啟動定時器，每隔一段時間隨機增加 ai_article_progress 的值
           this.progressTimerId = setInterval(() => {
             this.ai_article_progress += Math.floor(Math.random() * 10) + 1;
-            if (this.ai_article_progress >= 100) {
-              this.ai_article_progress = 100;
+            if (this.ai_article_progress >= 99) {
+              this.ai_article_progress = 99;
               clearInterval(this.progressTimerId);
               this.progressTimerId = null;
             }
@@ -160,6 +160,39 @@ export class HomeComponent implements OnInit {
       },
       reject: () => {
       }
+    });
+  }
+
+  // 生成文章
+  postArticleRequest() {
+    let body = this.description_form.value;
+    this.articleServ.postArticleRequest(body).subscribe({
+      next: data => {
+
+        // 請求完成時清除定時器並將 ai_article_progress 設置為 100
+        if (this.progressTimerId) {
+          clearInterval(this.progressTimerId);
+          this.progressTimerId = null;
+        }
+        this.ai_article_progress = 100;
+
+        this.showSussess('產文成功！');
+        this.ai_article_loading = false;
+        this.article_form.controls['ai_article'].setValue(data.body.ai_article);
+        console.log('data:', data);
+        console.log('ai_article',this.article_form.controls['ai_article'].value);
+        this.ai_article_progress = 0;
+      },
+      error: (err) => {
+        this.showError('發生問題，產文失敗！');
+        this.ai_article_loading = false;
+        if (this.progressTimerId) {
+          clearInterval(this.progressTimerId);
+          this.progressTimerId = null;
+        }
+        this.ai_article_progress = 0;
+        console.log(err);
+      },
     });
   }
 
@@ -188,33 +221,6 @@ export class HomeComponent implements OnInit {
       default:
         return this.board = ['尚未選擇論壇'];
     }
-  }
-
-  // 生成文章
-  postArticleRequest() {
-    let body = this.description_form.value;
-    this.articleServ.postArticleRequest(body).subscribe({
-      next: data => {
-
-        // 請求完成時清除定時器並將 ai_article_progress 設置為 100
-        if (this.progressTimerId) {
-          clearInterval(this.progressTimerId);
-          this.progressTimerId = null;
-        }
-        this.ai_article_progress = 100;
-
-        this.showSussess('產文成功！');
-        this.ai_article_loading = false;
-        this.article_form.controls['ai_article'].setValue(data.body.ai_article);
-        console.log('data:', data);
-        console.log('ai_article',this.article_form.controls['ai_article'].value);
-      },
-      error: (err) => {
-        this.showError('發生問題，產文失敗！');
-        this.ai_article_loading = false;
-        console.log(err);
-      },
-    });
   }
 
   copyArticleOutput() {
