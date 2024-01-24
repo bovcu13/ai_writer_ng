@@ -301,12 +301,16 @@
               <img src="assets/img/ai_title_white.svg" alt="QPlan.Ai"/>
             </div>
             <div class="inner_content output-textarea text-sm">
-              <p-progressBar *ngIf="ai_article_loading" styleClass="mt-8" [value]="ai_article_progress"></p-progressBar>
-<!--              <div class="flex justify-content-center align-items-center h-full">-->
-<!--                <p-progressSpinner styleClass="w-4rem h-4rem"-->
-<!--                                   strokeWidth="8"-->
-<!--                                   animationDuration=".5s"></p-progressSpinner>-->
-<!--              </div>-->
+              <p-progressBar *ngIf="ai_article_loading"
+                             [value]="ai_article_progress"
+                             styleClass="mt-8"
+                             [style]="{background: 'rgba(10, 0, 99, 0.3)'}"
+                             color="#5ce2ff"></p-progressBar>
+              <!--              <div class="flex justify-content-center align-items-center h-full">-->
+              <!--                <p-progressSpinner styleClass="w-4rem h-4rem"-->
+              <!--                                   strokeWidth="8"-->
+              <!--                                   animationDuration=".5s"></p-progressSpinner>-->
+              <!--              </div>-->
               <span *ngIf="!ai_article_loading">{{ article_form.controls['ai_article'].value }}</span>
             </div>
             <div *ngIf="!ai_article_loading" class="flex justify-content-end">
