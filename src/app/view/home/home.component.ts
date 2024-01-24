@@ -57,6 +57,8 @@ export class HomeComponent implements OnInit {
   demo_dialog: boolean = false;
   edit_ai_article_dialog: boolean = false;
 
+  ai_article_loading: boolean = false;
+
   description_form: FormGroup;
   article_form: FormGroup;
 
@@ -138,6 +140,7 @@ export class HomeComponent implements OnInit {
       accept: () => {
         if (this.isFormCompleted()) {
           this.showInfo('文章產生中，請稍候');
+          this.ai_article_loading = true;
           this.postArticleRequest();
         }
       },
@@ -214,12 +217,14 @@ export class HomeComponent implements OnInit {
     this.articleServ.postArticleRequest(body).subscribe({
       next: data => {
         this.showSussess('產文成功！');
+        this.ai_article_loading = false;
         this.article_form.controls['ai_article'].setValue(data.body.ai_article);
-        console.log('ai_article',this.article_form.controls['ai_article'].value);
         console.log('data:', data);
+        console.log('ai_article',this.article_form.controls['ai_article'].value);
       },
       error: (err) => {
         this.showError('發生問題，產文失敗！');
+        this.ai_article_loading = false;
         console.log(err);
       },
     });

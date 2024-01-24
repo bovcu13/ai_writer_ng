@@ -221,7 +221,8 @@
                        (click)="openComparativeDialog()"></i>
                   </div>
                   <div class="flex align-items-center">
-                    <p-radioButton [value]="false" formControlName="has_comparative" name="has_comparative"></p-radioButton>
+                    <p-radioButton [value]="false" formControlName="has_comparative"
+                                   name="has_comparative"></p-radioButton>
                     <label class="ml-2 text-white">否</label>
                   </div>
                 </div>
@@ -299,9 +300,15 @@
             <div class="inner_content_title">
               <img src="assets/img/ai_title_white.svg" alt="QPlan.Ai"/>
             </div>
-            <span
-              class="inner_content output-textarea text-sm">{{ article_form.controls['ai_article'].value }}</span>
-            <div class="flex justify-content-end">
+            <span class="inner_content output-textarea text-sm">
+              <div *ngIf="ai_article_loading" class="flex justify-content-center align-items-center h-full">
+                <p-progressSpinner styleClass="w-4rem h-4rem"
+                                   strokeWidth="8"
+                                   animationDuration=".5s"></p-progressSpinner>
+              </div>
+              <span *ngIf="!ai_article_loading">{{ article_form.controls['ai_article'].value }}</span>
+            </span>
+            <div *ngIf="!ai_article_loading" class="flex justify-content-end">
               <span
                 class="text-xs text-white text-right">字數：{{ countText(article_form.controls['ai_article'].value) }}</span>
             </div>
