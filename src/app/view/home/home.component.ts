@@ -57,6 +57,8 @@ export class HomeComponent implements OnInit {
   demo_dialog: boolean = false;
   edit_ai_article_dialog: boolean = false;
 
+  ai_article_loading: boolean = false;
+
   description_form: FormGroup;
   article_form: FormGroup;
 
@@ -107,22 +109,22 @@ export class HomeComponent implements OnInit {
     this.description_form.controls['age'].setValue([20, 45]);
   }
 
-  // 回文confirm
-  confirm() {
+  // 口碑故事切角confirm
+  confirmPostStory() {
     if (this.description_form.controls['story'].value == '') {
       this.confirmationService.confirm({
         header: '確定內容了嗎?',
         message: '確認後將產生三篇切角示範文章，請確認您的內容描述無誤。',
         accept: () => {
           if (this.isFormCompleted()) {
-            this.showInfo('回文產生中，請稍候');
+            this.showInfo('口碑/故事產生中，請稍候');
+            // 3秒後打開口碑故事切角dialog
             setTimeout(() => {
               this.openDemoDialog();
-            }, 3000); // 3秒後打開
+            }, 3000);
           }
         },
         reject: () => {
-
         }
       });
     } else {
@@ -138,11 +140,11 @@ export class HomeComponent implements OnInit {
       accept: () => {
         if (this.isFormCompleted()) {
           this.showInfo('文章產生中，請稍候');
+          this.ai_article_loading = true;
           this.postArticleRequest();
         }
       },
       reject: () => {
-
       }
     });
   }
@@ -161,6 +163,46 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  getTypes() {
+    switch (this.description_form.controls['forum'].value) {
+      case 'Dcard':
+        return this.board = this.dcard_board;
+      case 'Mobile01':
+        return this.board = this.mobile01_board;
+      case 'PTT':
+        return this.board = this.ptt_board;
+      default:
+        return this.board = ['尚未選擇論壇'];
+    }
+  }
+
+  // 生成文章
+  postArticleRequest() {
+    let body = this.description_form.value;
+    this.articleServ.postArticleRequest(body).subscribe({
+      next: data => {
+        this.showSussess('產文成功！');
+        this.ai_article_loading = false;
+        this.article_form.controls['ai_article'].setValue(data.body.ai_article);
+        console.log('data:', data);
+        console.log('ai_article',this.article_form.controls['ai_article'].value);
+      },
+      error: (err) => {
+        this.showError('發生問題，產文失敗！');
+        this.ai_article_loading = false;
+        console.log(err);
+      },
+    });
+  }
+
+  copyArticleOutput() {
+    navigator.clipboard.writeText(this.article_form.controls['ai_article'].value).then(() => {
+      this.showSussess('已複製文章內容');
+    }).catch(err => {
+      console.error('Could not copy text: ', err);
+    });
+  }
+
   ageSliderChange(event: any) {
     this.minAge = event.values[0];
     this.maxAge = event.values[1];
@@ -175,6 +217,7 @@ export class HomeComponent implements OnInit {
     return text ? text.length : 0;
   }
 
+  // dialog
   openComparativeDialog() {
     this.comparative_dialog = true;
   }
@@ -184,48 +227,11 @@ export class HomeComponent implements OnInit {
   }
 
   openEditAiOutputDialog() {
-    this.description_form.controls['modify_article'].setValue(this.description_form.controls['ai_article'].value);
+    this.article_form.controls['modify_article'].setValue(this.article_form.controls['ai_article'].value);
     this.edit_ai_article_dialog = true;
   }
 
-  getTypes() {
-    switch (this.description_form.controls['forum'].value) {
-      case 'Dcard':
-        return this.board = this.dcard_board;
-      case 'Mobile01':
-        return this.board = this.mobile01_board;
-      case 'PTT':
-        return this.board = this.ptt_board;
-      default:
-        return this.board = ['尚未選擇論壇'];
-    }
-  }
-
-  copyArticleOutput() {
-    navigator.clipboard.writeText(this.description_form.controls['ai_article'].value).then(() => {
-      this.showSussess('已複製文章內容');
-    }).catch(err => {
-      console.error('Could not copy text: ', err);
-    });
-  }
-
-  // 生成文章
-  postArticleRequest() {
-    let body = this.description_form.value;
-    this.articleServ.postArticleRequest(body).subscribe({
-      next: data => {
-        this.showSussess('產文成功！');
-        this.article_form.controls['ai_article'].setValue(data.body.ai_article);
-        console.log('ai_article',this.article_form.controls['ai_article'].value);
-        console.log('data:', data);
-      },
-      error: (err) => {
-        this.showError('發生問題，產文失敗！');
-        console.log(err);
-      },
-    });
-  }
-
+  // msg
   showSussess(msg = '') {
     this.messageService.add({ severity: 'success', summary: '成功訊息', detail: `${msg}`, life: 3000 });
   }

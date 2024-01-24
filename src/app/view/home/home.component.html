@@ -221,7 +221,8 @@
                        (click)="openComparativeDialog()"></i>
                   </div>
                   <div class="flex align-items-center">
-                    <p-radioButton [value]="false" formControlName="has_comparative" name="has_comparative"></p-radioButton>
+                    <p-radioButton [value]="false" formControlName="has_comparative"
+                                   name="has_comparative"></p-radioButton>
                     <label class="ml-2 text-white">否</label>
                   </div>
                 </div>
@@ -275,7 +276,7 @@
             <div class="col-12">
               <div class="flex flex-column gap-2">
                 <p-button label="口碑/故事切角生成"
-                          (click)="confirm()"
+                          (click)="confirmPostStory()"
                           [rounded]="true"
                           size="small"
                           styleClass="full-gradient-bg w-full border-none"></p-button>
@@ -299,9 +300,15 @@
             <div class="inner_content_title">
               <img src="assets/img/ai_title_white.svg" alt="QPlan.Ai"/>
             </div>
-            <span
-              class="inner_content output-textarea text-sm">{{ article_form.controls['ai_article'].value }}</span>
-            <div class="flex justify-content-end">
+            <span class="inner_content output-textarea text-sm">
+              <div *ngIf="ai_article_loading" class="flex justify-content-center align-items-center h-full">
+                <p-progressSpinner styleClass="w-4rem h-4rem"
+                                   strokeWidth="8"
+                                   animationDuration=".5s"></p-progressSpinner>
+              </div>
+              <span *ngIf="!ai_article_loading">{{ article_form.controls['ai_article'].value }}</span>
+            </span>
+            <div *ngIf="!ai_article_loading" class="flex justify-content-end">
               <span
                 class="text-xs text-white text-right">字數：{{ countText(article_form.controls['ai_article'].value) }}</span>
             </div>
@@ -448,8 +455,7 @@
   <form [formGroup]="article_form">
     <div class="p-2">
     <textarea formControlName="modify_article"
-              class="inner_content w-full text-sm border-none" rows="20"
-              style="color:#000; resize: none; overflow: auto; background: transparent"
+              class="inner_content w-full text-sm border-none bg-blue-50 story-textarea" rows="20"
               pInputTextarea>
             </textarea>
       <div class="flex justify-content-center mt-5 gap-3">
