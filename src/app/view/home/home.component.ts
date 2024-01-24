@@ -163,33 +163,6 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  ageSliderChange(event: any) {
-    this.minAge = event.values[0];
-    this.maxAge = event.values[1];
-  }
-
-  addOverlay(story: any) {
-    this.activeOverlay = story.id;
-    this.description_form.controls['story'].setValue(story.content);
-  }
-
-  countText(text: any): number {
-    return text ? text.length : 0;
-  }
-
-  openComparativeDialog() {
-    this.comparative_dialog = true;
-  }
-
-  openDemoDialog() {
-    this.demo_dialog = true;
-  }
-
-  openEditAiOutputDialog() {
-    this.article_form.controls['modify_article'].setValue(this.article_form.controls['ai_article'].value);
-    this.edit_ai_article_dialog = true;
-  }
-
   getTypes() {
     switch (this.description_form.controls['forum'].value) {
       case 'Dcard':
@@ -201,14 +174,6 @@ export class HomeComponent implements OnInit {
       default:
         return this.board = ['尚未選擇論壇'];
     }
-  }
-
-  copyArticleOutput() {
-    navigator.clipboard.writeText(this.description_form.controls['ai_article'].value).then(() => {
-      this.showSussess('已複製文章內容');
-    }).catch(err => {
-      console.error('Could not copy text: ', err);
-    });
   }
 
   // 生成文章
@@ -230,6 +195,43 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  copyArticleOutput() {
+    navigator.clipboard.writeText(this.article_form.controls['ai_article'].value).then(() => {
+      this.showSussess('已複製文章內容');
+    }).catch(err => {
+      console.error('Could not copy text: ', err);
+    });
+  }
+
+  ageSliderChange(event: any) {
+    this.minAge = event.values[0];
+    this.maxAge = event.values[1];
+  }
+
+  addOverlay(story: any) {
+    this.activeOverlay = story.id;
+    this.description_form.controls['story'].setValue(story.content);
+  }
+
+  countText(text: any): number {
+    return text ? text.length : 0;
+  }
+
+  // dialog
+  openComparativeDialog() {
+    this.comparative_dialog = true;
+  }
+
+  openDemoDialog() {
+    this.demo_dialog = true;
+  }
+
+  openEditAiOutputDialog() {
+    this.article_form.controls['modify_article'].setValue(this.article_form.controls['ai_article'].value);
+    this.edit_ai_article_dialog = true;
+  }
+
+  // msg
   showSussess(msg = '') {
     this.messageService.add({ severity: 'success', summary: '成功訊息', detail: `${msg}`, life: 3000 });
   }
