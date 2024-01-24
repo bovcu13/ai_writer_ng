@@ -1,7 +1,4 @@
 export const environment = {
-  API_URL: "https://fmp.t.api.jinher-net.com/fms",
+  API_URL: "https://writer.t.api.qplan.ai/sien",
   production: true,
-  recaptcha: {
-    siteKey: '6LeVYMYnAAAAAE4srV95DGTL-HoKyygRetgeMZ-B'
-  },
 };

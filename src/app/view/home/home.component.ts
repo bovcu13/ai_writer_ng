@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { NgClass, NgForOf, NgIf } from "@angular/common";
 import { pk } from "../../share/data/pk";
 import { ConfirmationService, MessageService } from "primeng/api";
+import { ArticleService } from "../../services/article.service";
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,7 @@ import { ConfirmationService, MessageService } from "primeng/api";
     NgIf,
     ReactiveFormsModule,
     NgForOf,
-    NgClass
+    NgClass,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
@@ -57,20 +58,23 @@ export class HomeComponent implements OnInit {
   edit_ai_article_dialog: boolean = false;
 
   description_form: FormGroup;
+  article_form: FormGroup;
 
   constructor(
+    private articleServ: ArticleService,
     private fb: FormBuilder,
     private confirmationService: ConfirmationService,
     private messageService: MessageService
   ) {
+    // post欄位
     this.description_form = this.fb.group({
       content_type: ['論壇', Validators.required],
       // 選擇論壇 - 第一層描述
       forum: ['', Validators.required],
       board: ['', Validators.required],
-      type: [''],
-      style: [''],
-      sponsorship: [''],
+      type: ['商品體驗開箱文'],
+      style: ['溫馨感人'],
+      sponsorship: ['輕'],
       // 人物設定
       gender: ['', Validators.required],
       age: [0],
@@ -86,13 +90,16 @@ export class HomeComponent implements OnInit {
       word_limit: [100],
       key_message: [''],
       story: [''],
+      created_at: [''],
+      update_at: [''],
+    });
+
+    this.article_form = this.fb.group({
       //文章生成
       ai_article: ['我由Dcard上熱門文章構成，專精於製作真實且客製化的口碑文。 無論任何話題，只需提供方向，我便能為您編寫出充滿鄉民感的內容。 讓我簡要為您說明操作步驟： 1️⃣️ 在「文章版位」，決定您希望撰寫的版位、字數，以及創意值（範圍從保守到幻想）。 2️⃣ 在「產品資訊」，描述您希望推薦的商品或服務。 3️⃣ 在「人物設定」，告訴我您心中的理想作者或特定人物特質，我將根據描述進行變身。 💡小提示，詳細的描述能讓我提供更符合您期待的文章。 4️⃣ 若有特定故事走向或情境，請於「口碑切角」填寫，或是選擇留空，讓我發揮最大的創意，為您構思一段獨特的故事。 現在，開啟您的創作之旅吧！🌟'],
       modify_article: [''],
       img: [''],
       rating: [''],
-      created_at: [''],
-      update_at: [''],
     });
   }
 
@@ -100,6 +107,7 @@ export class HomeComponent implements OnInit {
     this.description_form.controls['age'].setValue([20, 45]);
   }
 
+  // 回文confirm
   confirm() {
     if (this.description_form.controls['story'].value == '') {
       this.confirmationService.confirm({
@@ -107,7 +115,7 @@ export class HomeComponent implements OnInit {
         message: '確認後將產生三篇切角示範文章，請確認您的內容描述無誤。',
         accept: () => {
           if (this.isFormCompleted()) {
-            this.messageService.add({ severity: 'info', summary: '確認', detail: '回文產生中，請稍候', life: 3000 });
+            this.showInfo('回文產生中，請稍候');
             setTimeout(() => {
               this.openDemoDialog();
             }, 3000); // 3秒後打開
@@ -122,13 +130,15 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  confirm2() {
+  // 產文confirm
+  confirmPostArticle() {
     this.confirmationService.confirm({
       header: '確定內容了嗎?',
       message: '確認您的內容描述無誤，再繼續，或返回檢查。',
       accept: () => {
         if (this.isFormCompleted()) {
-          this.messageService.add({ severity: 'info', summary: '確認', detail: '回文產生中，請稍候', life: 3000 });
+          this.showInfo('文章產生中，請稍候');
+          this.postArticleRequest();
         }
       },
       reject: () => {
@@ -137,20 +147,16 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  // 確認description_form是否填寫完畢
   isFormCompleted(): boolean {
     if (this.description_form.valid) {
       const formValue = this.description_form.value;
-      const total = formValue.random + formValue.professional + formValue.humorous + formValue.sarcastic + formValue.support;
-      const replyCount = formValue.reply_count;
-      if (total < replyCount) {
-        formValue.random = replyCount - total;
-      }
       const jsonValue = JSON.stringify(formValue);
       console.log(jsonValue);
       return true;
     } else {
       this.requiredError = true;
-      this.messageService.add({ severity: 'error', summary: '錯誤訊息', detail: '表單未填寫完畢', life: 3000 });
+      this.showError('表單未填寫完畢');
       return false;
     }
   }
@@ -166,7 +172,7 @@ export class HomeComponent implements OnInit {
   }
 
   countText(text: any): number {
-    return text.length;
+    return text ? text.length : 0;
   }
 
   openComparativeDialog() {
@@ -197,10 +203,39 @@ export class HomeComponent implements OnInit {
 
   copyArticleOutput() {
     navigator.clipboard.writeText(this.description_form.controls['ai_article'].value).then(() => {
-      this.messageService.add({ severity: 'success', summary: '複製成功', detail: '已複製文章內容' });
+      this.showSussess('已複製文章內容');
     }).catch(err => {
       console.error('Could not copy text: ', err);
     });
+  }
+
+  // 生成文章
+  postArticleRequest() {
+    let body = this.description_form.value;
+    this.articleServ.postArticleRequest(body).subscribe({
+      next: data => {
+        this.showSussess('產文成功！');
+        this.article_form.controls['ai_article'].setValue(data.body.ai_article);
+        console.log('ai_article',this.article_form.controls['ai_article'].value);
+        console.log('data:', data);
+      },
+      error: (err) => {
+        this.showError('發生問題，產文失敗！');
+        console.log(err);
+      },
+    });
+  }
+
+  showSussess(msg = '') {
+    this.messageService.add({ severity: 'success', summary: '成功訊息', detail: `${msg}`, life: 3000 });
+  }
+
+  showError(msg = '') {
+    this.messageService.add({ severity: 'error', summary: '錯誤訊息', detail: `${msg}`, life: 3000 });
+  }
+
+  showInfo(msg = '') {
+    this.messageService.add({ severity: 'info', summary: '提示訊息', detail: `${msg}`, life: 3000 });
   }
 
 }
