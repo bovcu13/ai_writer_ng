@@ -12,7 +12,7 @@ export class AuthService {
     return window.sessionStorage.getItem('user') !== null;
   }
 
-  getUserName() {
+  getUserRole() {
     return window.sessionStorage.getItem('user');
   }
 
