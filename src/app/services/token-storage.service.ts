@@ -16,4 +16,24 @@ export class TokenStorageService {
   public getToken(): string | null {
     return window.sessionStorage.getItem(TOKEN_KEY);
   }
+
+  // 刪除並儲存accessToken
+  public saveToken(token: string): void {
+    window.sessionStorage.removeItem(TOKEN_KEY);
+    window.sessionStorage.setItem(TOKEN_KEY, token);
+  }
+
+  // 取得refreshToken
+  public getRefreshToken(): string | null {
+    return window.sessionStorage.getItem(REFRESHTOKEN_KEY);
+  }
+
+  public getUser(): any {
+    const user = window.sessionStorage.getItem(USER_KEY);
+    if (user) {
+      return user;
+    }
+    return {};
+  }
+
 }
