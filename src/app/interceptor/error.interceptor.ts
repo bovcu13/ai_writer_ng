@@ -4,8 +4,6 @@ import { inject } from "@angular/core";
 import { TokenStorageService } from "../services/token-storage.service";
 import { AuthService } from "../services/auth.service";
 
-const storageServ = inject(TokenStorageService);
-const authServ = inject(AuthService);
 const TOKEN_HEADER_KEY = 'Authorization';
 let isRefreshing = false;
 const refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
@@ -25,6 +23,8 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 };
 
 const handle401Error = (request: HttpRequest<any>, next: any) => {
+  const storageServ = inject(TokenStorageService);
+  const authServ = inject(AuthService);
 
   if (!isRefreshing) {
     isRefreshing = true;
