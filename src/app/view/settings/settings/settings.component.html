@@ -1,13 +1,13 @@
 <div class="flex flex-column justify-content-center h-screen p-2">
-  <div [style]="{height: '12%'}">
+  <div [style]="{height: '80px'}">
     <app-toolbar></app-toolbar>
   </div>
-  <div [style]="{height: '88%'}">
-    <div class="flex justify-content-center">
-        <div class="col-3">
+  <div style="height: calc(100% - 80px)">
+    <div class="grid flex justify-content-center">
+        <div class="col-12 md:col-6 lg:col-4">
           <app-settings-menu></app-settings-menu>
         </div>
-        <div class="col-5">
+        <div class="col-12 md:col-6 lg:col-6">
           <router-outlet></router-outlet>
         </div>
     </div>

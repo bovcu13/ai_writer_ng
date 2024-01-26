@@ -14,17 +14,18 @@
 }
 
 .menu-item {
-  font-weight: 500;
+  color: #fff;
   padding: 6px;
   border-radius: 6px;
 
   &:hover {
-    background: rgba(#EDE6ED, 0.8);
+    background: linear-gradient(90deg, rgba(85, 114, 245, 0.7) 0%, rgba(62, 216, 221, 0.7) 100%);
     cursor: pointer;
   }
 
   &.active {
-    background: rgba(#EDE6ED, 0.8);
-    font-weight: 700;
+    color: white;
+    background: linear-gradient(90deg, rgba(85, 114, 245, 0.6) 0%, rgba(62, 216, 221, 0.6) 100%);
+    font-weight: 500;
   }
 }
