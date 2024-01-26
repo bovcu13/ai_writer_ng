@@ -23,7 +23,7 @@ export class ToolbarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userType = this.authService.getUserName();
+    this.userType = this.authService.getUserRole();
   }
 
   getMenuItem() {

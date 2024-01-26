@@ -24,12 +24,12 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    window.sessionStorage.setItem('user', 'user');
+    window.sessionStorage.setItem('auth-user', 'user');
     this.router.navigate(['/home']);
   }
 
   adminLogin() {
-    window.sessionStorage.setItem('user', 'admin');
+    window.sessionStorage.setItem('auth-user', 'admin');
     this.router.navigate(['/admin']);
   }
 
