@@ -9,11 +9,11 @@ export class AuthService {
   }
 
   isLoggedIn() {
-    return window.sessionStorage.getItem('user') !== null;
+    return window.sessionStorage.getItem('auth-user') !== null;
   }
 
   getUserRole() {
-    return window.sessionStorage.getItem('user');
+    return window.sessionStorage.getItem('auth-user');
   }
 
   logout() {
