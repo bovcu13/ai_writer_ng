@@ -293,8 +293,8 @@
     </p-card>
   </div>
   <div class="col-12 md:col-12 lg:col-6">
-    <p-card styleClass="bg-c overflow-y-auto inner_content" [style]="{height: '82vh'}">
-      <form [formGroup]="article_form">
+    <form [formGroup]="article_form">
+      <p-card styleClass="bg-c overflow-y-auto inner_content" [style]="{height: '82vh'}">
         <div class="flex flex-column gap-3" style="position: relative">
           <div class="flex flex-column gap-2 p-4 border-round gradient-bg">
             <div class="inner_content_title">
@@ -320,11 +320,13 @@
           </div>
           <div class="flex align-items-center gap-2">
             <p-button (click)="openEditAiOutputDialog()"
+                      [disabled]="disabledModifyArticle()"
                       label="編輯文章"
                       icon="fa-solid fa-wand-magic-sparkles text-sm"
                       styleClass="text-sm full-gradient-bg"
                       [rounded]="true"></p-button>
             <p-button (click)="copyArticleOutput()"
+                      [disabled]="disabledModifyArticle()"
                       label="複製文章"
                       icon="pi pi-copy text-sm"
                       styleClass="text-sm full-gradient-bg"
@@ -337,25 +339,36 @@
                           [maxFileSize]="1000000"
                           [multiple]="true"
                           [showCancelButton]="true"
-                          [showUploadButton]="true"></p-fileUpload>
+                          [showUploadButton]="true"
+                          [disabled]="disabledModifyArticle()"></p-fileUpload>
+            <p-button (click)="testGetAllUser()"
+                      label="test"
+                      styleClass="text-sm full-gradient-bg"
+                      [rounded]="true"></p-button>
           </div>
           <div class="robot02">
             <p-image src="assets/img/ai_robot02.svg" alt="Image"></p-image>
           </div>
           <div class="flex justify-content-end mt-5" style="margin-right: 180px">
-            <div class="dialog flex flex-column gap-3">
-              <p class="text-white">這篇文章是否符合你的需求？</p>
-              <p>
-                <p-rating formControlName="rating" [cancel]="false"
-                          iconOffClass="text-yellow-500 pi pi-star"
-                          iconOnClass="text-yellow-500 pi pi-star-fill"></p-rating>
-              </p>
+            <div class="dialog">
+              <div *ngIf="!disabledModifyArticle()" class="flex flex-column gap-3">
+                <p class="text-white">這篇文章是否符合你的需求？</p>
+                <p>
+                  <p-rating formControlName="rating" [cancel]="false"
+                            iconOffClass="text-yellow-500 pi pi-star"
+                            iconOnClass="text-yellow-500 pi pi-star-fill"></p-rating>
+                </p>
+              </div>
+              <div *ngIf="disabledModifyArticle()" class="dialog-text flex flex-column gap-3 pt-4 pl-3 pr-5">
+                <span class="text-white"> 💡  詳細的描述能讓我提供更符合您期待的文章。</span>
+              </div>
             </div>
           </div>
         </div>
-      </form>
-    </p-card>
+      </p-card>
+    </form>
   </div>
+
 </div>
 
 <p-dialog header="競品比較內容" [modal]="true" [(visible)]="comparative_dialog">

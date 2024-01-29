@@ -5,6 +5,7 @@ import { NgClass, NgForOf, NgIf } from "@angular/common";
 import { pk } from "../../share/data/pk";
 import { ConfirmationService, MessageService } from "primeng/api";
 import { ArticleService } from "../../services/article.service";
+import { UserService } from "../../services/user.service";
 
 @Component({
   selector: 'app-home',
@@ -66,6 +67,7 @@ export class HomeComponent implements OnInit {
   article_form: FormGroup;
 
   constructor(
+    private userServ: UserService,
     private articleServ: ArticleService,
     private fb: FormBuilder,
     private confirmationService: ConfirmationService,
@@ -168,7 +170,6 @@ export class HomeComponent implements OnInit {
     let body = this.description_form.value;
     this.articleServ.postArticleRequest(body).subscribe({
       next: data => {
-
         // 請求完成時清除定時器並將 ai_article_progress 設置為 100
         if (this.progressTimerId) {
           clearInterval(this.progressTimerId);
@@ -180,7 +181,7 @@ export class HomeComponent implements OnInit {
         this.ai_article_loading = false;
         this.article_form.controls['ai_article'].setValue(data.body.ai_article);
         console.log('data:', data);
-        console.log('ai_article',this.article_form.controls['ai_article'].value);
+        console.log('ai_article', this.article_form.controls['ai_article'].value);
         this.ai_article_progress = 0;
       },
       error: (err) => {
@@ -241,6 +242,10 @@ export class HomeComponent implements OnInit {
     this.description_form.controls['story'].setValue(story.content);
   }
 
+  disabledModifyArticle() {
+    return this.article_form.controls['ai_article'].value == '我由Dcard上熱門文章構成，專精於製作真實且客製化的口碑文。 無論任何話題，只需提供方向，我便能為您編寫出充滿鄉民感的內容。 讓我簡要為您說明操作步驟： 1️⃣️ 在「文章版位」，決定您希望撰寫的版位、字數，以及創意值（範圍從保守到幻想）。 2️⃣ 在「產品資訊」，描述您希望推薦的商品或服務。 3️⃣ 在「人物設定」，告訴我您心中的理想作者或特定人物特質，我將根據描述進行變身。 💡小提示，詳細的描述能讓我提供更符合您期待的文章。 4️⃣ 若有特定故事走向或情境，請於「口碑切角」填寫，或是選擇留空，讓我發揮最大的創意，為您構思一段獨特的故事。 現在，開啟您的創作之旅吧！🌟';
+  }
+
   countText(text: any): number {
     return text ? text.length : 0;
   }
@@ -270,6 +275,17 @@ export class HomeComponent implements OnInit {
 
   showInfo(msg = '') {
     this.messageService.add({ severity: 'info', summary: '提示訊息', detail: `${msg}`, life: 3000 });
+  }
+
+  testGetAllUser() {
+    this.userServ.getAllUserRequest().subscribe({
+      next: data => {
+        console.log(data);
+      },
+      error: err => {
+        console.log(err);
+      }
+    });
   }
 
 }

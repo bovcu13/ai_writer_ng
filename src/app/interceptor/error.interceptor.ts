@@ -10,11 +10,13 @@ let isRefreshing = false;
 const refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
+  const storageServ = inject(TokenStorageService);
+  const authServ = inject(AuthService);
   return next(req).pipe(
     catchError((error) => {
       if ([401].includes(error.status)) {
         console.log('Unauthorized request');
-        return handle401Error(req, next) as Observable<HttpEvent<any>>;
+        return handle401Error(req, next, storageServ, authServ) as Observable<HttpEvent<any>>;
       } else if ([403, 500].includes(error.status)) {
         if (error.status === 403) {
           errorMessage = '權限不足';
@@ -29,10 +31,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   );
 };
 
-const handle401Error = (request: HttpRequest<any>, next: any) => {
-  const storageServ = inject(TokenStorageService);
-  const authServ = inject(AuthService);
-
+const handle401Error = (request: HttpRequest<any>, next: any, storageServ: any, authServ: any) => {
   if (!isRefreshing) {
     isRefreshing = true;
     refreshTokenSubject.next(null);
@@ -51,8 +50,7 @@ const handle401Error = (request: HttpRequest<any>, next: any) => {
             isRefreshing = false;
             storageServ.saveToken(token.body.access_token);
             refreshTokenSubject.next(token.body.access_token);
-
-            return next.handle(addTokenHeader(request, token.body.access_token)).pipe(tap());
+            return next(addTokenHeader(request, token.body.access_token)).pipe(tap());
           }),
           catchError((err) => {
             isRefreshing = false;
@@ -75,7 +73,7 @@ const handle401Error = (request: HttpRequest<any>, next: any) => {
             storageServ.saveToken(token.body.access_token);
             refreshTokenSubject.next(token.body.access_token);
 
-            return next.handle(addTokenHeader(request, token.body.access_token)).pipe(tap());
+            return next(addTokenHeader(request, token.body.access_token)).pipe(tap());
           }),
           catchError((err) => {
             isRefreshing = false;
@@ -91,7 +89,7 @@ const handle401Error = (request: HttpRequest<any>, next: any) => {
   return refreshTokenSubject.pipe(
     filter(token => token !== null),
     take(1),
-    switchMap((token) => next.handle(addTokenHeader(request, token)))
+    switchMap((token) => next(addTokenHeader(request, token)))
   );
 }
 
