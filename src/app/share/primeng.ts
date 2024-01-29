@@ -32,6 +32,8 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MenubarModule } from 'primeng/menubar';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { PasswordModule } from 'primeng/password';
+import { MessageModule } from "primeng/message";
 
 export const PRIMENG_MODULES = [
   CardModule,
@@ -68,4 +70,6 @@ export const PRIMENG_MODULES = [
   ConfirmDialogModule,
   MenubarModule,
   ProgressSpinnerModule,
+  PasswordModule,
+  MessageModule
 ];

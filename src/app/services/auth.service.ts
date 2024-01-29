@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from "../../environments/environment.development";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Observable } from "rxjs";
 
 const BaseUrl: string = environment.API_URL;
 const httpOptions = {
@@ -15,6 +16,12 @@ export class AuthService {
   constructor(private http: HttpClient) {
   }
 
+  // 登入
+  login(body: any): Observable<any> {
+    const url = `${BaseUrl}/v1.0/login`;
+    return this.http.post(url, body, httpOptions);
+  }
+
   isLoggedIn() {
     return window.sessionStorage.getItem('auth-user') !== null;
   }
@@ -25,6 +32,11 @@ export class AuthService {
 
   logout() {
     window.sessionStorage.clear();
+  }
+
+  register(body: any): Observable<any> {
+    const url = `${BaseUrl}/v1.0/users`;
+    return this.http.post(url, body, httpOptions);
   }
 
   refreshToken(token: string) {

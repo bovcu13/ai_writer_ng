@@ -28,12 +28,23 @@ export class TokenStorageService {
     return window.sessionStorage.getItem(REFRESHTOKEN_KEY);
   }
 
+  // 刪除並儲存refreshToken
+  public saveRefreshToken(token: string): void {
+    window.sessionStorage.removeItem(REFRESHTOKEN_KEY);
+    window.sessionStorage.setItem(REFRESHTOKEN_KEY, token);
+  }
+
   public getUser(): any {
     const user = window.sessionStorage.getItem(USER_KEY);
     if (user) {
       return user;
     }
     return {};
+  }
+
+  public saveUser(user: any): void {
+    window.sessionStorage.removeItem(USER_KEY);
+    window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
   }
 
 }
