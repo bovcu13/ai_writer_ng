@@ -1,7 +1,7 @@
 <p-menubar [model]="getMenuItem()">
   <ng-template pTemplate="end">
     <div class="flex align-items-center">
-      <p-button *ngIf="userType === 'user'"
+      <p-button *ngIf="userType !== 'admin'"
                 label="220"
                 icon="text-sm fa-regular fa-gem"
                 [text]="true"
@@ -26,7 +26,7 @@
 <p-overlayPanel #op>
   <ng-template pTemplate="content">
     <div class="flex flex-column mt-3 gap-2">
-      <div *ngIf="userType === 'user'"
+      <div  *ngIf="userType !== 'admin'"
            class="flex align-items-center pr-4 pl-4 pt-2 pb-2">
         <div class="mr-auto">
           <i class="text-gradient text-sm fa-regular fa-gem mr-2"></i>
@@ -59,19 +59,19 @@
         </div>
         <span class="text-sm text-blue-800">帳號/歷史紀錄</span>
       </div>
-      <div *ngIf="userType === 'user'"
+      <div  *ngIf="userType !== 'admin'"
            class="styled-box flex align-items-center gap-2 pr-4 pl-4 pt-2 pb-2">
         <div class="w-1 text-center">
           <i class="text-gradient fa-regular fa-credit-card"></i>
         </div>
         <span class="text-sm text-blue-800">訂閱方案</span>
       </div>
-      <div class="styled-box flex align-items-center gap-2 pr-4 pl-4 pt-2 pb-2 mb-3" routerLink="/">
+      <div class="styled-box flex align-items-center gap-2 pr-4 pl-4 pt-2 pb-2 mb-3"
+           (click)="logout()">
         <div class="w-1 text-center">
           <i class="text-gradient fa-solid fa-arrow-right-from-bracket"></i>
         </div>
-        <span (click)="logout()"
-          class="text-sm text-blue-800">登出</span>
+        <span class="text-sm text-blue-800">登出</span>
       </div>
     </div>
   </ng-template>

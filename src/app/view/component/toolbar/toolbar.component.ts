@@ -3,6 +3,7 @@ import { PRIMENG_MODULES } from "../../../share/primeng";
 import { admin_menu, menu } from "../../../share/data/toolbar";
 import { AuthService } from "../../../services/auth.service";
 import { NgIf } from "@angular/common";
+import { TokenStorageService } from "../../../services/token-storage.service";
 
 @Component({
   selector: 'app-toolbar',
@@ -19,11 +20,14 @@ export class ToolbarComponent implements OnInit {
   menu = menu;
   userType: any;
 
-  constructor(private authService: AuthService) {
+  constructor(
+    private authService: AuthService,
+    private tokenStorage: TokenStorageService
+  ) {
   }
 
   ngOnInit() {
-    this.userType = this.authService.getUserRole();
+    this.userType = this.tokenStorage.getUser();
   }
 
   getMenuItem() {

@@ -96,12 +96,10 @@
   background-repeat: no-repeat;
 }
 
-.dialog p {
-  padding: 0;
-  margin: 0;
-  text-align: center;
-  position: relative;
-  left: -17px;
+.dialog-text {
+  top: 0;
+  left: 0;
+  position: absolute;
 }
 
 @media (max-width: 600px) {
