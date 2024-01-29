@@ -4,6 +4,7 @@ import { inject } from "@angular/core";
 import { TokenStorageService } from "../services/token-storage.service";
 import { AuthService } from "../services/auth.service";
 
+export let errorMessage = '';
 const TOKEN_HEADER_KEY = 'Authorization';
 let isRefreshing = false;
 const refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
@@ -14,9 +15,15 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
       if ([401].includes(error.status)) {
         console.log('Unauthorized request');
         return handle401Error(req, next) as Observable<HttpEvent<any>>;
+      } else if ([403, 500].includes(error.status)) {
+        if (error.status === 403) {
+          errorMessage = '權限不足';
+        } else if (error.status === 500) {
+          errorMessage = '伺服器錯誤';
+        }
       }
       const e = error.error.message || error.statusText;
-      console.log(e);
+      console.log('errorInterceptor:', e);
       return throwError(() => error);
     })
   );
