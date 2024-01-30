@@ -34,6 +34,7 @@ import { MenubarModule } from 'primeng/menubar';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { PasswordModule } from 'primeng/password';
 import { MessageModule } from "primeng/message";
+import { SkeletonModule } from 'primeng/skeleton';
 
 export const PRIMENG_MODULES = [
   CardModule,
@@ -71,5 +72,6 @@ export const PRIMENG_MODULES = [
   MenubarModule,
   ProgressSpinnerModule,
   PasswordModule,
-  MessageModule
+  MessageModule,
+  SkeletonModule
 ];

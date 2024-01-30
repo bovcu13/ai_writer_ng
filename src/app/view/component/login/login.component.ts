@@ -45,10 +45,10 @@ export class LoginComponent implements OnInit {
       user_name: ['', [Validators.required]],
       name: ['', [Validators.required]],
       password: ['', [Validators.required]],
-      email: [''],
+      email: ['', [Validators.required]],
       phone_number: [''],
-      role_id: ['',],
-      created_by: ['',],
+      role_id: [''],
+      created_by: [''],
     });
   }
 
@@ -58,26 +58,28 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    let body = this.login_form.value;
-    this.authServ.login(body).subscribe({
-      next: data => {
-        console.log(data)
-        this.tokenStorage.saveToken(data.body.access_token);
-        this.tokenStorage.saveRefreshToken(data.body.refresh_token);
-        this.tokenStorage.saveUser(data.body.name);
-        this.roles = this.tokenStorage.getUser();
-        if (this.roles === "admin") {
-          this.router.navigate(['/admin']);
-          this.showSuccess('登入成功！');
-        } else {
-          this.router.navigate(['/home']);
-          this.showSuccess('登入成功！');
+    if (this.isFormCompleted(this.login_form)) {
+      let body = this.login_form.value;
+      this.authServ.login(body).subscribe({
+        next: data => {
+          console.log(data)
+          this.tokenStorage.saveToken(data.body.access_token);
+          this.tokenStorage.saveRefreshToken(data.body.refresh_token);
+          this.tokenStorage.saveUser(data.body.name);
+          this.roles = this.tokenStorage.getUser();
+          if (this.roles === "admin") {
+            this.router.navigate(['/admin']);
+            this.showSuccess('登入成功！');
+          } else {
+            this.router.navigate(['/home']);
+            this.showSuccess('登入成功！');
+          }
+        },
+        error: err => {
+          this.showError(errorMessage)
         }
-      },
-      error: err => {
-        this.showError(errorMessage)
-      }
-    });
+      });
+    }
   }
 
   adminLogin() {
@@ -87,6 +89,7 @@ export class LoginComponent implements OnInit {
 
   showRegister() {
     this.register = true;
+    this.requiredError = false;
   }
 
   // 註冊

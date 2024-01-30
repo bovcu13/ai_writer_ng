@@ -277,15 +277,4 @@ export class HomeComponent implements OnInit {
     this.messageService.add({ severity: 'info', summary: '提示訊息', detail: `${msg}`, life: 3000 });
   }
 
-  testGetAllUser() {
-    this.userServ.getAllUserRequest().subscribe({
-      next: data => {
-        console.log(data);
-      },
-      error: err => {
-        console.log(err);
-      }
-    });
-  }
-
 }

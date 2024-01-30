@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { PRIMENG_MODULES } from "../../share/primeng";
 import { member } from "../../share/data/member";
-import { NgClass, NgIf } from "@angular/common";
+import { DatePipe, NgClass, NgIf } from "@angular/common";
 import { Router } from "@angular/router";
 import { FormsModule } from "@angular/forms";
+import { UserService } from "../../services/user.service";
+import { ConfirmationService, MessageService } from "primeng/api";
 
 @Component({
   selector: 'app-member-mgmt',
@@ -12,17 +14,20 @@ import { FormsModule } from "@angular/forms";
     PRIMENG_MODULES,
     NgClass,
     NgIf,
-    FormsModule
+    FormsModule,
+    DatePipe
   ],
   templateUrl: './member-mgmt.component.html',
-  styleUrl: './member-mgmt.component.scss'
+  styleUrl: './member-mgmt.component.scss',
+  providers: [ConfirmationService, MessageService]
 })
 export class MemberMgmtComponent implements OnInit {
-  member = member.map(m =>
-    (
-      { ...m, last_name: m.name[0] }
-    ));
-  selectedMembers: any[] = [];
+  // member = member.map(m =>
+  //   (
+  //     { ...m, last_name: m.name[0] }
+  //   ));
+  memberData: any[] = []
+  selectedMembers: any[] = []
   memberPoint: any
   point: any
 
@@ -34,12 +39,35 @@ export class MemberMgmtComponent implements OnInit {
   isActiveActive: boolean = false;
   isActiveInactive: boolean = false;
 
-  constructor(private router: Router) {
+  constructor(
+    private userServ: UserService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService,
+    private router: Router
+  ) {
   }
 
   ngOnInit() {
-    this.countActiveMembers(this.member);
-    this.showActive();
+    this.getMembers();
+  }
+
+  getMembers() {
+    this.userServ.getAllUserRequest().subscribe({
+      next: (res) => {
+        this.memberData  = res.body.users.map((m: any) => {
+          return (
+            { ...m, last_name: m.name[0] }
+          );
+        });
+        console.log('this.memberData', this.memberData)
+
+        this.countActiveMembers(this.memberData);
+        this.showActive();
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
   }
 
   // 進入會員詳細
@@ -59,7 +87,7 @@ export class MemberMgmtComponent implements OnInit {
   // 計算啟用 or 禁用人數
   countActiveMembers(members: any[]) {
     const activeMembers = members.filter(member => member.active === true).length;
-    const inactiveMembers = members.filter(member => member.active === false).length;
+    const inactiveMembers = members.length - activeMembers;
     this.active = activeMembers;
     this.inactive = inactiveMembers;
     console.log('active', this.active)
@@ -81,20 +109,46 @@ export class MemberMgmtComponent implements OnInit {
 
   // 禁用會員
   disableMember(member: any) {
-    const index = this.member.findIndex(m => m.id === member.id);
-    if (index !== -1) {
-      this.member[index].active = false;
-      this.countActiveMembers(this.member);
-    }
+    console.log('member', member)
+    this.confirmationService.confirm({
+      header: '禁用此會員',
+      message: `確定要禁用 ${member.name} 嗎？`,
+      accept: () => {
+        this.userServ.patchUserRequest(member.id, { "active": false }).subscribe({
+          next: (res) => {
+            console.log('res', res)
+            this.showSussess('已禁用此會員');
+            this.countActiveMembers(this.memberData);
+          },
+          error: (error) => {
+            console.log(error);
+          }
+        });
+      },
+      reject: () => {
+      }
+    });
   }
 
   // 啟用會員
   enableMember(member: any) {
-    const index = this.member.findIndex(m => m.id === member.id);
+    const index = this.memberData.findIndex(m => m.id === member.id);
     if (index !== -1) {
-      this.member[index].active = true;
-      this.countActiveMembers(this.member);
+      this.memberData[index].active = true;
+      this.countActiveMembers(this.memberData);
     }
   }
 
+  // msg
+  showSussess(msg = '') {
+    this.messageService.add({ severity: 'success', summary: '成功訊息', detail: `${msg}`, life: 3000 });
+  }
+
+  showError(msg = '') {
+    this.messageService.add({ severity: 'error', summary: '錯誤訊息', detail: `${msg}`, life: 3000 });
+  }
+
+  showInfo(msg = '') {
+    this.messageService.add({ severity: 'info', summary: '提示訊息', detail: `${msg}`, life: 3000 });
+  }
 }

@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <div class="flex flex-column gap-3 p-4 gradient-bg overflow-y-auto inner_content border-round"
      style="height: 100%">
   <span class="font-medium text-white text-4xl">會員管理</span>
@@ -8,9 +9,13 @@
     <div class="active-item" (click)="showInactive()" [class.active]="isActiveInactive">
       <span>{{ inactive }} 未啟用</span>
     </div>
+    <span class="ml-auto p-input-icon-left">
+    <i class="pi pi-search"></i>
+    <input type="text" class="border-round-2xl" pInputText />
+    </span>
   </div>
   <div class="p-3 bg-white border-round">
-    <p-table [value]="member"
+    <p-table [value]="memberData"
              [(selection)]="selectedMembers">
       <ng-template pTemplate="header">
         <tr>
@@ -39,9 +44,10 @@
               <div class="flex flex-column gap-2">
                 <span class="member-view"
                       (click)="goToMemberView(member.id)">{{ member.name }}</span>
-                <span class="text-xs text-500"><i class="fa-solid fa-at"></i> {{ member.account }}</span>
+                <span class="text-xs text-500"><i class="fa-solid fa-at"></i> {{ member.user_name }}</span>
               </div>
-              <p-tag [value]="member.membership_type"
+              <p-tag *ngIf="member.membership_type"
+                     [value]="member.membership_type"
                      styleClass="border-round-2xl"
                      [style]="{background:member.membership_type === 'Silver' ? '#C0C0C0' : member.membership_type === 'Gold' ? '#FFD700' : '#CD7F32', color: '#000'}">
               </p-tag>
@@ -54,13 +60,13 @@
             </div>
           </td>
           <td>
-            <div class="flex align-items-center gap-3">
-              <i class="fa-solid fa-phone"></i> {{ member.phone }}
+            <div *ngIf="member.phone_number" class="flex align-items-center gap-3">
+              <i class="fa-solid fa-phone"></i> {{ member.phone_number }}
             </div>
           </td>
           <td>
             <div class="flex flex-column gap-2">
-              {{ member.join_date }}
+              {{ member.createdAt | date: 'yyyy/MM/dd' }}
               <span class="text-xs text-500">加入日期</span>
             </div>
           </td>
@@ -124,5 +130,25 @@
                 styleClass="w-8rem full-gradient-bg"></p-button>
     </div>
   </div>
-
 </p-dialog>
+
+
+<p-confirmDialog #cd>
+  <ng-template pTemplate="headless" let-message>
+    <div class="flex flex-column align-items-center p-5 surface-overlay border-round">
+      <div
+        class="full-gradient-bg border-circle inline-flex justify-content-center align-items-center h-6rem w-6rem -mt-8"
+      >
+        <i class="pi pi-question text-5xl text-white"></i>
+      </div>
+      <span class="font-bold text-2xl block mb-2 mt-4">{{ message.header }}</span>
+      <p class="mb-0">{{ message.message }}</p>
+      <div class="flex align-items-center gap-2 mt-4">
+        <p-button label="取消" (click)="cd.reject()"
+                  styleClass="w-8rem danger-bg" severity="danger"></p-button>
+        <p-button label="確定" (click)="cd.accept()"
+                  styleClass="w-8rem full-gradient-bg"></p-button>
+      </div>
+    </div>
+  </ng-template>
+</p-confirmDialog>
