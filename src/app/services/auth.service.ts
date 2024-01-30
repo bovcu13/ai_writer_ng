@@ -40,7 +40,7 @@ export class AuthService {
   }
 
   register(body: any): Observable<any> {
-    const url = `${BaseUrl}/v1.0/users`;
+    const url = `${BaseUrl}/v1.0/users/register`;
     return this.http.post(url, body, httpOptions);
   }
 
