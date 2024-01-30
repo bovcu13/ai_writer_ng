@@ -6,6 +6,7 @@ import { member_settings } from "../../../share/data/member";
 import { trade_record } from "../../../share/data/member";
 import { output_history } from "../../../share/data/output-history";
 import { DatePipe, NgClass, NgForOf, NgIf } from "@angular/common";
+import { UserService } from "../../../services/user.service";
 
 @Component({
   selector: 'app-member-view',
@@ -23,34 +24,36 @@ import { DatePipe, NgClass, NgForOf, NgIf } from "@angular/common";
 export class MemberViewComponent implements OnInit {
   id: any;
   member: any;
-  member_settings = member_settings;
   trade_record = trade_record;
   output_history = output_history;
-  isActive: number | null = null;
+  page_loading: boolean = true;
 
-  constructor(private route: ActivatedRoute,
-              private router: Router) {
+  constructor(
+    private userServ: UserService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
   }
 
   ngOnInit() {
     this.getMember();
-    this.initMenuItem();
   }
 
   getMember() {
     this.id = this.route.snapshot.paramMap.get('id');
-    this.member = { ...member[this.id - 1], last_name: member[this.id - 1].name[0] };
-    console.log('selected:', this.member)
-  }
-
-  initMenuItem() {
-    const defaultIndex = this.member_settings.findIndex(item => item.name === '會員檔案');
-    this.isActive = defaultIndex !== -1 ? defaultIndex : null;
-  }
-
-  toggleActive(index: number) {
-    this.isActive = index;
-    console.log('index:', index)
+    this.userServ.getOneUserRequest(this.id).subscribe({
+      next: (res) => {
+        this.member = {
+          ...res.body,
+          last_name: res.body.name[0]
+        }
+        this.page_loading = false;
+        console.log('this.member', this.member)
+      },
+      error: (err) => {
+        console.log('err', err)
+      }
+    });
   }
 
   getPaymentIcon(method: string): string {

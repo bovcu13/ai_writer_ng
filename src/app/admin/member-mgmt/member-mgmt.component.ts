@@ -5,6 +5,7 @@ import { DatePipe, NgClass, NgIf } from "@angular/common";
 import { Router } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import { UserService } from "../../services/user.service";
+import { ConfirmationService, MessageService } from "primeng/api";
 
 @Component({
   selector: 'app-member-mgmt',
@@ -17,7 +18,8 @@ import { UserService } from "../../services/user.service";
     DatePipe
   ],
   templateUrl: './member-mgmt.component.html',
-  styleUrl: './member-mgmt.component.scss'
+  styleUrl: './member-mgmt.component.scss',
+  providers: [ConfirmationService, MessageService]
 })
 export class MemberMgmtComponent implements OnInit {
   // member = member.map(m =>
@@ -39,6 +41,8 @@ export class MemberMgmtComponent implements OnInit {
 
   constructor(
     private userServ: UserService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService,
     private router: Router
   ) {
   }
@@ -83,7 +87,7 @@ export class MemberMgmtComponent implements OnInit {
   // 計算啟用 or 禁用人數
   countActiveMembers(members: any[]) {
     const activeMembers = members.filter(member => member.active === true).length;
-    const inactiveMembers = members.filter(member => member.active === false).length;
+    const inactiveMembers = members.length - activeMembers;
     this.active = activeMembers;
     this.inactive = inactiveMembers;
     console.log('active', this.active)
@@ -105,11 +109,25 @@ export class MemberMgmtComponent implements OnInit {
 
   // 禁用會員
   disableMember(member: any) {
-    const index = this.memberData.findIndex(m => m.id === member.id);
-    if (index !== -1) {
-      this.memberData[index].active = false;
-      this.countActiveMembers(this.memberData);
-    }
+    console.log('member', member)
+    this.confirmationService.confirm({
+      header: '禁用此會員',
+      message: `確定要禁用 ${member.name} 嗎？`,
+      accept: () => {
+        this.userServ.patchUserRequest(member.id, { "active": false }).subscribe({
+          next: (res) => {
+            console.log('res', res)
+            this.showSussess('已禁用此會員');
+            this.countActiveMembers(this.memberData);
+          },
+          error: (error) => {
+            console.log(error);
+          }
+        });
+      },
+      reject: () => {
+      }
+    });
   }
 
   // 啟用會員
@@ -121,4 +139,16 @@ export class MemberMgmtComponent implements OnInit {
     }
   }
 
+  // msg
+  showSussess(msg = '') {
+    this.messageService.add({ severity: 'success', summary: '成功訊息', detail: `${msg}`, life: 3000 });
+  }
+
+  showError(msg = '') {
+    this.messageService.add({ severity: 'error', summary: '錯誤訊息', detail: `${msg}`, life: 3000 });
+  }
+
+  showInfo(msg = '') {
+    this.messageService.add({ severity: 'info', summary: '提示訊息', detail: `${msg}`, life: 3000 });
+  }
 }
