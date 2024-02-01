@@ -76,7 +76,8 @@ export class LoginComponent implements OnInit {
           }
         },
         error: err => {
-          this.showError(errorMessage)
+          // this.showError(errorMessage)
+          this.showError('帳號或密碼錯誤')
         }
       });
     }
