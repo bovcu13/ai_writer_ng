@@ -1,0 +1,31 @@
+::ng-deep{
+  .p-card .p-card-content {
+    padding: 0;
+  }
+}
+
+.username {
+  font-weight: bold;
+}
+
+.username:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.menu-item {
+  color: #fff;
+  padding: 6px;
+  border-radius: 6px;
+
+  &:hover {
+    background: linear-gradient(90deg, rgba(85, 114, 245, 0.7) 0%, rgba(62, 216, 221, 0.7) 100%);
+    cursor: pointer;
+  }
+
+  &.active {
+    color: white;
+    background: linear-gradient(90deg, rgba(85, 114, 245, 0.6) 0%, rgba(62, 216, 221, 0.6) 100%);
+    font-weight: 500;
+  }
+}

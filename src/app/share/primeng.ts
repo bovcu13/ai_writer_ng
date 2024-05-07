@@ -21,7 +21,20 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { ChipsModule } from 'primeng/chips';
 import { TableModule } from 'primeng/table';
 import { DialogModule } from "primeng/dialog";
-
+import { RatingModule } from 'primeng/rating';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ToastModule } from 'primeng/toast';
+import { ToolbarModule } from 'primeng/toolbar';
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
+import { ChipModule } from 'primeng/chip';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { MenubarModule } from 'primeng/menubar';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { PasswordModule } from 'primeng/password';
+import { MessageModule } from "primeng/message";
+import { SkeletonModule } from 'primeng/skeleton';
 
 export const PRIMENG_MODULES = [
   CardModule,
@@ -46,5 +59,19 @@ export const PRIMENG_MODULES = [
   RadioButtonModule,
   ChipsModule,
   TableModule,
-  DialogModule
+  DialogModule,
+  RatingModule,
+  FileUploadModule,
+  ToastModule,
+  ToolbarModule,
+  AvatarModule,
+  AvatarGroupModule,
+  ChipModule,
+  OverlayPanelModule,
+  ConfirmDialogModule,
+  MenubarModule,
+  ProgressSpinnerModule,
+  PasswordModule,
+  MessageModule,
+  SkeletonModule
 ];

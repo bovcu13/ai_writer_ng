@@ -1,0 +1,78 @@
+<p-menubar [model]="getMenuItem()">
+  <ng-template pTemplate="end">
+    <div class="flex align-items-center">
+      <p-button *ngIf="userType !== 'admin'"
+                label="220"
+                icon="text-sm fa-regular fa-gem"
+                [text]="true"
+                size="small"
+                styleClass="text-white mr-3"></p-button>
+      <p-button [text]="true"
+                [rounded]="true"
+                size="small"
+                styleClass="gradient-bg"
+                (click)="op.toggle($event)">
+        <div class="flex align-items-center gap-3">
+          <p-avatar
+            image="https://i.pinimg.com/564x/4a/eb/e4/4aebe421333230f3f39aaba8a6bb5022.jpg"
+            shape="circle"/>
+          <span class="font-bold text-white">Anya Forger</span>
+        </div>
+      </p-button>
+    </div>
+  </ng-template>
+</p-menubar>
+
+<p-overlayPanel #op>
+  <ng-template pTemplate="content">
+    <div class="flex flex-column mt-3 gap-2">
+      <div  *ngIf="userType !== 'admin'"
+           class="flex align-items-center pr-4 pl-4 pt-2 pb-2">
+        <div class="mr-auto">
+          <i class="text-gradient text-sm fa-regular fa-gem mr-2"></i>
+          <span class="text-sm font-medium text-blue-800">220</span>
+        </div>
+        <div class="flex justify-content-end">
+          <p-button label="訂閱"
+                    [rounded]="true"
+                    [raised]="true"
+                    size="small"
+                    styleClass="full-gradient-bg text-xs"></p-button>
+        </div>
+      </div>
+      <div class="styled-box flex align-items-center gap-2 pr-4 pl-4 pt-2 pb-2">
+        <div class="flex align-items-center mr-auto gap-2">
+          <p-avatar
+            image="https://i.pinimg.com/564x/4a/eb/e4/4aebe421333230f3f39aaba8a6bb5022.jpg"
+            shape="circle"/>
+          <span class="text-xs font-bold text-blue-800">Anya Forger</span>
+        </div>
+        <div class="flex justify-content-end">
+          <div class="full-gradient-bg text-xs text-white font-bold p-2 border-round-lg">
+            Pro
+          </div>
+        </div>
+      </div>
+      <div class="styled-box flex align-items-center gap-2 pr-4 pl-4 pt-2 pb-2" routerLink="/settings/profile">
+        <div class="w-1 text-center">
+          <i class="text-gradient fa-regular fa-user"></i>
+        </div>
+        <span class="text-sm text-blue-800">帳號/歷史紀錄</span>
+      </div>
+      <div  *ngIf="userType !== 'admin'"
+           class="styled-box flex align-items-center gap-2 pr-4 pl-4 pt-2 pb-2">
+        <div class="w-1 text-center">
+          <i class="text-gradient fa-regular fa-credit-card"></i>
+        </div>
+        <span class="text-sm text-blue-800">訂閱方案</span>
+      </div>
+      <div class="styled-box flex align-items-center gap-2 pr-4 pl-4 pt-2 pb-2 mb-3"
+           (click)="logout()">
+        <div class="w-1 text-center">
+          <i class="text-gradient fa-solid fa-arrow-right-from-bracket"></i>
+        </div>
+        <span class="text-sm text-blue-800">登出</span>
+      </div>
+    </div>
+  </ng-template>
+</p-overlayPanel>

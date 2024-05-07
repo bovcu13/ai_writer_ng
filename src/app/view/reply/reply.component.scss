@@ -1,0 +1,68 @@
+::ng-deep {
+  .p-datatable .p-datatable-tbody > tr > td {
+    text-align: left;
+    border: 1px solid #e5e7eb;
+    border-width: 0 0 1px 0;
+    padding: 0.5rem 0.5rem;
+  }
+
+  .p-inputtext {
+    color: #FFF;
+  }
+
+  .p-inputnumber-input {
+    border: none;
+    background: linear-gradient(90deg, rgba(85, 114, 245, 0.5) 0%, rgba(62, 216, 221, 0.5) 100%);
+  }
+
+  .p-chips .p-chips-multiple-container {
+    border: none;
+    background: linear-gradient(90deg, rgba(85, 114, 245, 0.5) 0%, rgba(62, 216, 221, 0.5) 100%);
+    width: 100%;
+  }
+
+  .p-slider .p-slider-range {
+    background-color: rgba(10, 0, 99, 1);
+  }
+
+  .p-slider .p-slider-handle {
+    height: 1.143rem;
+    width: 1.143rem;
+    background: #ffffff;
+    border: 2px solid rgba(10, 0, 99, 1);
+    border-radius: 50%;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .p-slider .p-slider-handle:focus {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: 0 0 0 0.2rem #EDE6ED;
+  }
+
+  .p-card .p-card-content {
+    padding: 0;
+  }
+
+}
+
+.styled-box.active {
+  background-color: rgba(#EDE6ED, 0.6);
+}
+
+.slider-container {
+  position: relative;
+  margin-top: 2.5rem;
+}
+
+.slider-label {
+  position: absolute;
+  top: -2.5rem; /* 調整label的垂直位置 */
+  text-align: center;
+  width: 4rem; /* 調整label的寬度 */
+  background: #232946;
+  color: #b8c1ec;
+  border: 1px solid #121629;
+  border-radius: 5px;
+  padding: 5px;
+}

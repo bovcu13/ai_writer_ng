@@ -1,0 +1,310 @@
+<p-toast></p-toast>
+<div class="grid flex justify-content-center align-items-center h-full">
+  <div class="col-12 md:col-12 lg:col-4">
+    <p-card styleClass="bg-c" [style]="{height: '82vh'}">
+      <div style="height: 100px; position: relative">
+        <div class="title">
+          <p-image src="assets/img/ai_title.svg" alt="Image"></p-image>
+        </div>
+        <div class="robot01">
+          <p-image src="assets/img/ai_robot01.svg" alt="Image"></p-image>
+        </div>
+      </div>
+      <div class="flex flex-column gap-3 p-3 border-round overflow-x-hidden overflow-y-auto inner_content"
+           style="height: calc(82vh - 140px)">
+        <div class="gradient-bg border-round p-3 text-white">
+          <div class="flex align-items-end">
+            <div class="mr-auto">
+              <h3>口碑創作者</h3>
+              <h2>Anya Forger</h2>
+            </div>
+            <div class="flex justify-content-end">
+              <p>
+                <i class="fa-regular fa-gem"></i>10/一篇文
+              </p>
+            </div>
+          </div>
+        </div>
+        <form [formGroup]="description_form">
+          <div class="grid">
+            <div class="col-12">
+              <div class="field">
+                <label class="text-sm font-medium text-white text-white">
+                  選擇回文文章
+                  <span *ngIf="!description_form.controls['article'].value && requiredError"
+                        class="text-xs text-danger font-bold"> * 此欄位為必填</span>
+                </label>
+                <div class="flex gap-2">
+                  <div class="flex align-items-center">
+                    <p-radioButton name="source" formControlName="source"
+                                   [value]="'生成文章'"
+                                   (onClick)="selectArticleDialog = true"></p-radioButton>
+                    <label class="ml-2 text-sm text-white">由生成文章</label>
+                    <i class="ml-2 text-lg fa-regular fa-pen-to-square text-gradient icon-hover"
+                       *ngIf="description_form.controls['source'].value === '生成文章'"
+                       (click)="openSelectArticleDialog()"></i>
+                  </div>
+                  <div class="flex align-items-center">
+                    <p-radioButton name="source" formControlName="source"
+                                   [value]="'其他文章'"
+                                   (onClick)="selectArticleDialog = true"></p-radioButton>
+                    <label class="ml-2 text-sm text-white">其他文章</label>
+                    <i class="ml-2 text-lg fa-regular fa-pen-to-square text-gradient icon-hover"
+                       *ngIf="description_form.controls['source'].value === '其他文章'"
+                       (click)="openSelectArticleDialog()"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="field">
+                <label class="text-sm font-medium text-white text-white">回文數量</label>
+                <br>
+                <div class="slider-container">
+                  <label class="slider-label text-xs"
+                         [style.left.%]="(description_form.controls['reply_count'].value - 10) / (100 - 10) * 87">{{ description_form.controls['reply_count'].value }}
+                    則</label>
+                  <p-slider formControlName="reply_count"
+                            [step]="30"
+                            [min]="10"
+                            [max]="100"></p-slider>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="field">
+                <label class="text-sm font-medium text-white">字數限制</label>
+                <br>
+                <div class="slider-container">
+                  <label class="slider-label text-xs"
+                         [style.left.%]="(description_form.controls['word_limit'].value - 30) / (150 - 30) * 87">{{ description_form.controls['word_limit'].value }}
+                    字</label>
+                  <p-slider formControlName="word_limit"
+                            [step]="30"
+                            [min]="30"
+                            [max]="150"></p-slider>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="field">
+                <p-divider></p-divider>
+                <label class="font-medium text-white">回文風格</label>
+                <br>
+                <label class="text-sm text-white">(填入回文風格數量)</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="field">
+                <label class="text-sm font-medium text-white">隨機</label>
+                <br>
+                <p-inputNumber formControlName="random"
+                               class="w-full"
+                               styleClass="w-full"
+                               suffix=" 則" inputId="integeronly"></p-inputNumber>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="field">
+                <label class="text-sm font-medium text-white">專業評論</label>
+                <br>
+                <p-inputNumber formControlName="professional"
+                               class="w-full"
+                               styleClass="w-full"
+                               suffix=" 則" inputId="integeronly"></p-inputNumber>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="field">
+                <label class="text-sm font-medium text-white">幽默有趣</label>
+                <br>
+                <p-inputNumber formControlName="humorous"
+                               class="w-full"
+                               styleClass="w-full"
+                               suffix=" 則" inputId="integeronly"></p-inputNumber>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="field">
+                <label class="text-sm font-medium text-white">嘲諷酸</label>
+                <br>
+                <p-inputNumber formControlName="sarcastic"
+                               class="w-full"
+                               styleClass="w-full"
+                               suffix=" 則" inputId="integeronly"></p-inputNumber>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="field">
+                <label class="text-sm font-medium text-white">跟風支持</label>
+                <br>
+                <p-inputNumber formControlName="support"
+                               class="w-full"
+                               styleClass="w-full"
+                               suffix=" 則" inputId="integeronly"></p-inputNumber>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="field">
+                <p-divider></p-divider>
+                <label class="font-medium text-white">回文內容切角</label>
+                <br>
+                <label class="text-sm text-white">(填入關鍵字，輸入完成按下Enter)</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="field">
+                <label class="text-sm font-medium text-white">專業評論</label>
+                <br>
+                <p-chips formControlName="professional_keyword"
+                         inputStyleClass="text-white" styleClass="w-full"></p-chips>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="field">
+                <label class="text-sm font-medium text-white">幽默有趣</label>
+                <br>
+                <p-chips formControlName="humorous_keyword"
+                         inputStyleClass="text-white" styleClass="w-full"></p-chips>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="field">
+                <label class="text-sm font-medium text-white">嘲諷酸</label>
+                <br>
+                <p-chips formControlName="sarcastic_keyword"
+                         inputStyleClass="text-white" styleClass="w-full"></p-chips>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="field">
+                <label class="text-sm font-medium text-white">跟風支持</label>
+                <br>
+                <p-chips formControlName="support_keyword"
+                         inputStyleClass="text-white" styleClass="w-full"></p-chips>
+              </div>
+            </div>
+            <div class="col-12">
+              <p-button label="回文生成"
+                        (click)="confirm()"
+                        [rounded]="true"
+                        size="small"
+                        styleClass="border-none full-gradient-bg w-full"></p-button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </p-card>
+  </div>
+  <div class="col-12 md:col-12 lg:col-6">
+    <p-card styleClass="bg-c" [style]="{height: '82vh'}">
+      <div class="flex flex-column p-4 border-round gradient-bg" style="height: calc(82vh - 40px)">
+        <div class="inner_content_title">
+          <img src="assets/img/ai_title_white.svg" alt="QPlan.Ai"/>
+        </div>
+        <div class="inner_content overflow-y-auto" style="height: 100%">
+          <p-table [value]="comment_output" [scrollable]="true">
+            <ng-template pTemplate="body" let-comment>
+              <tr style="background: transparent">
+                <td class="border-none">
+                  <div class="flex align-items-center gap-3 p-3 bg-c border-round">
+                    <label class="text-xs text-white">{{ comment.id }}.</label>
+                    <div class="flex flex-column gap-2  w-full">
+                      <div class="flex align-items-start">
+                        <div class="justify-content-start">
+                          <p-chip label="{{comment.style}}" [styleClass]="getChipColor(comment.style)"></p-chip>
+                        </div>
+                        <div class="flex text-300 gap-3 ml-auto">
+                          <i class="icon-hover"
+                             [class]="thumbsUpStatus[comment.id] ? 'fa-solid fa-thumbs-up' : 'fa-regular fa-thumbs-up'"
+                             (click)="toggleThumbsUp(comment.id)"></i>
+                          <i class="icon-hover"
+                             [class]="thumbsDownStatus[comment.id] ? 'fa-solid fa-thumbs-down' : 'fa-regular fa-thumbs-down'"
+                             (click)="toggleThumbsDown(comment.id)"></i>
+                          <i class="icon-hover fa-regular fa-copy" (click)="copy(comment.comment)"></i>
+                          <i class="icon-hover fa-solid fa-rotate-left"></i>
+                        </div>
+                      </div>
+                      <span class="text-sm text-white">{{ comment.comment }}</span>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </p-card>
+  </div>
+</div>
+
+<p-confirmDialog #cd>
+  <ng-template pTemplate="headless" let-message>
+    <div class="flex flex-column align-items-center p-5 surface-overlay border-round">
+      <div
+        class="full-gradient-bg border-circle inline-flex justify-content-center align-items-center h-6rem w-6rem -mt-8"
+      >
+        <i class="pi pi-question text-5xl text-white"></i>
+      </div>
+      <span class="font-bold text-2xl block mb-2 mt-4">{{ message.header }}</span>
+      <p class="mb-0">{{ message.message }}</p>
+      <div class="flex align-items-center gap-2 mt-4">
+        <p-button label="取消" (click)="cd.reject()"
+                  styleClass="w-8rem danger-bg" severity="danger"></p-button>
+        <p-button label="確定" (click)="cd.accept()"
+                  styleClass="w-8rem full-gradient-bg"></p-button>
+      </div>
+    </div>
+  </ng-template>
+</p-confirmDialog>
+
+<p-dialog header="{{description_form.controls['source'].value}}" [modal]="true" [(visible)]="selectArticleDialog"
+          [style]="{width: '50vw'}">
+  <form [formGroup]="description_form">
+    @if (description_form.controls['source'].value === '生成文章') {
+      <p-table [value]="output_history"
+               [scrollable]="true"
+               styleClass="mt-3">
+        <ng-template pTemplate="body" let-output>
+          <tr style="background: transparent">
+            <td style="background: transparent">
+              <div class="flex gap-3 p-4 styled-box"
+                   [ngClass]="{'active': selectedArticle === output}"
+                   (click)="setActiveItem(output)">
+                <p-avatar icon="fa-regular fa-newspaper"
+                          styleClass="mr-2 full-gradient-bg text-white"
+                          size="large"></p-avatar>
+                <div class="flex flex-column gap-2">
+                  <span
+                    class="w-5rem font-bold white-space-nowrap overflow-hidden text-overflow-ellipsis md:w-full lg:w-full">{{ output.title }}</span>
+                  <span class="text-sm">{{ output.created_at | date: 'yyyy-MM-dd' }}</span>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    } @else {
+
+      <div class="field">
+        <label class="text-sm font-medium">請提供文章內容</label>
+        <br>
+        <textarea formControlName="article"
+                  rows="15"
+                  class="w-full text-sm border-none bg-blue-50"
+                  style="resize: none; overflow: auto; color: #000;"
+                  pInputTextarea></textarea>
+      </div>
+
+    }
+  </form>
+  <div class="flex justify-content-end mt-5 gap-3">
+    <p-button label="取消"
+              (click)="cancelArticle()"
+              size="small" styleClass="text-sm danger-bg"
+              severity="danger"></p-button>
+    <p-button label="確認"
+              (click)="checkArticle()"
+              size="small" styleClass="text-sm full-gradient-bg"></p-button>
+  </div>
+</p-dialog>
