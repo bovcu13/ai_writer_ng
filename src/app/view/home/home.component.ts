@@ -143,22 +143,37 @@ export class HomeComponent implements OnInit {
       header: '確定內容了嗎?',
       message: '確認您的內容描述無誤，再繼續，或返回檢查。',
       accept: () => {
-        if (this.isFormCompleted()) {
-          this.showInfo('文章產生中，請稍候');
-          this.ai_article_loading = true;
+        this.showInfo('文章產生中，請稍候');
+        this.ai_article_loading = true;
 
-          // 啟動定時器，每隔一段時間隨機增加 ai_article_progress 的值
-          this.progressTimerId = setInterval(() => {
-            this.ai_article_progress += Math.floor(Math.random() * 10) + 1;
-            if (this.ai_article_progress >= 99) {
-              this.ai_article_progress = 99;
-              clearInterval(this.progressTimerId);
-              this.progressTimerId = null;
-            }
-          }, 1000);
+        // 啟動定時器，每隔一段時間隨機增加 ai_article_progress 的值
+        this.progressTimerId = setInterval(() => {
+          this.ai_article_progress += Math.floor(Math.random() * 10) + 1;
+          if (this.ai_article_progress >= 99) {
+            this.ai_article_progress = 99;
+            clearInterval(this.progressTimerId);
+            this.progressTimerId = null;
+          }
+        }, 1000);
 
-          this.postArticleRequest();
-        }
+        this.postArticleRequest();
+
+        // if (this.isFormCompleted()) {
+        //   this.showInfo('文章產生中，請稍候');
+        //   this.ai_article_loading = true;
+        //
+        //   // 啟動定時器，每隔一段時間隨機增加 ai_article_progress 的值
+        //   this.progressTimerId = setInterval(() => {
+        //     this.ai_article_progress += Math.floor(Math.random() * 10) + 1;
+        //     if (this.ai_article_progress >= 99) {
+        //       this.ai_article_progress = 99;
+        //       clearInterval(this.progressTimerId);
+        //       this.progressTimerId = null;
+        //     }
+        //   }, 1000);
+        //
+        //   this.postArticleRequest();
+        // }
       },
       reject: () => {
       }
@@ -167,34 +182,53 @@ export class HomeComponent implements OnInit {
 
   // 生成文章
   postArticleRequest() {
-    let body = this.description_form.value;
-    this.articleServ.postArticleRequest(body).subscribe({
-      next: data => {
-        // 請求完成時清除定時器並將 ai_article_progress 設置為 100
-        if (this.progressTimerId) {
-          clearInterval(this.progressTimerId);
-          this.progressTimerId = null;
-        }
-        this.ai_article_progress = 100;
+    // 生成一個介於5到15秒之間的隨機數
+    let delay = Math.floor(Math.random() * (15 - 5 + 1)) + 5;
 
-        this.showSussess('產文成功！');
-        this.ai_article_loading = false;
-        this.article_form.controls['ai_article'].setValue(data.body.ai_article);
-        console.log('data:', data);
-        console.log('ai_article', this.article_form.controls['ai_article'].value);
-        this.ai_article_progress = 0;
-      },
-      error: (err) => {
-        this.showError('發生問題，產文失敗！');
-        this.ai_article_loading = false;
-        if (this.progressTimerId) {
-          clearInterval(this.progressTimerId);
-          this.progressTimerId = null;
-        }
-        this.ai_article_progress = 0;
-        console.log(err);
-      },
-    });
+    // 轉換為毫秒
+    delay *= 1000;
+
+    setTimeout(() => {
+      // 請求完成時清除定時器並將 ai_article_progress 設置為 100
+      if (this.progressTimerId) {
+        clearInterval(this.progressTimerId);
+        this.progressTimerId = null;
+      }
+      this.ai_article_progress = 100;
+
+      this.showSussess('產文成功！');
+      this.ai_article_loading = false;
+      this.article_form.controls['ai_article'].setValue("測試結果用");
+      this.ai_article_progress = 0;
+    }, delay);
+    // let body = this.description_form.value;
+    // this.articleServ.postArticleRequest(body).subscribe({
+    //   next: data => {
+    //     // 請求完成時清除定時器並將 ai_article_progress 設置為 100
+    //     if (this.progressTimerId) {
+    //       clearInterval(this.progressTimerId);
+    //       this.progressTimerId = null;
+    //     }
+    //     this.ai_article_progress = 100;
+    //
+    //     this.showSussess('產文成功！');
+    //     this.ai_article_loading = false;
+    //     this.article_form.controls['ai_article'].setValue(data.body.ai_article);
+    //     console.log('data:', data);
+    //     console.log('ai_article', this.article_form.controls['ai_article'].value);
+    //     this.ai_article_progress = 0;
+    //   },
+    //   error: (err) => {
+    //     this.showError('發生問題，產文失敗！');
+    //     this.ai_article_loading = false;
+    //     if (this.progressTimerId) {
+    //       clearInterval(this.progressTimerId);
+    //       this.progressTimerId = null;
+    //     }
+    //     this.ai_article_progress = 0;
+    //     console.log(err);
+    //   },
+    // });
   }
 
   // 確認description_form是否填寫完畢
