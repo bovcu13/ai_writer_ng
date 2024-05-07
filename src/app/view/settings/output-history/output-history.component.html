@@ -1,7 +1,7 @@
-<p-card styleClass="bg-white-alpha-80" [style]="{height: '82vh'}">
-  <div class="flex flex-column gap-2 p-4 border-round bg-blue-50 overflow-y-scroll" [style]="{height: '76vh'}">
+<p-card styleClass="bg-c" [style]="{height: '82vh'}">
+  <div class="flex flex-column gap-2 p-4 border-round gradient-bg overflow-y-auto inner_content" [style]="{height: '76vh'}">
     <div class="col-12">
-      <span class="text-2xl font-bold">產文歷史紀錄</span>
+      <span class="text-white text-2xl font-bold">產文歷史紀錄</span>
       <p-table [value]="output_history"
                [scrollable]="true"
                styleClass="mt-3">
@@ -15,9 +15,9 @@
                           [style]="{'background-color':'#b8c1ec', 'color': '#232946'}"></p-avatar>
                 <div class="flex flex-column gap-2">
                   <span
-                    class="font-bold white-space-nowrap overflow-hidden text-overflow-ellipsis"
+                    class="text-white font-bold white-space-nowrap overflow-hidden text-overflow-ellipsis"
                     style="width:300px">{{ output.title }}</span>
-                  <span class="text-sm">{{ output.created_at | date: 'yyyy-MM-dd' }}</span>
+                  <span class="text-white text-sm">{{ output.created_at | date: 'yyyy-MM-dd' }}</span>
                 </div>
               </div>
             </td>
